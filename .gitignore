@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+
+# Node (אם יתווסף בעתיד)
+node_modules/
+npm-debug.log*
+
+# Claude Code
+.claude/
+
+# Temp / build
+/tmp/
+*.tmp
+dist/
+build/

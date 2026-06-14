@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIG COACH, גולן בובליל | ליווי תזונה ואימונים</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Karantina:wght@300;400;700&family=Lunasima:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#232323;
+  --ink:#2A2A2A;
+  --card:#323230;
+  --white:#EEEEEE;
+  --cream:#F0EDE8;
+  --red:#CA062C;
+  --red-dark:#5E010F;
+  --muted:rgba(238,238,238,.55);
+  --muted-dark:rgba(35,35,35,.55);
+  --radius-xl:32px;
+  --radius-lg:20px;
+}
+html{direction:rtl;scroll-behavior:smooth}
+.skip-link{
+  position:fixed;top:-100px;right:1rem;z-index:999;
+  background:var(--red);color:#fff;padding:.8rem 1.4rem;border-radius:10px;
+  font-weight:700;transition:top .2s;
+}
+.skip-link:focus{top:1rem}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:4px}
+body{font-family:var(--font-run);background:var(--black);color:var(--white);overflow-x:hidden}
+:root{--font-head:'Karantina',sans-serif;--font-run:'Lunasima',sans-serif}
+h1,h2,h3,.prog-title,.menu-link,.disc-bignum,.disc-popup-body h2,.golan-card h3,.pd-head h3{font-family:var(--font-head)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* ───────── IMAGE PLACEHOLDERS ───────── */
+.ph{
+  position:relative;
+  background:
+    repeating-linear-gradient(45deg, rgba(202,6,44,.06) 0 14px, transparent 14px 28px),
+    linear-gradient(135deg,#1d1d1d,#161616);
+  border:1.5px dashed rgba(202,6,44,.5);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.ph::after{
+  content:attr(data-label);
+  position:absolute;inset:auto;
+  font-size:.85rem;font-weight:500;
+  color:rgba(238,238,238,.45);
+  background:rgba(35,35,35,.55);
+  padding:.45rem 1rem;border-radius:999px;
+  border:1px solid rgba(238,238,238,.12);
+  white-space:nowrap;
+  backdrop-filter:blur(4px);
+}
+.ph.light{
+  background:
+    repeating-linear-gradient(45deg, rgba(202,6,44,.05) 0 14px, transparent 14px 28px),
+    linear-gradient(135deg,#e7e3dc,#dcd7ce);
+  border-color:rgba(202,6,44,.4);
+}
+.ph.light::after{color:rgba(35,35,35,.5);background:rgba(238,238,238,.7);border-color:rgba(35,35,35,.1)}
+.ph>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ph.has-img{border-color:transparent}
+.ph.has-img::after{display:none}
+
+/* ───────── BUTTONS ───────── */
+.btn{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:4px;padding-right:24px;
+  height:46px;border-radius:999px;
+  font-family:var(--font-run);font-weight:700;font-size:.95rem;
+  cursor:pointer;border:none;transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
+  white-space:nowrap;
+}
+.btn .circle{
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform .4s cubic-bezier(.25,.8,.3,1);
+}
+.btn .circle svg{width:16px;height:16px}
+.btn-join .circle svg{width:19px;height:19px}
+.cta-marquee .dot svg{width:26px;height:26px}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover .circle{transform:rotate(45deg)}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 8px 30px rgba(202,6,44,.35)}
+.btn-red .circle{background:rgba(255,255,255,.16);color:#fff}
+.btn-red:hover{background:#b00526}
+.btn-light{background:var(--white);color:var(--black)}
+.btn-light .circle{background:var(--black);color:var(--white)}
+.btn-dark{background:var(--black);color:var(--white)}
+.btn-dark .circle{background:var(--white);color:var(--black)}
+
+/* JOIN button, white pill, red circle, text-slide + arrow rotate */
+.btn-join{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:5px;padding-right:28px;height:56px;border-radius:999px;
+  background:var(--white);color:var(--black);
+  font-weight:800;font-size:1.08rem;cursor:pointer;
+  box-shadow:0 10px 34px rgba(0,0,0,.35);
+}
+.btn-join .mask{
+  position:relative;display:block;overflow:hidden;height:1.3em;line-height:1.3em;
+}
+.btn-join .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.btn-join .t2{position:absolute;top:0;right:0;transform:translateY(-110%)}
+.btn-join:hover .t1{transform:translateY(110%)}
+.btn-join:hover .t2{transform:translateY(0)}
+.btn-join .circle{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s cubic-bezier(.25,.8,.3,1);
+}
+.btn-join:hover .circle{transform:rotate(45deg)}
+
+
+/* ───────── PAGE LOAD ENTRANCE ───────── */
+@keyframes inR{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes inL{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fabIn{from{opacity:0;transform:translateX(50%) translateY(24px)}to{opacity:1;transform:translateX(50%) translateY(0)}}
+@keyframes bgIn{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:scale(1)}}
+.hero-bg{animation:bgIn 1.1s ease both}
+.nav-logo{animation:inR .7s .3s cubic-bezier(.25,.8,.3,1) both}
+.btn-join{animation:inL .7s .45s cubic-bezier(.25,.8,.3,1) both}
+.hero-badge{animation:inR .7s .65s cubic-bezier(.25,.8,.3,1) both}
+#hero h1{animation:inR .7s .8s cubic-bezier(.25,.8,.3,1) both}
+.hero-sub{animation:inR .7s .95s cubic-bezier(.25,.8,.3,1) both}
+.hero-cta-row{animation:inR .7s 1.1s cubic-bezier(.25,.8,.3,1) both}
+.hero-tagline{animation:inL .7s 1.2s cubic-bezier(.25,.8,.3,1) both}
+.menu-fab{animation:fabIn .6s 1.35s cubic-bezier(.25,.8,.3,1) both}
+@media (prefers-reduced-motion:reduce){
+  .hero-bg,.nav-logo,.btn-join,.hero-badge,#hero h1,.hero-sub,.hero-cta-row,.hero-tagline,.menu-fab{animation:none}
+}
+
+/* ───────── NAVBAR ───────── */
+nav:not(.menu-overlay){
+  position:absolute;top:0;right:0;left:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:3.5rem 3.5rem 0;
+  pointer-events:none;
+}
+nav:not(.menu-overlay) .nav-logo,nav:not(.menu-overlay) .btn-join{pointer-events:auto}
+.menu-overlay{pointer-events:auto}
+.nav-logo{display:flex;align-items:center;gap:.9rem}
+.nav-logo .ph{width:190px;height:56px;border-radius:12px}
+.nav-logo .ph::after{font-size:.7rem;padding:.25rem .7rem}
+
+/* ───────── FLOATING MENU ───────── */
+.menu-fab{
+  position:fixed;bottom:1.6rem;right:50%;transform:translateX(50%);z-index:300;
+  display:flex;align-items:center;
+  padding:5px;height:60px;
+  background:var(--white);color:var(--black);
+  border-radius:999px;border:none;cursor:pointer;
+  font-family:var(--font-run);font-weight:800;font-size:1.05rem;letter-spacing:.04em;
+  box-shadow:0 12px 40px rgba(0,0,0,.45);
+  transition:transform .25s ease,padding .5s cubic-bezier(.25,.8,.3,1);
+}
+.menu-fab:hover{transform:translateX(50%) translateY(-3px)}
+.menu-fab .fab-label{
+  max-width:0;opacity:0;white-space:nowrap;
+  position:relative;overflow:hidden;display:inline-block;
+  transition:max-width .5s cubic-bezier(.25,.8,.3,1),opacity .35s ease,margin .5s cubic-bezier(.25,.8,.3,1);
+}
+.menu-fab .fab-label .t1{display:inline-block;transition:transform .4s cubic-bezier(.25,.8,.3,1)}
+.menu-fab .fab-label .t2{position:absolute;right:0;top:0;transform:translateY(-110%);transition:transform .4s cubic-bezier(.25,.8,.3,1)}
+.menu-fab:hover .fab-label .t1{transform:translateY(110%)}
+.menu-fab:hover .fab-label .t2{transform:translateY(0)}
+.menu-fab.expanded{padding-right:26px}
+.menu-fab.expanded .fab-label{max-width:110px;opacity:1;margin-left:12px}
+.menu-fab .circle{width:50px;height:50px;border-radius:50%;background:var(--black);color:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.menu-fab .circle svg{position:absolute;transition:opacity .25s ease,transform .35s ease}
+.menu-fab .ic-x{opacity:0;transform:rotate(-45deg)}
+.menu-fab.is-open .ic-bars{opacity:0;transform:rotate(45deg)}
+.menu-fab.is-open .ic-x{opacity:1;transform:rotate(0)}
+
+/* menu overlay */
+.menu-overlay{
+  position:fixed;inset:0;z-index:290;background:rgba(35,35,35,.35);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transition:opacity .35s ease, visibility .35s ease;
+}
+.menu-overlay.open{opacity:1;visibility:visible}
+.menu-card{
+  background:rgba(43,41,38,.98);border-radius:30px;
+  padding:3.4rem 7rem;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  box-shadow:0 40px 100px rgba(0,0,0,.45);
+  transform:translateY(18px) scale(.97);transition:transform .4s cubic-bezier(.25,.8,.3,1);
+}
+.menu-overlay.open .menu-card{transform:translateY(0) scale(1)}
+.menu-link{
+  font-size:clamp(1.7rem,2.9vw,2.3rem);font-weight:700;color:var(--white);
+  text-align:center;
+}
+.menu-link .mask{position:relative;display:block;overflow:hidden;height:1.35em;line-height:1.35em}
+.menu-link .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.menu-link .t2{position:absolute;top:0;right:0;left:0;transform:translateY(-110%);color:var(--red)}
+.menu-link:hover .t1{transform:translateY(110%)}
+.menu-link:hover .t2{transform:translateY(0)}
+.menu-social{display:flex;gap:1rem;margin-top:1.8rem}
+.menu-social a{
+  width:54px;height:54px;border-radius:50%;
+  border:1px solid rgba(238,238,238,.35);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .25s ease,border-color .25s ease,color .25s ease;
+}
+.menu-social a svg{width:24px;height:24px}
+.menu-social a:hover{background:#fff;border-color:#fff;color:var(--black)}
+
+/* ───────── HERO ───────── */
+#hero{
+  position:relative;min-height:calc(100vh - 2.4rem);
+  margin:1.2rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 3.5rem 5.5rem;
+  border-radius:var(--radius-xl);
+  overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg .ph{width:100%;height:100%;border:none;border-radius:0}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(35,35,35,.92) 0%, rgba(35,35,35,.35) 45%, rgba(35,35,35,.25) 100%);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2;max-width:760px}
+.hero-badge{
+  display:flex;align-items:center;gap:.9rem;
+  padding:0;margin-bottom:1.8rem;
+  font-size:.88rem;font-weight:500;color:rgba(238,238,238,.85);
+}
+.hero-badge .avatars{display:flex}
+.hero-badge .avatars .ph{width:30px;height:30px;border-radius:50%;border-width:1px;margin-left:-9px}
+.hero-badge .avatars .ph::after{display:none}
+.hero-badge b{color:var(--white)}
+.hero-badge b.red{color:var(--red)}
+#hero h1{
+  font-size:clamp(3.2rem,8vw,6.5rem);
+  font-weight:700;line-height:1.05;letter-spacing:-.01em;
+  margin-bottom:1.4rem;
+}
+#hero h1 em{font-style:normal;color:var(--red)}
+.hero-sub{
+  font-size:clamp(1rem,1.6vw,1.2rem);font-weight:300;color:rgba(238,238,238,.7);
+  max-width:540px;line-height:1.7;margin-bottom:2.4rem;
+}
+.hero-cta-row{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
+.hero-link{
+  font-size:.95rem;font-weight:600;
+  border-bottom:1.5px solid rgba(238,238,238,.4);padding-bottom:3px;
+  transition:border-color .2s;
+}
+.hero-link:hover{border-color:var(--red)}
+.hero-link .mask{position:relative;display:inline-block;overflow:hidden;height:1.25em;line-height:1.25em;vertical-align:bottom}
+.hero-link .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.hero-link .t2{position:absolute;top:0;right:0;left:0;transform:translateY(-110%);color:var(--red)}
+.hero-link:hover .t1{transform:translateY(110%)}
+.hero-link:hover .t2{transform:translateY(0)}
+.hero-tagline{
+  position:absolute;bottom:5.5rem;left:3.5rem;z-index:2;
+  max-width:300px;font-size:.92rem;font-weight:300;color:rgba(238,238,238,.65);line-height:1.7;text-align:left;
+}
+
+/* ───────── SECTION BASICS ───────── */
+section{padding:7rem 3.5rem;position:relative}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.85rem;font-weight:700;color:var(--red);
+  letter-spacing:.08em;margin-bottom:1.2rem;
+}
+.eyebrow::before{content:'';width:26px;height:2px;background:var(--red)}
+h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-spacing:0}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ───────── ABOUT ───────── */
+#about{background:var(--ink);border-radius:var(--radius-xl);margin:1.2rem;padding:7rem 4rem}
+.about-h2{margin-bottom:1.8rem}
+.about-head h2 em,.about-h2 em{font-style:normal;color:var(--red)}
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;align-items:center}
+.about-text{display:flex;flex-direction:column;justify-content:center;height:100%}
+.about-text p{font-size:1.05rem;font-weight:300;color:rgba(238,238,238,.72);line-height:1.9;margin-bottom:1.4rem}
+.about-text p b{font-weight:700;color:var(--white)}
+.about-stats{display:flex;gap:3rem;margin:2.2rem 0 2.6rem}
+.stat{display:flex;flex-direction:column;align-items:center}
+.stat .num{text-align:center}
+.about-cta-row{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
+.stat .num{font-family:var(--font-run);font-size:2.8rem;font-weight:700;color:var(--white);line-height:1}
+.stat .num span{color:var(--red)}
+.stat .lbl{font-size:.85rem;color:rgba(238,238,238,.5);margin-top:.4rem;text-align:center}
+.stat-m{display:none}
+.about-imgs{display:block}
+.about-imgs .ph{border-radius:var(--radius-lg);width:100%;height:640px;margin-top:-2.5rem}
+
+.srow{display:flex;justify-content:space-between;padding:1rem 0;font-size:.95rem}
+.srow .k{color:rgba(35,35,35,.55)}
+.srow .v{font-weight:700}
+
+/* ───────── PROGRAMS SCROLL EXPERIENCE ───────── */
+.marquee{display:flex;width:max-content;animation:scrollRtl 22s linear infinite}
+.marquee > span{
+  font-family:var(--font-run);
+  font-size:clamp(4rem,11vw,9rem);font-weight:900;letter-spacing:-.02em;
+  padding:0 2.5rem;white-space:nowrap;color:var(--black);
+}
+.marquee > span em{font-style:normal;-webkit-text-stroke:2px var(--black);color:transparent}
+@keyframes scrollRtl{from{transform:translateX(0)}to{transform:translateX(50%)}}
+
+#programs{
+  position:relative;margin:1.2rem;padding:0 1.2rem;
+  background:var(--white);border-radius:var(--radius-xl);
+}
+.pi-sticky{
+  position:sticky;top:0;height:100vh;z-index:1;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.pspacer{height:120vh;pointer-events:none}
+.pspacer.intro{height:250vh}
+.pi-sticky .marquee{opacity:calc(1 - var(--p,0)*1.7)}
+.grow-img{
+  position:absolute;top:50%;right:50%;transform:translate(50%,-50%);
+  width:calc(min(560px,76vw) + (100% - min(560px,76vw))*var(--p,0));
+  height:calc(min(300px,42vh) + ((100vh - 2.4rem) - min(300px,42vh))*var(--p,0));
+  border-radius:28px;
+  overflow:hidden;z-index:2;box-shadow:0 30px 80px rgba(0,0,0,.25);
+  will-change:transform,width,height;
+}
+.grow-img > .ph{width:100%;height:100%;border:none;border-radius:0}
+.pi-overlay{
+  position:absolute;inset:0;z-index:3;
+  background:rgba(35,35,35,.45);
+  opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s;
+}
+.pi-overlay.show{opacity:1;visibility:visible}
+
+.prog-panel{
+  position:sticky;top:1.2rem;height:calc(100vh - 2.4rem);z-index:2;
+  border-radius:28px;overflow:hidden;
+  box-shadow:0 -30px 70px rgba(0,0,0,.35);
+  will-change:transform;
+}
+.prog-bg{position:absolute;inset:0}
+.prog-bg .ph{width:100%;height:100%;border:none;border-radius:0}
+.prog-bg::after{content:'';position:absolute;inset:0;background:rgba(35,35,35,.45)}
+.stage-ui{position:absolute;inset:0;z-index:3;will-change:opacity}
+.prog-title{
+  position:absolute;top:50%;right:3.5rem;transform:translateY(-50%);
+  font-size:clamp(2.8rem,6vw,5rem);font-weight:700;line-height:1;color:var(--white);
+  text-shadow:0 4px 30px rgba(0,0,0,.4);transition:opacity .3s;
+}
+.prog-keep{
+  position:absolute;top:50%;left:3.5rem;transform:translateY(-50%);
+  font-family:var(--font-run);font-weight:400;
+  font-size:clamp(1.1rem,2.2vw,1.7rem);letter-spacing:.04em;
+  color:rgba(238,238,238,.9);
+  border-bottom:1.5px solid rgba(238,238,238,.5);padding-bottom:3px;
+  transition:border-color .2s,opacity .3s;
+}
+.prog-keep:hover{border-color:var(--red)}
+.prog-keep .mask{position:relative;display:inline-block;overflow:hidden;height:1.25em;line-height:1.25em;vertical-align:bottom}
+.prog-keep .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.prog-keep .t2{position:absolute;top:0;right:0;left:0;transform:translateY(-110%);color:var(--red)}
+.prog-keep:hover .t1{transform:translateY(110%)}
+.prog-keep:hover .t2{transform:translateY(0)}
+.prog-plus{
+  position:absolute;bottom:2.2rem;right:3.5rem;z-index:6;
+  display:flex;align-items:center;gap:1rem;
+  background:none;border:none;cursor:pointer;color:var(--white);
+  font-family:var(--font-run);text-align:right;
+}
+.prog-plus .pcirc{
+  width:52px;height:52px;border-radius:50%;flex-shrink:0;
+  background:rgba(238,238,238,.18);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.7rem;font-weight:300;line-height:1;
+  transition:transform .35s cubic-bezier(.25,.8,.3,1),background .3s;
+}
+.prog-plus:hover .pcirc{background:rgba(238,238,238,.3)}
+[data-prog].open .pcirc{transform:rotate(45deg)}
+.prog-plus .pcap{font-size:1.25rem;font-weight:700;color:#fff;max-width:420px;line-height:1.45}
+.prog-detail{
+  position:absolute;bottom:6.4rem;right:3.5rem;z-index:5;
+  width:min(620px,90%);max-height:calc(100vh - 11rem);overflow:auto;
+  background:rgba(40,40,40,.97);border-radius:26px;padding:3rem 3.2rem;
+  opacity:0;visibility:hidden;
+  transform:translateY(24px);
+  transition:opacity .45s ease,transform .45s cubic-bezier(.25,.8,.3,1),visibility .45s;
+}
+[data-prog].open .prog-detail{opacity:1;visibility:visible;transform:translateY(0)}
+[data-prog].open .prog-title,[data-prog].open .prog-keep{opacity:0}
+.pd-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1.4rem;margin-bottom:1.8rem}
+.pd-head>div:first-child{display:flex;flex-direction:column;justify-content:space-between;min-height:150px;flex:1;padding-bottom:.2rem}
+.pd-head h3{font-size:2.7rem;font-weight:700;line-height:1.05;color:var(--white)}
+.pd-head .sub{font-size:1.02rem;color:rgba(238,238,238,.85);font-weight:400;margin-top:.4rem}
+.pd-head .ph{width:215px;height:150px;border-radius:16px;flex-shrink:0}
+.pd-head .ph::after{font-size:.6rem;padding:.2rem .5rem}
+.prog-detail p{font-size:1.02rem;font-weight:300;color:rgba(238,238,238,.72);line-height:1.85;margin-bottom:1.6rem}
+.prog-detail p em,.pd-rows .v em{font-style:normal;color:var(--white);font-weight:700}
+.pd-rows{border-top:1px solid rgba(238,238,238,.13);margin-bottom:1.8rem}
+.pd-rows .srow{border-bottom:1px solid rgba(238,238,238,.13);display:flex;justify-content:space-between;padding:.95rem 0;font-size:1rem}
+.pd-rows .k{color:rgba(238,238,238,.5)}
+.pd-rows .v{color:var(--white)}
+.prog-detail .btn{width:100%;justify-content:space-between}
+
+/* ───────── DISCOUNT STRIP ───────── */
+/* ───────── DISCOVER ───────── */
+#discover{background:var(--white);color:var(--black);border-radius:var(--radius-xl);margin:1.2rem;padding:6rem 3.5rem;overflow:hidden}
+.dw-word{font-size:clamp(3.2rem,9vw,7.5rem);font-weight:900;letter-spacing:-.02em;line-height:1}
+.dw-top{margin-right:6%;margin-bottom:1.5rem}
+.dw-bottom{text-align:left;margin-left:6%;margin-top:1.5rem}
+.dw-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2.5rem}
+.dw-contact{text-align:right;font-weight:600;font-size:1rem;display:flex;flex-direction:column;gap:.7rem}
+.dw-contact a{border-bottom:1.5px solid rgba(35,35,35,.4);padding-bottom:2px;width:fit-content;transition:border-color .2s}
+.dw-contact a:hover{border-color:var(--red)}
+.dw-img .ph{width:min(560px,52vw);height:280px;border-radius:24px}
+.dw-btn{justify-self:start}
+@media (max-width:860px){
+  #discover{margin:.8rem;padding:4rem 1.4rem}
+  .dw-grid{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .dw-contact{text-align:center;align-items:center}
+  .dw-img .ph{width:80vw;height:200px}
+  .dw-btn{justify-self:center}
+  .dw-top,.dw-bottom{margin:0 0 1rem;text-align:center}
+}
+
+/* ───────── GOLAN ───────── */
+#golan{background:var(--black)}
+.golan-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1rem}
+.golan-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:stretch}
+.golan-photo .ph{height:100%;min-height:560px;border-radius:var(--radius-lg)}
+.golan-card{
+  background:var(--card);border-radius:var(--radius-lg);padding:3.2rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.golan-card h3{font-size:2.7rem;font-weight:700;margin-bottom:.3rem}
+.golan-card .role{color:var(--red);font-weight:600;margin-bottom:2rem}
+.golan-card p{font-size:1.02rem;font-weight:300;color:rgba(238,238,238,.72);line-height:1.9;margin-bottom:1.2rem}
+.golan-card p b{font-weight:700;color:var(--white)}
+.golan-rows{border-top:1px solid rgba(238,238,238,.12);margin:1.5rem 0 2.2rem}
+.golan-creds{display:flex;flex-direction:column;gap:.9rem;margin:1.8rem 0 1.4rem}
+.cred{display:flex;align-items:flex-start;gap:.8rem}
+.cred-ic{color:var(--red);font-size:1.1rem;line-height:1.4;flex-shrink:0}
+.cred-t{font-size:1.02rem;font-weight:700;color:var(--white);line-height:1.4}
+.cred-toggle{
+  background:none;border:none;cursor:pointer;font-family:var(--font-run);
+  color:rgba(238,238,238,.6);font-size:.9rem;font-weight:600;
+  padding:0;margin-bottom:1.6rem;transition:color .2s;
+}
+.cred-toggle:hover{color:var(--red)}
+.cred-more{display:flex;flex-wrap:wrap;gap:.5rem .6rem;margin-bottom:1.6rem}
+.cred-more[hidden]{display:none}
+.cred-more span{
+  border:1px solid rgba(238,238,238,.18);border-radius:999px;
+  font-size:.8rem;font-weight:500;color:rgba(238,238,238,.65);
+  padding:.3rem .85rem;
+}
+.golan-direct{
+  display:block;text-align:left;
+  color:var(--white);font-weight:800;font-size:1.05rem;
+  text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;
+  transition:color .25s;
+}
+.golan-direct .mask{position:relative;display:inline-block;overflow:hidden;height:1.25em;line-height:1.25em;vertical-align:bottom}
+.golan-direct .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.golan-direct .t2{position:absolute;top:0;right:0;left:0;transform:translateY(-110%);color:var(--red)}
+.golan-direct:hover .t1{transform:translateY(110%)}
+.golan-direct:hover .t2{transform:translateY(0)}
+.golan-direct:hover{color:var(--red)}
+
+/* ───────── METHOD ───────── */
+#method{background:var(--ink);border-radius:var(--radius-xl);margin:1.2rem}
+.method-head{text-align:center;max-width:720px;margin:0 auto 4rem}
+.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:1200px;margin:0 auto}
+.mcard{
+  background:var(--card);border-radius:var(--radius-lg);padding:2.6rem 2.2rem;
+  border:1px solid rgba(238,238,238,.06);
+  transition:transform .3s ease, border-color .3s ease;
+}
+.mcard:hover{transform:translateY(-6px);border-color:rgba(202,6,44,.45)}
+.mcard .icon{
+  width:52px;height:52px;border-radius:14px;background:rgba(202,6,44,.12);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.6rem;color:var(--red);font-weight:900;
+}
+.mcard h4{font-size:1.25rem;font-weight:800;margin-bottom:.8rem}
+.mcard p{font-size:.95rem;font-weight:300;color:rgba(238,238,238,.65);line-height:1.8}
+
+/* ───────── TESTIMONIALS (SLIDERS) ───────── */
+#testimonials{background:var(--cream);color:var(--black);border-radius:var(--radius-xl);margin:1.2rem;padding-right:0;padding-left:0;overflow:hidden}
+.testi-head{text-align:center;margin-bottom:4rem;padding:0 1.4rem}
+.t-slider{overflow:hidden;width:100%;margin-bottom:1.6rem}
+.t-track{display:flex;width:max-content;animation:scrollRtl 40s linear infinite}
+.t-slider:hover .t-track{animation-play-state:paused}
+.t-group{display:flex;gap:1.4rem;padding-left:1.4rem}
+.ba-card{width:300px;flex-shrink:0}
+.ba-card .ph{height:380px;border-radius:var(--radius-lg)}
+.ba-card .cap{font-size:.85rem;font-weight:600;color:rgba(35,35,35,.55);margin-top:.7rem;text-align:center}
+.tcard{
+  width:380px;flex-shrink:0;
+  background:#fff;border-radius:var(--radius-lg);padding:2.2rem;box-shadow:0 10px 40px rgba(0,0,0,.05);
+}
+.tcard .stars{color:var(--red);letter-spacing:.2em;margin-bottom:1.1rem;font-size:.9rem}
+.tcard p{font-size:.95rem;font-weight:300;color:rgba(35,35,35,.75);line-height:1.8;margin-bottom:1.6rem;white-space:normal}
+.tcard .who{display:flex;align-items:center;gap:1rem}
+.tcard .who .ph{width:48px;height:48px;border-radius:50%;flex-shrink:0}
+.tcard .who .ph::after{display:none}
+.tcard .who .name{font-weight:800;font-size:.95rem}
+.tcard .who .meta{font-size:.82rem;color:rgba(35,35,35,.5)}
+
+/* ───────── FAQ ───────── */
+#faq{background:var(--black);max-width:100%}
+.faq-wrap{max-width:860px;margin:0 auto}
+.faq-head{text-align:center;margin-bottom:3.5rem}
+.qa{border-bottom:1px solid rgba(238,238,238,.12)}
+.qa button{
+  width:100%;background:none;border:none;color:var(--white);
+  font-family:var(--font-run);font-size:1.15rem;font-weight:700;
+  padding:1.6rem .2rem;text-align:right;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+.qa button .plus{color:var(--red);font-size:1.5rem;font-weight:400;transition:transform .3s}
+.qa.open button .plus{transform:rotate(45deg)}
+.qa .ans{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.qa .ans p{padding:0 .2rem 1.6rem;font-weight:300;color:rgba(238,238,238,.65);line-height:1.85;font-size:.98rem}
+
+/* ───────── FINAL CTA / FOOTER ───────── */
+#final{
+  position:relative;margin:1.2rem;border-radius:var(--radius-xl);overflow:hidden;
+  padding:0;
+}
+.final-bg{position:absolute;inset:0}
+.final-bg .ph{width:100%;height:100%;border:none;border-radius:0}
+.final-bg::after{content:'';position:absolute;inset:0;background:rgba(35,35,35,.88)}
+.final-inner{position:relative;z-index:2;padding:7rem 3.5rem 3rem}
+.cta-marquee{display:block;overflow:hidden;margin-bottom:5rem;cursor:pointer}
+.cta-marquee:hover .dot{background:var(--red);color:#fff;transform:rotate(45deg)}
+.cta-marquee .marquee > span{
+  font-family:var(--font-run);color:var(--white);font-size:clamp(3rem,8vw,6.5rem);display:inline-flex;align-items:center;gap:2.5rem}
+.cta-marquee .dot{
+  width:64px;height:64px;max-width:64px;max-height:64px;border-radius:50%;
+  box-sizing:border-box;padding:0;
+  background:var(--white);color:var(--black);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:1.5rem;line-height:1;flex:0 0 64px;aspect-ratio:1/1;
+  letter-spacing:0;font-weight:400;
+  transition:background .3s ease,color .3s ease,transform .4s cubic-bezier(.25,.8,.3,1);
+}
+.footer-grid{
+  display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:3rem;
+  padding-top:3rem;border-top:1px solid rgba(238,238,238,.12);
+}
+.footer-grid .ph{width:170px;height:48px;border-radius:10px;margin-bottom:1.2rem}
+.footer-grid .ph::after{font-size:.7rem;padding:.25rem .7rem}
+.socials{display:flex;gap:.8rem;margin-top:1.5rem}
+.socials a{
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(238,238,238,.25);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .25s,border-color .25s,transform .25s;
+}
+.socials a:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px)}
+.socials svg{width:18px;height:18px;stroke:var(--white);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.socials svg .fill{fill:var(--white);stroke:none}
+.footer-grid p{font-size:.9rem;font-weight:300;color:rgba(238,238,238,.55);line-height:1.8}
+.footer-grid h5{font-size:.95rem;font-weight:800;margin-bottom:1.2rem;color:var(--white)}
+.footer-grid ul li{margin-bottom:.7rem}
+.footer-grid ul a{font-size:.92rem;color:rgba(238,238,238,.6);transition:color .2s}
+.footer-grid ul a:hover{color:var(--white)}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(238,238,238,.1);
+  font-size:.85rem;color:rgba(238,238,238,.45);
+}
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width:1024px){
+  .method-grid,.testi-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  nav:not(.menu-overlay){padding:1.4rem 1.4rem 0}
+  section{padding:4.5rem 1.4rem}
+  #hero{padding:0 1.4rem 7rem;margin:0;border-radius:0;min-height:100vh}
+
+  /* hide join button, move hamburger to top-right next to logo */
+  .btn-join{display:none}
+  /* hamburger → TOP LEFT, logo stays right */
+  .menu-fab{
+    position:absolute;bottom:auto;top:1.4rem;left:1.4rem;right:auto;
+    transform:none;padding:0;height:56px;width:56px;justify-content:center;
+    background:transparent;box-shadow:none;z-index:320;
+  }
+  .menu-fab:hover{transform:none}
+  .menu-fab .fab-label,.menu-fab.expanded .fab-label{display:none;max-width:0;opacity:0;margin:0}
+  .menu-fab.expanded{padding:0}
+  .menu-fab .circle{width:56px;height:56px;background:transparent;color:var(--white)}
+  .menu-fab.is-open .circle{background:var(--white);color:var(--black)}
+  .menu-fab .ic-bars{width:30px;height:26px}
+  .menu-fab .ic-x{width:24px;height:24px}
+
+  /* hero: keep big headline, hide badge + sub description + tagline */
+  .hero-badge{display:none}
+  .hero-sub{display:none}
+  .hero-tagline{display:none}
+  #hero h1{font-size:clamp(3.6rem,13vw,5.5rem);line-height:1.02;margin-bottom:2rem}
+
+  /* CTA: prominent WhatsApp button, text "לפרטים" */
+  .hero-cta-row .cta-full{display:none}
+  .hero-cta-row .cta-short{display:inline}
+  .btn-light .circle .cta-arrow{display:none}
+  .btn-light .circle .cta-wa{display:block;width:20px;height:20px}
+  .hero-cta-row .hero-link{display:none}
+  .hero-cta-row .btn-light{
+    background:#25D366;color:#fff;
+    height:56px;padding:5px;padding-right:26px;font-size:1.05rem;
+    box-shadow:0 10px 30px rgba(37,211,102,.35);
+  }
+  .hero-cta-row .btn-light .circle{background:#fff;color:#25D366}
+  #about{margin:.8rem;padding:4.5rem 1.6rem}
+  .golan-grid{grid-template-columns:1fr}
+
+  /* ABOUT mobile: image hidden, content centered */
+  #about{padding:5rem 1.6rem}
+  .about-grid{grid-template-columns:1fr}
+  .about-imgs{display:none}
+  .about-text{text-align:center;align-items:center;justify-content:flex-start;height:auto}
+  .about-h2{width:100%;font-size:clamp(2.2rem,9vw,3.2rem);margin-bottom:1.4rem}
+  .about-h2 em{color:var(--white);position:relative;display:inline-block}
+  .about-h2 em::after{
+    content:"";position:absolute;left:0;right:0;bottom:-.08em;height:.14em;
+    background:var(--red);border-radius:2px;
+    transform:rotate(-.6deg) scaleX(.97);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1 6 Q25 2 50 5 T99 4' stroke='black' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+            mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1 6 Q25 2 50 5 T99 4' stroke='black' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  }
+  .about-text p{text-align:center}
+
+  /* stats stacked, single line each */
+  .about-stats{flex-direction:column;gap:.6rem;align-items:center;margin:2rem 0 2.4rem}
+  .stat .num,.stat .lbl{display:none}
+  .stat-m{display:block;font-family:var(--font-run);font-size:1.4rem;font-weight:700;color:var(--white);white-space:nowrap}
+  .stat-m span{color:var(--red)}
+
+  /* buttons stacked, centered */
+  .about-cta-row{flex-direction:column;gap:1rem;width:100%}
+  .about-cta-row .btn-red{font-size:1.05rem}
+  .about-cta-row .hero-link{font-size:.95rem}
+  .golan-photo .ph{min-height:420px}
+  .method-grid,.testi-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  #services,#marquee-programs,#method,#testimonials,#final{margin:.8rem}
+  /* ───── PROGRAMS mobile: stacked cards, title bottom, tap → detail ───── */
+  #programs{margin:.8rem;padding:0 1rem}
+  /* kill sticky/scroll-deck experience */
+  .pi-sticky{position:static;height:auto;display:block}
+  .marquee{display:none}
+  .pspacer{display:none}
+  .prog-stage,.prog-panel,.grow-img{
+    position:relative!important;top:auto!important;right:auto!important;left:auto!important;
+    bottom:auto!important;width:auto!important;height:auto!important;
+    transform:none!important;border-radius:26px;margin-bottom:.9rem;z-index:1!important;
+    box-shadow:none;overflow:hidden;
+  }
+  .grow-img{margin:0 0 .9rem;width:auto!important;border-radius:26px}
+  .prog-stage .ph.light,.prog-bg .ph{position:absolute!important;inset:0;height:100%!important;width:100%!important}
+  .prog-stage .ph.light{background:linear-gradient(135deg,#1d1d1d,#161616)}
+  .prog-stage .ph.light::after{color:rgba(238,238,238,.45);background:rgba(35,35,35,.55);border-color:rgba(238,238,238,.12)}
+  /* card height */
+  .prog-stage{min-height:230px;display:flex}
+  .stage-ui,.pi-overlay{position:absolute!important;inset:0;opacity:1!important;visibility:visible!important;background:none!important}
+  /* darken overlay base */
+  .prog-stage::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(28,27,25,.15),rgba(28,27,25,.78));transition:background .4s;pointer-events:none}
+  /* title pinned BOTTOM */
+  .prog-title{
+    position:absolute;top:auto;bottom:1.6rem;right:1.6rem;left:1.6rem;
+    transform:none;font-size:2.7rem;line-height:1;z-index:4;text-align:right;
+    transition:opacity .35s,transform .35s;
+  }
+  /* whole card is the tap target → hide the + button + keep link */
+  .prog-plus{position:absolute;inset:0;right:0;left:0;bottom:0;z-index:5;padding:0;display:block;width:100%;height:100%;background:none}
+  .prog-plus .pcirc,.prog-plus .pcap{display:none}
+  .prog-keep{display:none}
+
+  /* OPEN state: darken more, title → TOP, detail fills card */
+  [data-prog].open{min-height:400px}
+  [data-prog].open .prog-stage::after,.prog-stage[data-prog].open::after{background:rgba(20,19,18,.9)}
+  [data-prog].open .prog-title{bottom:auto;top:1.6rem;opacity:1;transform:none;font-size:2rem;line-height:1.05}
+  /* detail: trimmed, no rows, no thumb, just text */
+  .prog-detail{
+    position:absolute;inset:0;top:6.2rem;right:1.4rem;left:1.4rem;bottom:1.4rem;
+    width:auto;max-height:none;background:none;padding:0;border-radius:0;overflow:auto;z-index:6;
+  }
+  .pd-head{display:none}
+  .pd-rows{display:none}
+  .prog-detail p{font-size:1rem;color:rgba(238,238,238,.9);line-height:1.7;margin-bottom:1.4rem}
+  .prog-detail .btn-light{height:48px}
+  .final-inner{padding:5rem 1.4rem 2.5rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .t-track{animation:none!important}
+}
+
+/* ───────── CONSENT BANNER ───────── */
+.consent{
+  position:fixed;bottom:0;right:0;left:0;z-index:500;
+  background:rgba(28,28,28,.98);border-top:1px solid rgba(238,238,238,.15);
+  padding:1.4rem 2rem;display:none;
+  backdrop-filter:blur(10px);
+}
+.consent.show{display:block}
+.consent-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.consent p{font-size:.92rem;font-weight:300;color:rgba(238,238,238,.8);line-height:1.7;max-width:620px}
+.consent p a{text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.consent-btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.consent-btns button{
+  font-family:var(--font-run);font-weight:700;font-size:.92rem;
+  padding:.75rem 1.6rem;border-radius:999px;cursor:pointer;transition:.2s;
+}
+.c-accept{background:var(--red);color:#fff;border:none}
+.c-accept:hover{background:#b00526}
+.c-reject{background:transparent;color:var(--white);border:1.5px solid rgba(238,238,238,.4)}
+.c-reject:hover{border-color:var(--white)}
+@media (max-width:860px){.consent-inner{flex-direction:column;align-items:stretch;text-align:center}.consent-btns{justify-content:center}}
+/* ─── .sr-only ─── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.cta-short{display:none}
+.cta-wa{display:none}
+.btn-light .circle .cta-arrow,.btn-light .circle .cta-wa{position:absolute}
+.btn-light .circle{position:relative}
+
+/* ─── trigger banner ─── */
+
+/* ─── popup overlay ─── */
+.disc-popup-overlay{
+  position:fixed;inset:0;z-index:800;
+  background:rgba(10,10,10,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .35s ease;
+  padding:1.2rem;
+}
+.disc-popup-overlay.disc-visible{opacity:1}
+.disc-popup-overlay.disc-hidden{display:none}
+.disc-popup{
+  background:var(--white);border-radius:24px;overflow:hidden;
+  display:flex;flex-direction:row;
+  max-width:820px;width:100%;max-height:90vh;
+  transform:translateY(32px) scale(.96);
+  transition:transform .4s cubic-bezier(.25,.8,.3,1);
+  box-shadow:0 50px 140px rgba(0,0,0,.65);
+}
+.disc-popup-overlay.disc-visible .disc-popup{transform:translateY(0) scale(1)}
+
+/* image side */
+.disc-popup-img{
+  flex:0 0 42%;position:relative;overflow:hidden;min-height:500px;
+}
+.disc-popup-img .ph{position:absolute;inset:0;border-radius:0}
+.disc-popup-img .ph::after{border-radius:0}
+.disc-img-badge{
+  position:absolute;bottom:1.8rem;right:1.6rem;z-index:2;
+  background:var(--red);color:#fff;border-radius:18px;
+  font-size:2.6rem;font-weight:900;line-height:1;text-align:center;
+  padding:.9rem 1.2rem;box-shadow:0 8px 30px rgba(202,6,44,.5);
+}
+.disc-img-badge span{font-size:.75rem;font-weight:500;display:block;margin-top:.2rem;opacity:.85}
+
+/* content side */
+.disc-popup-body{
+  flex:1;padding:2.8rem 3rem 2.4rem;
+  display:flex;flex-direction:column;gap:.9rem;
+  overflow-y:auto;position:relative;
+  background:var(--white);color:var(--black);
+}
+.disc-close{
+  position:absolute;top:1.2rem;left:1.2rem;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(35,35,35,.08);border:none;cursor:pointer;color:var(--black);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s ease;z-index:2;
+}
+.disc-close:hover{background:rgba(35,35,35,.15)}
+.disc-bignum{
+  display:flex;align-items:baseline;gap:.4rem;line-height:1;
+  color:var(--red);font-weight:900;
+}
+.disc-bignum{font-size:4rem}
+.disc-bignum span{font-size:1.3rem;font-weight:800}
+.disc-popup-body h2{font-size:clamp(1.7rem,2.9vw,2.3rem);font-weight:700;line-height:1.3;margin-top:.2rem;color:var(--black)}
+.disc-popup-sub{font-size:.92rem;font-weight:400;color:rgba(35,35,35,.72);line-height:1.85}
+.disc-popup-sub strong{color:var(--black);font-weight:700}
+.disc-popup-sub2{font-size:.84rem;color:rgba(35,35,35,.5);line-height:1.6}
+
+/* form */
+.disc-form{display:flex;flex-direction:column;gap:.6rem;margin-top:auto;padding-top:.8rem}
+.disc-input-row{display:flex;gap:.6rem}
+#discPhone{
+  flex:1;background:#f5f4f2;border:1.5px solid rgba(35,35,35,.15);
+  border-radius:12px;padding:0 1.2rem;height:52px;
+  color:var(--black);font-family:inherit;font-size:1rem;font-weight:400;
+  outline:none;transition:border-color .25s ease;direction:ltr;text-align:right;
+}
+#discPhone:focus{border-color:var(--red);background:#fff}
+#discPhone::placeholder{color:rgba(35,35,35,.35);text-align:right}
+.disc-submit{
+  background:var(--red);color:#fff;border:none;cursor:pointer;
+  border-radius:999px;height:52px;padding:4px;padding-right:24px;
+  font-family:inherit;font-weight:800;font-size:.95rem;
+  display:inline-flex;align-items:center;gap:12px;white-space:nowrap;
+  transition:background .2s ease;flex-shrink:0;
+}
+.disc-submit:hover{background:#b00526}
+.disc-submit .circle{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:#fff;color:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s cubic-bezier(.25,.8,.3,1);
+}
+.disc-submit .circle svg{width:16px;height:16px}
+.disc-submit:hover .circle{transform:rotate(45deg)}
+.disc-checks{list-style:none;padding:0;display:flex;flex-direction:column;gap:.55rem;margin:.1rem 0}
+.disc-checks li{font-size:.9rem;color:rgba(35,35,35,.75);display:flex;align-items:flex-start;gap:.65rem;line-height:1.55}
+.disc-checks li::before{content:"✓";color:var(--red);font-weight:900;font-size:.9rem;flex-shrink:0;margin-top:.05rem}
+.disc-legal{font-size:.72rem;color:rgba(35,35,35,.38);text-align:center}
+
+/* ─── mobile ─── */
+@media (max-width:680px){
+  .disc-popup-overlay{padding:.8rem}
+  .disc-popup{flex-direction:column;border-radius:22px;max-height:94vh}
+  .disc-popup-img{flex:0 0 180px;min-height:180px}
+  .disc-popup-body{padding:1.8rem 1.5rem 1.6rem;gap:.7rem}
+  .disc-bignum{font-size:2.6rem}
+  .disc-bignum span{font-size:1.1rem}
+  .disc-popup-body h2{font-size:1.4rem}
+  .disc-input-row{flex-direction:column}
+  .disc-submit{width:100%;justify-content:center}
+  #discPhone{width:100%}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">דלג לתוכן הראשי</a>
+
+<!-- ═══════════ SECURITY POPUP ═══════════ -->
+<div class="disc-popup-overlay disc-hidden" id="discPopup" role="dialog" aria-modal="true" aria-labelledby="discPopupTitle" aria-hidden="true">
+  <div class="disc-popup" id="discPopupCard">
+    <!-- left: image (RTL → left side visually) -->
+    <div class="disc-popup-img">
+      <div class="ph" data-img="security.jpg" data-alt="אנשי כוחות הביטחון" data-label="security.jpg (600×780)"></div>
+    </div>
+    <!-- left: content -->
+    <div class="disc-popup-body">
+      <button class="disc-close" id="discClose" aria-label="סגור חלון">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="disc-bignum">15%<span>הנחה</span></div>
+      <h2 id="discPopupTitle">אתה שומר עלינו.<br>תן לגולן לשמור עליך.</h2>
+      <p class="disc-popup-sub">הטבה לאנשי כוחות הביטחון על כל תוכנית ליווי.</p>
+      <ul class="disc-checks">
+        <li>תוכנית ליווי אישית שמותאמת לשגרת חייל</li>
+        <li>תזונה שעובדת עם הכוננויות, לא נגדן</li>
+        <li>15% הנחה על כל תוכנית ליווי — בלי תנאים</li>
+      </ul>
+      <p class="disc-popup-sub2">השאר מספר טלפון ונחזור אליך תוך שעה.</p>
+      <div class="disc-form">
+        <div class="disc-input-row">
+          <label for="discPhone" class="sr-only">מספר טלפון</label>
+          <input type="tel" id="discPhone" name="phone" placeholder="מספר טלפון" autocomplete="tel" dir="ltr">
+          <button type="button" class="disc-submit" id="discSubmit">שלח<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        </div>
+        <p class="disc-legal">הפרטים ישמשו ליצירת קשר בלבד ולא יועברו לצד שלישי.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="consent" id="consent" role="region" aria-label="הסכמה לשימוש בעוגיות">
+  <div class="consent-inner">
+    <p>האתר משתמש בעוגיות חיוניות לתפעולו. עוגיות נוספות (כגון מדידה ושיווק) יופעלו רק בהסכמתך הפעילה. ניתן לדחות את הכל ולהמשיך לגלוש כרגיל. למידע מלא: <a href="privacy.html">מדיניות הפרטיות</a>.</p>
+    <div class="consent-btns">
+      <button class="c-accept" id="cAccept">מאשר הכל</button>
+      <button class="c-reject" id="cReject">דחה הכל</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div>
+  </div>
+  <a href="#final" class="btn-join"><span class="mask"><span class="t t1">להצטרפות</span><span class="t t2">להצטרפות</span></span><span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+</nav>
+
+<!-- ═══════════ FLOATING MENU ═══════════ -->
+<button class="menu-fab" id="menuFab" aria-expanded="false" aria-controls="menuOverlay" aria-label="תפריט ניווט"><span class="fab-label"><span class="t1">תפריט</span><span class="t2" aria-hidden="true">תפריט</span></span><span class="circle"><svg class="ic-bars" width="20" height="18" viewBox="0 0 20 18" fill="none" aria-hidden="true"><path d="M3 3.2H17M3 9H11.5M3 14.8H17" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/></svg><svg class="ic-x" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/></svg></span></button>
+<nav class="menu-overlay" id="menuOverlay" aria-label="ניווט ראשי">
+  <div class="menu-card">
+    <a href="#hero" class="menu-link"><span class="mask"><span class="t t1">דף הבית</span><span class="t t2" aria-hidden="true">דף הבית</span></span></a>
+    <a href="#about" class="menu-link"><span class="mask"><span class="t t1">עלינו</span><span class="t t2" aria-hidden="true">עלינו</span></span></a>
+    <a href="#programs" class="menu-link"><span class="mask"><span class="t t1">השירותים שלנו</span><span class="t t2" aria-hidden="true">השירותים שלנו</span></span></a>
+    <a href="#method" class="menu-link"><span class="mask"><span class="t t1">תכניות</span><span class="t t2" aria-hidden="true">תכניות</span></span></a>
+    <a href="#golan" class="menu-link"><span class="mask"><span class="t t1">גולן בובליל</span><span class="t t2" aria-hidden="true">גולן בובליל</span></span></a>
+    <a href="#testimonials" class="menu-link"><span class="mask"><span class="t t1">תוצאות</span><span class="t t2" aria-hidden="true">תוצאות</span></span></a>
+    <a href="#final" class="menu-link"><span class="mask"><span class="t t1">צור קשר</span><span class="t t2" aria-hidden="true">צור קשר</span></span></a>
+    <div class="menu-social">
+      <a href="https://wa.me/972XXXXXXXXX" aria-label="וואטסאפ"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.7 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .7-.2 1.4Z"/></svg></a>
+      <a href="#" aria-label="אינסטגרם"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="טיקטוק"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2 1.7 3.4 3.9 3.6v3c-1.5 0-2.8-.4-3.9-1.2v6.4A5.9 5.9 0 1 1 10 9v3.2a2.8 2.8 0 1 0 3.4 2.7V3h3.2Z"/></svg></a>
+      <a href="#" aria-label="פייסבוק"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V5c-.2 0-1-.1-1.9-.1-1.9 0-3.3 1.2-3.3 3.4V11H8.7v3h2.5v7h2.3Z"/></svg></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header id="hero">
+  <div class="hero-bg">
+    <div class="ph" data-img="hero.jpg" data-alt="" data-label="hero.jpg (1920×1080)"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="avatars">
+        <span class="ph" data-img="avatar-1.jpg" data-alt=""></span><span class="ph" data-img="avatar-2.jpg" data-alt=""></span><span class="ph" data-img="avatar-3.jpg" data-alt=""></span><span class="ph" data-img="avatar-4.jpg" data-alt=""></span>
+      </span>
+      <span><b class="red">+1,400</b> סיימו תוכנית · <b>250</b> מתאמנים פעילים עכשיו</span>
+    </div>
+    <h1>נמאס לך להתחיל<br>מחדש <em>כל פעם?</em></h1>
+    <p class="hero-sub">בלי תוכניות גנריות ובלי בוטים. מערכת ליווי אישית שנבנית על הנתונים שלך. תזונה, אימונים וראש, עם מאמן אחד שזמין לך באמת.</p>
+    <div class="hero-cta-row">
+      <a href="https://wa.me/972526896182" target="_blank" class="btn btn-light"><span class="cta-full">קבע שיחה בלי עלות</span><span class="cta-short">לפרטים</span><span class="circle"><svg class="cta-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="cta-wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.7 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .7-.2 1.4Z"/></svg></span></a>
+      <a href="#about" class="hero-link"><span class="mask"><span class="t t1">מי עומד מאחורי זה</span><span class="t t2" aria-hidden="true">מי עומד מאחורי זה</span></span></a>
+    </div>
+  </div>
+  <p class="hero-tagline">ליווי תזונה ואימונים מותאם אישית, הכוונה מקצועית ותוצאות שנשארות.</p>
+</header>
+
+<main id="main">
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2 class="about-h2">אני הבן אדם שיהיה שם <em>כשקשה.</em></h2>
+      <p>אחרי יותר מ-1,400 מתאמנים וליווים, למדתי דבר אחד: כשיש לך מנטליות מנצחת וראש חזק, הגוף יילך אחריו לכל מקום שתבחר.</p>
+      <p>בגלל זה המעטפת שאתה מקבל ממני מתחילה בעבודה מנטלית, חומרי קריאה, צפייה וקשר רציף עם בן אדם אמיתי ולא בוט. שעונה לך גם בערב, גם כשנפלת וגם כשאתה בטוח שזה לא בשבילך.</p>
+      <div class="about-stats">
+        <div class="stat"><div class="num">1,400<span>+</span></div><div class="lbl">סיימו את התכנית</div><div class="stat-m">1,400<span>+</span> סיימו</div></div>
+        <div class="stat"><div class="num">300<span>+</span></div><div class="lbl">מתאמנים פעילים</div><div class="stat-m">300<span>+</span> פעילים</div></div>
+        <div class="stat"><div class="num">24/7</div><div class="lbl">מענה אמיתי</div><div class="stat-m">24/7 זמינות</div></div>
+      </div>
+      <div class="about-cta-row">
+      <a href="#golan" class="btn btn-red">מי אני?<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="hero-link"><span class="mask"><span class="t t1">צור איתי קשר</span><span class="t t2" aria-hidden="true">צור איתי קשר</span></span></a>
+      </div>
+    </div>
+    <div class="about-imgs reveal">
+      <div class="ph" data-img="about-1.jpg" data-alt="גולן בסטודיו" data-label="about-1.jpg (900×1100)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROGRAMS SCROLL EXPERIENCE ═══════════ -->
+<section id="programs">
+  <div class="pi-sticky">
+    <div class="marquee" aria-hidden="true">
+      <span>התוכניות <em>התוכניות</em> התוכניות <em>התוכניות</em></span>
+      <span>התוכניות <em>התוכניות</em> התוכניות <em>התוכניות</em></span>
+    </div>
+    <div class="grow-img prog-stage">
+      <div class="ph light" data-img="prog-online.jpg" data-alt="" data-label="prog-online.jpg (1920×1080)"></div>
+      <div class="pi-overlay stage-ui" id="piOverlay" data-prog>
+    <div class="prog-title">ליווי האונליין</div>
+    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button class="prog-plus" aria-expanded="false">
+      <span class="pcirc">+</span>
+      <span class="pcap">ליווי מלא מכל מקום בארץ, בלי מסגרת פיזית.</span>
+    </button>
+    <div class="prog-detail">
+      <div class="pd-head">
+        <div>
+          <h3>ליווי<br>אונליין</h3>
+          <div class="sub">תזונה | אימונים | מנטלי | מכל מקום.</div>
+        </div>
+        <div class="ph" data-img="prog-online-thumb.jpg" data-alt="" data-label="prog-online-thumb.jpg"></div>
+      </div>
+      <p>תכנית אימונים ותפריט תזונה שנבנים על סמך הנתונים <em>שלך</em> ומתעדכנים בכל שבוע מחדש בהתאם לצרכים שלך ואפליקציית מעקב חכמה שמרכזת הכל. מעקב צמוד, התאמות בזמן אמת, ואותי זמין לך בוואטסאפ.</p>
+      <div class="pd-rows">
+        <div class="srow"><span class="k">עדכון תכנית</span><span class="v">כל שבוע</span></div>
+        <div class="srow"><span class="k">תקשורת</span><span class="v">רציפה ישירות איתי</span></div>
+        <div class="srow"><span class="k">עלות חודשית</span><span class="v">החל מ-690 ש"ח</span></div>
+      </div>
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+      </div>
+    </div>
+  </div>
+  <div class="pspacer intro"></div>
+  <div class="prog-panel prog-stage" data-prog>
+    <div class="prog-bg"><div class="ph" data-img="prog-group.jpg" data-alt="" data-label="prog-group.jpg (1920×1080)"></div></div>
+    <div class="stage-ui">
+    <div class="prog-title">ליווי אונליין &amp;<br>אימוני קבוצה</div>
+    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button class="prog-plus" aria-expanded="false">
+      <span class="pcirc">+</span>
+      <span class="pcap">המסלול הכי נמכר. מסגרת, אנשים ותוצאה.</span>
+    </button>
+    <div class="prog-detail">
+      <div class="pd-head">
+        <div>
+          <h3>ליווי ואימונים<br>קבוצתיים</h3>
+          <div class="sub">אנרגיה של קבוצה | יחס 1:1 | ליווי +</div>
+        </div>
+        <div class="ph" data-img="prog-group-thumb.jpg" data-alt="" data-label="prog-group-thumb.jpg"></div>
+      </div>
+      <p>בנוסף לליווי הצמוד שלי, אתה מקבל אימונים קבוצתיים (עד 5 מתאמנים בקבוצה) בסטודיו שלנו. תפריט, תכנית אימונים ומאמן פיזי שזמין לכם בסטודיו להכוונה מדויקת בלייב. המסלול המבוקש ביותר לבאר שבעיים, ולא במקרה.</p>
+      <div class="pd-rows">
+        <div class="srow"><span class="k">מיקום</span><span class="v">ביאליק 137, באר שבע</span></div>
+        <div class="srow"><span class="k">כולל</span><span class="v">אימונים + תפריט + מעקב צמוד</span></div>
+        <div class="srow"><span class="k">עלות חודשית</span><span class="v">החל מ-990 ש"ח</span></div>
+      </div>
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+    </div>
+  </div>
+  <div class="pspacer"></div>
+  <div class="prog-panel prog-stage" data-prog>
+    <div class="prog-bg"><div class="ph" data-img="prog-personal.jpg" data-alt="" data-label="prog-personal.jpg (1920×1080)"></div></div>
+    <div class="stage-ui">
+    <div class="prog-title">ליווי אונליין &amp;<br>אימונים אישיים</div>
+    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button class="prog-plus" aria-expanded="false">
+      <span class="pcirc">+</span>
+      <span class="pcap">המסלול המהיר. אחד על אחד עם גולן.</span>
+    </button>
+    <div class="prog-detail">
+      <div class="pd-head">
+        <div>
+          <h3>מסלול ליווי<br>פרימיום</h3>
+          <div class="sub">100% מתשומת הלב עלייך. גם באימונים.</div>
+        </div>
+        <div class="ph" data-img="prog-personal-thumb.jpg" data-alt="" data-label="prog-personal-thumb.jpg"></div>
+      </div>
+      <p>אימונים אישיים עם גולן בסטודיו, בתדירות שמתאימה לך, יחד עם מעטפת תזונה וליווי מלאה. הדרך המהירה והטובה ביותר לתוצאה תוך כדי עבודה מדויקת ונכונה.</p>
+      <div class="pd-rows">
+        <div class="srow"><span class="k">תדירות</span><span class="v">עד 3 אימונים אישיים בשבוע</span></div>
+        <div class="srow"><span class="k">כולל</span><span class="v">תכנית מלאה + אימונים <em>איתי</em></span></div>
+        <div class="srow"><span class="k">עלות חודשית</span><span class="v">החל מ-990 ש"ח</span></div>
+      </div>
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+    </div>
+  </div>
+  <div class="pspacer"></div>
+  <div class="prog-panel prog-stage" data-prog>
+    <div class="prog-bg"><div class="ph" data-img="prog-boxing.jpg" data-alt="" data-label="prog-boxing.jpg (1920×1080)"></div></div>
+    <div class="stage-ui">
+    <div class="prog-title">BIG<br>BOX</div>
+    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button class="prog-plus" aria-expanded="false">
+      <span class="pcirc">+</span>
+      <span class="pcap">טכניקה, זיעה ופורקן, גם למתחילים מאפס.</span>
+    </button>
+    <div class="prog-detail">
+      <div class="pd-head">
+        <div>
+          <h3>אגרוף<br>BIG BOX</h3>
+          <div class="sub">כושר, ביטחון ופורקן. בשיעור אחד.</div>
+        </div>
+        <div class="ph" data-img="prog-boxing-thumb.jpg" data-alt="" data-label="prog-boxing-thumb.jpg"></div>
+      </div>
+      <p>שיעורי אגרוף קבוצתיים בסטודיו. טכניקה אמיתית, עבודה על שקיות וכפפות, וכושר שמרגישים אחרי שבוע. מתאים גם למתחילים מאפס.</p>
+      <div class="pd-rows">
+        <div class="srow"><span class="k">רמה</span><span class="v">מתחילים עד מתקדמים</span></div>
+        <div class="srow"><span class="k">מיקום</span><span class="v">הסטודיו, הנגב והדרום</span></div>
+        <div class="srow"><span class="k">עלות חודשית</span><span class="v">₪[מחיר] / חודש</span></div>
+      </div>
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+    </div>
+  </div>
+  <div class="pspacer"></div>
+  <div class="prog-panel prog-stage" data-prog>
+    <div class="prog-bg"><div class="ph" data-img="prog-mental.jpg" data-alt="" data-label="prog-mental.jpg (1920×1080)"></div></div>
+    <div class="stage-ui">
+    <div class="prog-title">ליווי מנטלי</div>
+    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button class="prog-plus" aria-expanded="false">
+      <span class="pcirc">+</span>
+      <span class="pcap">העבודה הפנימית שמחזיקה את הכל.</span>
+    </button>
+    <div class="prog-detail">
+      <div class="pd-head">
+        <div>
+          <h3>ליווי<br>מנטלי</h3>
+          <div class="sub">כדי לבנות אימפריה צריך קודם מנטליות ברזל.</div>
+        </div>
+        <div class="ph" data-img="prog-mental-thumb.jpg" data-alt="" data-label="prog-mental-thumb.jpg"></div>
+      </div>
+      <p>עבודה פנימית מובנית למסלול ברזל. פגישה שבועית 1:1 בה נבנה מערך עבודה הכולל חומרי קריאה, שיחות, בניית ביטחון והרגלים שיחזיקו לחיים שלמים אחרי שהליווי נגמר. החלק שאף אחד אחר לא נותן לך.</p>
+      <div class="pd-rows">
+        <div class="srow"><span class="k">אורך התכנית</span><span class="v">החל מ-6 שבועות</span></div>
+        <div class="srow"><span class="k">מטרה</span><span class="v">לבנות משמעת ברזל</span></div>
+        <div class="srow"><span class="k">עלות לתכנית</span><span class="v">1,800 ש"ח</span></div>
+      </div>
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+    </div>
+  </div>
+  <div class="pspacer"></div>
+</section>
+
+<!-- ═══════════ DISCOUNT ═══════════ -->
+
+
+<!-- ═══════════ DISCOVER ═══════════ -->
+<section id="discover">
+  <div class="dw-word dw-top reveal">תגלה</div>
+  <div class="dw-grid reveal">
+    <div class="dw-contact">
+      <span>[מספר טלפון]</span>
+      <a href="mailto:info@bigcoach.co.il">[כתובת מייל]</a>
+    </div>
+    <div class="dw-img"><div class="ph light" data-img="discover.jpg" data-alt="רגע מהסטודיו" data-label="discover.jpg (1200×560)"></div></div>
+    <div class="dw-btn">
+      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-dark">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+  </div>
+  <div class="dw-word dw-bottom reveal">כוח</div>
+</section>
+
+<!-- ═══════════ GOLAN ═══════════ -->
+<section id="golan">
+  <div class="golan-head reveal">
+    <div>
+      <h2>ביג קואוצ'</h2>
+    </div>
+  </div>
+  <div class="golan-grid">
+    <div class="golan-photo reveal">
+      <div class="ph" data-img="golan.jpg" data-alt="גולן בובליל" data-label="golan.jpg (800×1000)"></div>
+    </div>
+    <div class="golan-card reveal">
+      <div>
+        <h3>ביג קואוצ'</h3>
+        <div class="role">פאפא ג'י | ביג קואוצ' | אבא של ישראל</div>
+        <p>התחלתי את הדרך בגיל 12, באומניות לחימה. בגיל 15 כבר הייתי מדריך. מאז ועד היום, בין אם על המזרן, במדים או באולם האימונים, חיפשתי דבר אחד: איך לוקחים בן אדם ומוציאים ממנו את הגרסה החזקה שלו.</p>
+        <p>בצבא הייתי <b>ראש מדור קרב מגע של חטיבת גולני</b>. בעולם האזרחי ניהלתי רשתות כושר גדולות. אבל הרגע ששינה לי את החיים היה כשהבנתי שאני לא רוצה לנהל מערכת, אני רוצה לשנות אנשים. אחד אחד.</p>
+        <p>היום אני עושה את זה דרך ביג קואוצ', עם כל מה שצברתי בדרך: <b>לחימה, ניהול, ראש, וגוף.</b></p>
+        <div class="golan-creds">
+          <div class="cred"><span class="cred-ic">★</span><div><div class="cred-t">ראש מדור קרב מגע, חטיבת גולני</div></div></div>
+          <div class="cred"><span class="cred-ic">★</span><div><div class="cred-t">מנהל מקצועי בעבר ברשתות כושר מובילות</div></div></div>
+          <div class="cred"><span class="cred-ic">★</span><div><div class="cred-t">מאמן ומדריך מגיל 15, מעל 13 שנות ניסיון</div></div></div>
+        </div>
+        <button class="cred-toggle" id="credToggle" aria-expanded="false" aria-controls="credMore">עוד הסמכות והתמחויות +</button>
+        <div class="cred-more" id="credMore" hidden>
+          <span>לוחמת רחוב ושימוש בכלי נשק קר</span>
+          <span>קיקבוקס ואגרוף קלאסי</span>
+          <span>הסמכה לחגורות עד חומה</span>
+          <span>אימון בעלי מגבלות פיזיות</span>
+          <span>שיקום פציעות ספורט</span>
+          <span>הכנה לקרבי ויחידות מיוחדות</span>
+          <span>הכנה לתחרויות פיתוח גוף והרמות משקל</span>
+          <span>אימוני קבוצות ויחיד</span>
+          <span>פסיכולוגיה של הספורט</span>
+        </div>
+      </div>
+      <a href="https://wa.me/972526896182" target="_blank" class="golan-direct"><span class="mask"><span class="t t1">פנה אליי ישירות</span><span class="t t2" aria-hidden="true">פנה אליי ישירות</span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ METHOD ═══════════ -->
+<section id="method">
+  <div class="method-head reveal">
+    <h2>אצלי אתה תחזיק<br>כשאצל אחרים נפלת</h2>
+  </div>
+  <div class="method-grid">
+    <div class="mcard reveal">
+      <div class="icon">01</div>
+      <h4>נבנה על הנתונים שלך</h4>
+      <p>לא תוכנית מהמדף. שאלון מעמיק, נתוני גוף ומטרות, וכל שבוע התוכנית מתעדכנת לפי מה שבאמת קורה אצלך.</p>
+    </div>
+    <div class="mcard reveal">
+      <div class="icon">02</div>
+      <h4>בן אדם. לא בוט.</h4>
+      <p>כל הודעה מגיעה לגולן עצמו. ביום, בערב, וגם בלילה אם הוא ער. אין מוקד, אין מענה אוטומטי, אין תסריט.</p>
+    </div>
+    <div class="mcard reveal">
+      <div class="icon">03</div>
+      <h4>עבודה על הראש</h4>
+      <p>חומרי קריאה, בניית ביטחון, ושינוי הרגלים מבפנים. כי דיאטה בלי ראש זו סתם ספירה לאחור לנפילה הבאה.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section id="testimonials">
+  <div class="testi-head reveal">
+    <h2>הם כבר עברו את זה</h2>
+  </div>
+
+  <!-- Before/After slider -->
+  <div class="t-slider">
+    <div class="t-track">
+      <div class="t-group">
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-1.jpg" data-alt="לפני ואחרי, מתאמן 1" data-label="ba-1.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-2.jpg" data-alt="לפני ואחרי, מתאמן 2" data-label="ba-2.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-3.jpg" data-alt="לפני ואחרי, מתאמן 3" data-label="ba-3.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-4.jpg" data-alt="לפני ואחרי, מתאמן 4" data-label="ba-4.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-5.jpg" data-alt="לפני ואחרי, מתאמן 5" data-label="ba-5.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-6.jpg" data-alt="לפני ואחרי, מתאמן 6" data-label="ba-6.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+      </div>
+      <div class="t-group" aria-hidden="true">
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-1.jpg" data-alt="לפני ואחרי, מתאמן 1" data-label="ba-1.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-2.jpg" data-alt="לפני ואחרי, מתאמן 2" data-label="ba-2.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-3.jpg" data-alt="לפני ואחרי, מתאמן 3" data-label="ba-3.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-4.jpg" data-alt="לפני ואחרי, מתאמן 4" data-label="ba-4.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-5.jpg" data-alt="לפני ואחרי, מתאמן 5" data-label="ba-5.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+        <div class="ba-card">
+          <div class="ph light" data-img="ba-6.jpg" data-alt="לפני ואחרי, מתאמן 6" data-label="ba-6.jpg (600×760)"></div>
+          <div class="cap">[שם · תוצאה, לדוגמה: ירד 14 ק״ג בתוך 5 חודשים]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Written testimonials slider -->
+  <div class="t-slider">
+    <div class="t-track" style="animation-duration:55s">
+      <div class="t-group">
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 1, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph" data-img="testi-1.jpg" data-alt=""></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 2, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph" data-img="testi-2.jpg" data-alt=""></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 3, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph" data-img="testi-3.jpg" data-alt=""></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 4, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph" data-img="testi-4.jpg" data-alt=""></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 5, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph" data-img="testi-5.jpg" data-alt=""></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 6, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph" data-img="testi-6.jpg" data-alt=""></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="t-group" aria-hidden="true">
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 1, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph"></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 2, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph"></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 3, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph"></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 4, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph"></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 5, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph"></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="stars">★★★★★</div>
+          <p>"[עדות אמיתית 6, 2 עד 4 שורות. מומלץ: שינוי במספרים, הליווי המנטלי, הזמינות של גולן, או מישהו שנכשל אצל אחרים והפעם החזיק]"</p>
+          <div class="who">
+            <div class="ph"></div>
+            <div><div class="name">[שם]</div><div class="meta">[גיל · מסלול]</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq">
+  <div class="faq-wrap">
+    <div class="faq-head reveal">
+      <h2>מה שכולם שואלים</h2>
+    </div>
+    <div class="qa reveal">
+      <button>אני מתחיל מאפס. זה מתאים לי?<span class="plus">+</span></button>
+      <div class="ans"><p>בדיוק בשבילך זה נבנה. רוב המתאמנים שלי הגיעו אחרי ניסיונות שלא החזיקו, התוכנית נבנית מהנקודה שבה אתה נמצא, לא מהנקודה שבה "צריך" להיות.</p></div>
+    </div>
+    <div class="qa reveal">
+      <button>מה ההבדל בינך לבין אפליקציה או מאמן אחר?<span class="plus">+</span></button>
+      <div class="ans"><p>שלושה דברים: התוכנית נבנית על הנתונים שלך ומתעדכנת כל שבוע, אתה מדבר עם בן אדם אמיתי ולא עם בוט, ויש עבודה מנטלית אמיתית, לא רק תפריט.</p></div>
+    </div>
+    <div class="qa reveal">
+      <button>אני לא גר בדרום. אפשר אונליין?<span class="plus">+</span></button>
+      <div class="ans"><p>כן. מסלול הליווי האונליין נותן את כל המעטפת, תזונה, אימונים, מעקב וזמינות מלאה, מכל מקום בארץ.</p></div>
+    </div>
+    <div class="qa reveal">
+      <button>כמה זמן עד שרואים תוצאה?<span class="plus">+</span></button>
+      <div class="ans"><p>תלוי בנקודת הפתיחה ובמטרה, ובדיוק בשביל זה יש שיחת היכרות. בשיחה נבין איפה אתה היום ונגדיר יעד ריאלי עם לוח זמנים אמיתי, בלי הבטחות באוויר.</p></div>
+    </div>
+    <div class="qa reveal">
+      <button>מה קורה בשיחת ההיכרות?<span class="plus">+</span></button>
+      <div class="ans"><p>20 דקות, בלי עלות ובלי התחייבות. אתה מספר איפה נתקעת, אני מסביר איך המעטפת עובדת, ומחליטים יחד אם זה מתאים. אם לא, נפרדים כידידים.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ FINAL CTA + FOOTER ═══════════ -->
+<footer id="final">
+  <div class="final-bg">
+    <div class="ph" data-img="footer-bg.jpg" data-alt="" data-label="footer-bg.jpg (1920×1080)"></div>
+  </div>
+  <div class="final-inner">
+    <a class="cta-marquee" href="https://wa.me/972XXXXXXXXX" target="_blank" aria-label="קבע שיחה בוואטסאפ">
+      <div class="marquee">
+        <span>קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+        <span>קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+      </div>
+    </a>
+    <div class="footer-grid">
+      <div>
+        <div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div>
+        <p>BIG COACH. ליווי תזונה ואימונים מותאם אישית.<br>הסטודיו: הנגב והדרום · ליווי אונליין: כל הארץ.</p>
+        <div class="socials">
+          <a href="https://wa.me/972XXXXXXXXX" target="_blank" aria-label="וואטסאפ"><svg viewBox="0 0 16 16"><path d="M8 1.8a6.2 6.2 0 0 0-5.3 9.4L1.8 14.2l3.1-.9A6.2 6.2 0 1 0 8 1.8z"/><path class="fill" d="M6.1 5.2c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.4.2.4.6 1.4.6 1.5 0 .1.1.3 0 .4l-.3.5c-.1.1-.2.3-.1.5.1.2.5.8 1 1.3.7.6 1.2.8 1.4.9.2.1.3.1.4-.1l.6-.7c.1-.2.3-.1.5-.1l1.3.6c.2.1.3.2.3.3 0 .2 0 .8-.3 1.2-.3.4-1 .9-1.4.9-.4 0-1.5.2-3.5-1-2-1.3-2.8-3.2-2.9-3.4-.1-.2-.7-1-.7-1.9 0-.9.5-1.4.5-1.4z"/></svg></a>
+          <a href="#" target="_blank" aria-label="אינסטגרם"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3.5"/><circle cx="8" cy="8" r="3"/><circle class="fill" cx="12.2" cy="3.8" r="1"/></svg></a>
+          <a href="#" target="_blank" aria-label="טיקטוק"><svg viewBox="0 0 16 16"><path class="fill" d="M11 1.5c.3 1.9 1.6 3.3 3.4 3.5v2.5c-1.3 0-2.4-.4-3.4-1v4.3a4.2 4.2 0 1 1-4.2-4.2c.2 0 .5 0 .7.1v2.6a1.6 1.6 0 1 0 1.1 1.5V1.5h2.4z"/></svg></a>
+          <a href="#" target="_blank" aria-label="פייסבוק"><svg viewBox="0 0 16 16"><path class="fill" d="M10.5 5.2h1.8V2.5h-1.8c-1.8 0-3.2 1.4-3.2 3.2v1.6H5.5v2.7h1.8v5.5h2.7V10h1.8l.5-2.7H10V5.9c0-.4.2-.7.5-.7z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>ניווט</h5>
+        <ul>
+          <li><a href="#about">הסיפור שלי</a></li>
+          <li><a href="#progIntro">המסלולים</a></li>
+          <li><a href="#golan">מי המאמן</a></li>
+          <li><a href="#testimonials">תוצאות</a></li>
+          <li><a href="#faq">שאלות נפוצות</a></li>
+          <li><a href="accessibility.html">הצהרת נגישות</a></li>
+          <li><a href="privacy.html">מדיניות פרטיות</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>דברו איתי</h5>
+        <ul>
+          <li><a href="#">וואטסאפ: [מספר טלפון]</a></li>
+          <li><a href="#">אינסטגרם: [@handle]</a></li>
+          <li><a href="#">טיקטוק: [@handle]</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 BIG COACH, גולן בובליל. כל הזכויות שמורות</span>
+      <span>זמין בוואטסאפ ביום ובלילה</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// menu overlay
+const fab=document.getElementById('menuFab'),ov=document.getElementById('menuOverlay');
+const fabT1=fab.querySelector('.fab-label .t1'),fabT2=fab.querySelector('.fab-label .t2');
+setTimeout(()=>fab.classList.add('expanded'),2000);
+function setFab(open){
+  const t=open?'סגור':'תפריט';
+  fabT1.textContent=t;fabT2.textContent=t;
+  fab.classList.toggle('is-open',open);
+}
+fab.addEventListener('click',()=>{const o=ov.classList.toggle('open');setFab(o);fab.setAttribute('aria-expanded',o)});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&ov.classList.contains('open')){ov.classList.remove('open');setFab(false);fab.setAttribute('aria-expanded','false');fab.focus()}});
+ov.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ov.classList.remove('open');setFab(false);fab.setAttribute('aria-expanded','false')}));
+ov.addEventListener('click',e=>{if(e.target===ov){ov.classList.remove('open');setFab(false);fab.setAttribute('aria-expanded','false')}});
+
+// faq
+document.querySelectorAll('.qa').forEach((qa,i)=>{
+  const b=qa.querySelector('button'),ans=qa.querySelector('.ans');
+  ans.id='faq-ans-'+i;b.setAttribute('aria-controls',ans.id);b.setAttribute('aria-expanded','false');
+});
+document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()=>{
+  const qa=b.parentElement,ans=qa.querySelector('.ans'),open=qa.classList.contains('open');
+  document.querySelectorAll('.qa').forEach(q=>{q.classList.remove('open');q.querySelector('.ans').style.maxHeight=null});
+  document.querySelectorAll('.qa button').forEach(x=>x.setAttribute('aria-expanded','false'));
+  if(!open){qa.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';b.setAttribute('aria-expanded','true')}
+}));
+
+// programs: grow-on-scroll + dwell + card deck stacking
+const programs=document.getElementById('programs');
+const piOverlay=document.getElementById('piOverlay');
+const stages=[...document.querySelectorAll('.prog-stage')];
+const vh=()=>innerHeight;
+function progScroll(){
+  if(matchMedia('(max-width:860px)').matches){
+    programs.style.removeProperty('--p');
+    stages.forEach(el=>{el.style.transform='';const ui=el.querySelector('.stage-ui');if(ui)ui.style.opacity='';});
+    return;
+  }
+  const top=programs.getBoundingClientRect().top;
+  const introDist=vh()*2.5;            // length of intro spacer
+  const raw=Math.min(1,Math.max(0,-top/introDist));
+  const g=Math.min(1,raw/0.55);        // growth done at 55%, rest is dwell
+  programs.style.setProperty('--p',g.toFixed(4));
+  piOverlay.classList.toggle('show',raw>0.6);
+  // deck: previous card recedes (scale back) and stays pinned behind
+  for(let i=0;i<stages.length-1;i++){
+    const next=stages[i+1];
+    const e=Math.min(1,Math.max(0,(vh()-next.getBoundingClientRect().top)/vh()));
+    const el=stages[i];
+    const sc=(1-e*0.05).toFixed(4);
+    const ty=(-e*34).toFixed(2);
+    el.style.transform=el.classList.contains('grow-img')
+      ?`translate(50%,-50%) translateY(${ty}vh) scale(${sc})`
+      :`translateY(${ty}vh) scale(${sc})`;
+    const ui=el.querySelector('.stage-ui');
+    if(ui&&e>0){ui.style.opacity=Math.max(0,1-e*1.6).toFixed(3)}
+    else if(ui&&!ui.classList.contains('pi-overlay')){ui.style.opacity=''}
+    if(e>0.7){
+      const open=el.matches('[data-prog].open')?el:el.querySelector('[data-prog].open');
+      if(open)open.classList.remove('open');
+    }
+  }
+}
+addEventListener('scroll',progScroll,{passive:true});
+addEventListener('resize',progScroll);
+progScroll();
+
+// programs: plus toggles
+document.querySelectorAll('.prog-plus').forEach(b=>b.addEventListener('click',()=>{
+  const host=b.closest('[data-prog]');
+  const open=host.classList.toggle('open');
+  b.setAttribute('aria-expanded',open);
+}));
+
+// image injector: drop files into assets/img/ and they appear automatically
+document.querySelectorAll('.ph[data-img]').forEach(p=>{
+  const img=document.createElement('img');
+  img.src='assets/img/'+p.dataset.img;
+  img.alt=p.dataset.alt||'';
+  img.loading='lazy';
+  img.decoding='async';
+  img.onload=()=>p.classList.add('has-img');
+  img.onerror=()=>img.remove();
+  p.prepend(img);
+});
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// consent (active opt-in; nothing non-essential loads without it)
+(function(){
+  const KEY='bc-consent';
+  const el=document.getElementById('consent');
+  const saved=localStorage.getItem(KEY);
+  window.bcConsent=saved||null;
+  if(!saved){el.classList.add('show')}
+  function set(v){localStorage.setItem(KEY,v);window.bcConsent=v;el.classList.remove('show');
+    /* כאן מפעילים סקריפטים של מדידה/שיווק רק אם v==='accepted' */
+  }
+  document.getElementById('cAccept').addEventListener('click',()=>set('accepted'));
+  document.getElementById('cReject').addEventListener('click',()=>set('rejected'));
+})();
+
+// ─── security popup ───
+(function(){
+  const overlay=document.getElementById('discPopup');
+  const card=document.getElementById('discPopupCard');
+  const openBtn=document.getElementById('discOpenBtn');
+  const closeBtn=document.getElementById('discClose');
+  const phone=document.getElementById('discPhone');
+  const submit=document.getElementById('discSubmit');
+  if(!overlay){return;}
+  let lastFocus=null;
+
+  function openPopup(){
+    lastFocus=document.activeElement;
+    overlay.classList.remove('disc-hidden');
+    overlay.removeAttribute('aria-hidden');
+    requestAnimationFrame(()=>{overlay.classList.add('disc-visible');});
+    document.body.style.overflow='hidden';
+    setTimeout(()=>phone.focus(),400);
+    overlay.addEventListener('keydown',trapFocus);
+  }
+  function closePopup(){
+    overlay.classList.remove('disc-visible');
+    overlay.setAttribute('aria-hidden','true');
+    setTimeout(()=>overlay.classList.add('disc-hidden'),350);
+    document.body.style.overflow='';
+    overlay.removeEventListener('keydown',trapFocus);
+    if(lastFocus)lastFocus.focus();
+  }
+  function trapFocus(e){
+    if(e.key!=='Tab')return;
+    const els=[...card.querySelectorAll('button,input,a,[tabindex]')].filter(el=>!el.disabled);
+    const first=els[0],last=els[els.length-1];
+    if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus()}}
+    else{if(document.activeElement===last){e.preventDefault();first.focus()}}
+  }
+
+  if(openBtn)openBtn.addEventListener('click',openPopup);
+  closeBtn.addEventListener('click',closePopup);
+
+  // auto-open: 5s timer OR small scroll, whichever comes first, once per session
+  let fired=sessionStorage.getItem('bc-disc-shown')==='1';
+  function autoFire(){
+    if(fired)return;
+    fired=true;
+    sessionStorage.setItem('bc-disc-shown','1');
+    cleanup();
+    openPopup();
+  }
+  function onScroll(){if(window.scrollY>120)autoFire();}
+  function cleanup(){clearTimeout(t);removeEventListener('scroll',onScroll);}
+  const t=setTimeout(autoFire,5000);
+  addEventListener('scroll',onScroll,{passive:true});
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closePopup()});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hasAttribute('hidden'))closePopup()});
+
+  submit.addEventListener('click',()=>{
+    const val=phone.value.replace(/\D/g,'');
+    if(val.length<9){phone.style.borderColor='var(--red)';phone.focus();return;}
+    submit.textContent='נשלח!';submit.disabled=true;
+    // connect to CRM/webhook here
+    setTimeout(closePopup,1600);
+  });
+
+  // image injector for security.jpg
+  const imgPh=overlay.querySelector('.ph[data-img]');
+  if(imgPh){
+    const img=document.createElement('img');
+    img.src='assets/img/'+imgPh.dataset.img;img.alt=imgPh.dataset.alt||'';
+    img.loading='lazy';img.decoding='async';
+    img.onload=()=>imgPh.classList.add('has-img');
+    img.onerror=()=>img.remove();
+    imgPh.prepend(img);
+  }
+})();
+
+
+// golan credentials toggle
+(function(){
+  const btn=document.getElementById('credToggle'),more=document.getElementById('credMore');
+  if(!btn||!more)return;
+  btn.addEventListener('click',()=>{
+    const open=more.hasAttribute('hidden');
+    if(open){more.removeAttribute('hidden');btn.textContent='פחות הסמכות −';btn.setAttribute('aria-expanded','true')}
+    else{more.setAttribute('hidden','');btn.textContent='עוד הסמכות והתמחויות +';btn.setAttribute('aria-expanded','false')}
+  });
+})();
+</script>
+</body>
+</html>
