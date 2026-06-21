@@ -64,7 +64,7 @@ ul{list-style:none}
 }
 .ph.light::after{color:rgba(35,35,35,.5);background:rgba(238,238,238,.7);border-color:rgba(35,35,35,.1)}
 .ph>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.ph.has-img{border-color:transparent}
+.ph.has-img{border-color:transparent;background:transparent}
 .ph.has-img::after{display:none}
 
 /* ───────── BUTTONS ───────── */
@@ -146,7 +146,8 @@ nav:not(.menu-overlay){
 nav:not(.menu-overlay) .nav-logo,nav:not(.menu-overlay) .btn-join{pointer-events:auto}
 .menu-overlay{pointer-events:auto}
 .nav-logo{display:flex;align-items:center;gap:.9rem}
-.nav-logo .ph{width:190px;height:56px;border-radius:12px}
+.nav-logo .ph{width:auto;max-width:280px;height:56px;border-radius:12px}
+.nav-logo .ph>img{position:relative;inset:auto;width:auto;height:100%;object-fit:contain}
 .nav-logo .ph::after{font-size:.7rem;padding:.25rem .7rem}
 
 /* ───────── FLOATING MENU ───────── */
@@ -240,11 +241,11 @@ nav:not(.menu-overlay) .nav-logo,nav:not(.menu-overlay) .btn-join{pointer-events
 .hero-badge b{color:var(--white)}
 .hero-badge b.red{color:var(--red)}
 #hero h1{
-  font-size:clamp(3.2rem,8vw,6.5rem);
+  font-size:clamp(4rem,9vw,7.5rem);
   font-weight:700;line-height:1.05;letter-spacing:-.01em;
   margin-bottom:1.4rem;
 }
-#hero h1 em{font-style:normal;color:var(--red)}
+#hero h1 em{font-style:normal;color:var(--red);font-weight:700;-webkit-text-stroke:.5px var(--red)}
 .hero-sub{
   font-size:clamp(1rem,1.6vw,1.2rem);font-weight:300;color:rgba(238,238,238,.7);
   max-width:540px;line-height:1.7;margin-bottom:2.4rem;
@@ -499,7 +500,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
 .t-slider:hover .t-track{animation-play-state:paused}
 .t-group{display:flex;gap:1.4rem;padding-left:1.4rem}
 .ba-card{width:300px;flex-shrink:0}
-.ba-card .ph{height:380px;border-radius:var(--radius-lg)}
+.ba-card .ph{height:300px;border-radius:var(--radius-lg)}
 .ba-card .cap{font-size:.85rem;font-weight:600;color:rgba(35,35,35,.55);margin-top:.7rem;text-align:center}
 .tcard{
   width:380px;flex-shrink:0;
@@ -658,7 +659,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   #programs{margin:.8rem;padding:0 1rem}
   /* kill sticky/scroll-deck experience */
   .pi-sticky{position:static;height:auto;display:block}
-  .marquee{display:none}
+  #programs .marquee{display:none}
   .pspacer{display:none}
   .prog-stage,.prog-panel,.grow-img{
     position:relative!important;top:auto!important;right:auto!important;left:auto!important;
@@ -714,7 +715,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   /* ── TESTIMONIALS mobile ── */
   .tcard{width:300px}
   .ba-card{width:240px}
-  .ba-card .ph{height:300px}
+  .ba-card .ph{height:240px}
 
   /* ── FAQ mobile ── */
   .qa button{font-size:1rem;padding:1.3rem .2rem}
@@ -918,7 +919,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
 <!-- ═══════════ NAVBAR ═══════════ -->
 <nav id="nav">
   <div class="nav-logo">
-    <div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div>
+    <a href="#golan" aria-label="גולן בובליל"><div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div></a>
   </div>
   <a href="#final" class="btn-join"><span class="mask"><span class="t t1">להצטרפות</span><span class="t t2">להצטרפות</span></span><span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
 </nav>
@@ -935,7 +936,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     <a href="#testimonials" class="menu-link"><span class="mask"><span class="t t1">תוצאות</span><span class="t t2" aria-hidden="true">תוצאות</span></span></a>
     <a href="#final" class="menu-link"><span class="mask"><span class="t t1">צור קשר</span><span class="t t2" aria-hidden="true">צור קשר</span></span></a>
     <div class="menu-social">
-      <a href="https://wa.me/972XXXXXXXXX" aria-label="וואטסאפ"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.7 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .7-.2 1.4Z"/></svg></a>
+      <a href="https://wa.me/972526896182" aria-label="וואטסאפ"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.7 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .7-.2 1.4Z"/></svg></a>
       <a href="#" aria-label="אינסטגרם"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor" stroke="none"/></svg></a>
       <a href="#" aria-label="טיקטוק"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2 1.7 3.4 3.9 3.6v3c-1.5 0-2.8-.4-3.9-1.2v6.4A5.9 5.9 0 1 1 10 9v3.2a2.8 2.8 0 1 0 3.4 2.7V3h3.2Z"/></svg></a>
       <a href="#" aria-label="פייסבוק"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V5c-.2 0-1-.1-1.9-.1-1.9 0-3.3 1.2-3.3 3.4V11H8.7v3h2.5v7h2.3Z"/></svg></a>
@@ -955,8 +956,8 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
       </span>
       <span><b class="red">+1,400</b> סיימו תוכנית · <b>250</b> מתאמנים פעילים עכשיו</span>
     </div>
-    <h1>נמאס לך להתחיל<br>מחדש <em>כל פעם?</em></h1>
-    <p class="hero-sub">בלי תוכניות גנריות ובלי בוטים. מערכת ליווי אישית שנבנית על הנתונים שלך. תזונה, אימונים וראש, עם מאמן אחד שזמין לך באמת.</p>
+    <h1>נמאס לך להתחיל<br><em>כל פעם</em> מחדש?</h1>
+    <p class="hero-sub">בלי תכניות גנריות ובלי בולשיט. מערכת ליווי אישי צמוד שנבנית עבורך ולפי הנתונים המדויקים שלך. אימונים, תזונה ועבודה על המנטליות, עם מאמן אמיתי שזמין לך תמיד.</p>
     <div class="hero-cta-row">
       <a href="https://wa.me/972526896182" target="_blank" class="btn btn-light"><span class="cta-full">קבע שיחה בלי עלות</span><span class="cta-short">לפרטים</span><span class="circle"><svg class="cta-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="cta-wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.7 1.6.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .7-.2 1.4Z"/></svg></span></a>
       <a href="#about" class="hero-link"><span class="mask"><span class="t t1">מי עומד מאחורי זה</span><span class="t t2" aria-hidden="true">מי עומד מאחורי זה</span></span></a>
@@ -981,7 +982,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
       </div>
       <div class="about-cta-row">
       <a href="#golan" class="btn btn-red">מי אני?<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="hero-link"><span class="mask"><span class="t t1">צור איתי קשר</span><span class="t t2" aria-hidden="true">צור איתי קשר</span></span></a>
+      <a href="https://wa.me/972526896182" target="_blank" class="hero-link"><span class="mask"><span class="t t1">צור איתי קשר</span><span class="t t2" aria-hidden="true">צור איתי קשר</span></span></a>
       </div>
     </div>
     <div class="about-imgs reveal">
@@ -1020,7 +1021,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
         <div class="srow"><span class="k">תקשורת</span><span class="v">רציפה ישירות איתי</span></div>
         <div class="srow"><span class="k">עלות חודשית</span><span class="v">החל מ-690 ש"ח</span></div>
       </div>
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="https://wa.me/972526896182" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
       </div>
     </div>
@@ -1045,11 +1046,11 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
       </div>
       <p>בנוסף לליווי הצמוד שלי, אתה מקבל אימונים קבוצתיים (עד 5 מתאמנים בקבוצה) בסטודיו שלנו. תפריט, תכנית אימונים ומאמן פיזי שזמין לכם בסטודיו להכוונה מדויקת בלייב. המסלול המבוקש ביותר לבאר שבעיים, ולא במקרה.</p>
       <div class="pd-rows">
-        <div class="srow"><span class="k">מיקום</span><span class="v">ביאליק 137, באר שבע</span></div>
+        <div class="srow"><span class="k">מיקום</span><span class="v">ח"נ ביאליק 137, באר שבע</span></div>
         <div class="srow"><span class="k">כולל</span><span class="v">אימונים + תפריט + מעקב צמוד</span></div>
         <div class="srow"><span class="k">עלות חודשית</span><span class="v">החל מ-990 ש"ח</span></div>
       </div>
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="https://wa.me/972526896182" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
     </div>
   </div>
@@ -1077,7 +1078,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
         <div class="srow"><span class="k">כולל</span><span class="v">תכנית מלאה + אימונים <em>איתי</em></span></div>
         <div class="srow"><span class="k">עלות חודשית</span><span class="v">החל מ-990 ש"ח</span></div>
       </div>
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="https://wa.me/972526896182" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
     </div>
   </div>
@@ -1102,10 +1103,10 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
       <p>שיעורי אגרוף קבוצתיים בסטודיו. טכניקה אמיתית, עבודה על שקיות וכפפות, וכושר שמרגישים אחרי שבוע. מתאים גם למתחילים מאפס.</p>
       <div class="pd-rows">
         <div class="srow"><span class="k">רמה</span><span class="v">מתחילים עד מתקדמים</span></div>
-        <div class="srow"><span class="k">מיקום</span><span class="v">הסטודיו, הנגב והדרום</span></div>
+        <div class="srow"><span class="k">מיקום</span><span class="v">ח"נ ביאליק 137, באר שבע</span></div>
         <div class="srow"><span class="k">עלות חודשית</span><span class="v">₪[מחיר] / חודש</span></div>
       </div>
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="https://wa.me/972526896182" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
     </div>
   </div>
@@ -1133,7 +1134,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
         <div class="srow"><span class="k">מטרה</span><span class="v">לבנות משמעת ברזל</span></div>
         <div class="srow"><span class="k">עלות לתכנית</span><span class="v">1,800 ש"ח</span></div>
       </div>
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="https://wa.me/972526896182" target="_blank" class="btn btn-light">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
     </div>
   </div>
@@ -1148,12 +1149,12 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   <div class="dw-word dw-top reveal">תגלה</div>
   <div class="dw-grid reveal">
     <div class="dw-contact">
-      <span>[מספר טלפון]</span>
-      <a href="mailto:info@bigcoach.co.il">[כתובת מייל]</a>
+      <a href="tel:+972526896182">052-689-6182</a>
+      <a href="mailto:golanboublil@gmail.com">golanboublil@gmail.com</a>
     </div>
     <div class="dw-img"><div class="ph light" data-img="discover.jpg" data-alt="רגע מהסטודיו" data-label="discover.jpg (1200×560)"></div></div>
     <div class="dw-btn">
-      <a href="https://wa.me/972XXXXXXXXX" target="_blank" class="btn btn-dark">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="https://wa.me/972526896182" target="_blank" class="btn btn-dark">להצטרפות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
   </div>
   <div class="dw-word dw-bottom reveal">כוח</div>
@@ -1163,7 +1164,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
 <section id="golan">
   <div class="golan-head reveal">
     <div>
-      <h2>ביג קואוצ'</h2>
+      <h2>האיש שמאחורי המכונה</h2>
     </div>
   </div>
   <div class="golan-grid">
@@ -1172,7 +1173,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     </div>
     <div class="golan-card reveal">
       <div>
-        <h3>ביג קואוצ'</h3>
+        <h3>גולן בובליל</h3>
         <div class="role">פאפא ג'י | ביג קואוצ' | אבא של ישראל</div>
         <p>התחלתי את הדרך בגיל 12, באומניות לחימה. בגיל 15 כבר הייתי מדריך. מאז ועד היום, בין אם על המזרן, במדים או באולם האימונים, חיפשתי דבר אחד: איך לוקחים בן אדם ומוציאים ממנו את הגרסה החזקה שלו.</p>
         <p>בצבא הייתי <b>ראש מדור קרב מגע של חטיבת גולני</b>. בעולם האזרחי ניהלתי רשתות כושר גדולות. אבל הרגע ששינה לי את החיים היה כשהבנתי שאני לא רוצה לנהל מערכת, אני רוצה לשנות אנשים. אחד אחד.</p>
@@ -1432,7 +1433,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     <div class="ph" data-img="footer-bg.jpg" data-alt="" data-label="footer-bg.jpg (1920×1080)"></div>
   </div>
   <div class="final-inner">
-    <a class="cta-marquee" href="https://wa.me/972XXXXXXXXX" target="_blank" aria-label="קבע שיחה בוואטסאפ">
+    <a class="cta-marquee" href="https://wa.me/972526896182" target="_blank" aria-label="קבע שיחה בוואטסאפ">
       <div class="marquee">
         <span>קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
         <span>קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
@@ -1441,9 +1442,9 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     <div class="footer-grid">
       <div>
         <div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div>
-        <p>BIG COACH. ליווי תזונה ואימונים מותאם אישית.<br>הסטודיו: הנגב והדרום · ליווי אונליין: כל הארץ.</p>
+        <p>BIG COACH. ליווי תזונה ואימונים מותאם אישית.<br>ח"פ 318259579 · ח"נ ביאליק 137, באר שבע<br>ליווי אונליין: כל הארץ.</p>
         <div class="socials">
-          <a href="https://wa.me/972XXXXXXXXX" target="_blank" aria-label="וואטסאפ"><svg viewBox="0 0 16 16"><path d="M8 1.8a6.2 6.2 0 0 0-5.3 9.4L1.8 14.2l3.1-.9A6.2 6.2 0 1 0 8 1.8z"/><path class="fill" d="M6.1 5.2c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.4.2.4.6 1.4.6 1.5 0 .1.1.3 0 .4l-.3.5c-.1.1-.2.3-.1.5.1.2.5.8 1 1.3.7.6 1.2.8 1.4.9.2.1.3.1.4-.1l.6-.7c.1-.2.3-.1.5-.1l1.3.6c.2.1.3.2.3.3 0 .2 0 .8-.3 1.2-.3.4-1 .9-1.4.9-.4 0-1.5.2-3.5-1-2-1.3-2.8-3.2-2.9-3.4-.1-.2-.7-1-.7-1.9 0-.9.5-1.4.5-1.4z"/></svg></a>
+          <a href="https://wa.me/972526896182" target="_blank" aria-label="וואטסאפ"><svg viewBox="0 0 16 16"><path d="M8 1.8a6.2 6.2 0 0 0-5.3 9.4L1.8 14.2l3.1-.9A6.2 6.2 0 1 0 8 1.8z"/><path class="fill" d="M6.1 5.2c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.4.2.4.6 1.4.6 1.5 0 .1.1.3 0 .4l-.3.5c-.1.1-.2.3-.1.5.1.2.5.8 1 1.3.7.6 1.2.8 1.4.9.2.1.3.1.4-.1l.6-.7c.1-.2.3-.1.5-.1l1.3.6c.2.1.3.2.3.3 0 .2 0 .8-.3 1.2-.3.4-1 .9-1.4.9-.4 0-1.5.2-3.5-1-2-1.3-2.8-3.2-2.9-3.4-.1-.2-.7-1-.7-1.9 0-.9.5-1.4.5-1.4z"/></svg></a>
           <a href="#" target="_blank" aria-label="אינסטגרם"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3.5"/><circle cx="8" cy="8" r="3"/><circle class="fill" cx="12.2" cy="3.8" r="1"/></svg></a>
           <a href="#" target="_blank" aria-label="טיקטוק"><svg viewBox="0 0 16 16"><path class="fill" d="M11 1.5c.3 1.9 1.6 3.3 3.4 3.5v2.5c-1.3 0-2.4-.4-3.4-1v4.3a4.2 4.2 0 1 1-4.2-4.2c.2 0 .5 0 .7.1v2.6a1.6 1.6 0 1 0 1.1 1.5V1.5h2.4z"/></svg></a>
           <a href="#" target="_blank" aria-label="פייסבוק"><svg viewBox="0 0 16 16"><path class="fill" d="M10.5 5.2h1.8V2.5h-1.8c-1.8 0-3.2 1.4-3.2 3.2v1.6H5.5v2.7h1.8v5.5h2.7V10h1.8l.5-2.7H10V5.9c0-.4.2-.7.5-.7z"/></svg></a>
@@ -1464,7 +1465,8 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
       <div>
         <h5>דברו איתי</h5>
         <ul>
-          <li><a href="#">וואטסאפ: [מספר טלפון]</a></li>
+          <li><a href="https://wa.me/972526896182">וואטסאפ: 052-689-6182</a></li>
+          <li><a href="mailto:golanboublil@gmail.com">מייל: golanboublil@gmail.com</a></li>
           <li><a href="#">אינסטגרם: [@handle]</a></li>
           <li><a href="#">טיקטוק: [@handle]</a></li>
         </ul>
