@@ -467,7 +467,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
 .golan-cta-row{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;justify-content:flex-end}
 .golan-cta-or{font-size:.82rem;color:rgba(238,238,238,.38);font-weight:500;flex-shrink:0}
 .golan-direct{
-  display:inline-block;
+  display:inline-block;background:none;border:none;padding:0;cursor:pointer;
   color:var(--white);font-weight:800;font-size:1.05rem;
   text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;
   transition:color .25s;
@@ -491,6 +491,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   display:flex;align-items:center;justify-content:center;
   transition:transform .4s cubic-bezier(.25,.8,.3,1);
 }
+.golan-lead-btn .circle svg{width:16px;height:16px}
 .golan-lead-btn:hover .circle{transform:rotate(45deg)}
 .golan-direct .mask{position:relative;display:inline-block;overflow:hidden;height:1.25em;line-height:1.25em;vertical-align:bottom}
 .golan-direct .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
@@ -1350,12 +1351,12 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
         </div>
       </div>
       <div class="golan-cta-row">
-        <a href="https://wa.me/972526896182" target="_blank" class="golan-direct"><span class="mask"><span class="t t1">פנה אליי ישירות</span><span class="t t2" aria-hidden="true">פנה אליי ישירות</span></span></a>
+        <button type="button" class="golan-direct" data-lead-open><span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span></button>
         <span class="golan-cta-or">או</span>
-        <button type="button" class="golan-lead-btn" data-lead-open>
-          <span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span>
+        <a href="https://wa.me/972526896182" target="_blank" class="golan-lead-btn">
+          <span class="mask"><span class="t t1">פנה אליי ישירות</span><span class="t t2" aria-hidden="true">פנה אליי ישירות</span></span>
           <span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </button>
+        </a>
       </div>
     </div>
   </div>
