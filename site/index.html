@@ -463,12 +463,34 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   font-size:.8rem;font-weight:500;color:rgba(238,238,238,.65);
   padding:.3rem .85rem;
 }
+.golan-cta-row{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.golan-cta-or{font-size:.82rem;color:rgba(238,238,238,.38);font-weight:500;flex-shrink:0}
 .golan-direct{
-  display:block;text-align:left;
+  display:inline-block;
   color:var(--white);font-weight:800;font-size:1.05rem;
   text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;
   transition:color .25s;
 }
+.golan-lead-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:5px;padding-right:24px;height:52px;border-radius:999px;
+  background:var(--white);color:var(--black);
+  font-family:var(--font-run);font-weight:800;font-size:1rem;
+  cursor:pointer;border:none;box-shadow:0 8px 28px rgba(0,0,0,.3);
+  flex-shrink:0;
+}
+.golan-lead-btn .mask{position:relative;display:block;overflow:hidden;height:1.3em;line-height:1.3em}
+.golan-lead-btn .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.golan-lead-btn .t2{position:absolute;top:0;right:0;transform:translateY(-110%)}
+.golan-lead-btn:hover .t1{transform:translateY(110%)}
+.golan-lead-btn:hover .t2{transform:translateY(0)}
+.golan-lead-btn .circle{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s cubic-bezier(.25,.8,.3,1);
+}
+.golan-lead-btn:hover .circle{transform:rotate(45deg)}
 .golan-direct .mask{position:relative;display:inline-block;overflow:hidden;height:1.25em;line-height:1.25em;vertical-align:bottom}
 .golan-direct .t{display:block;transition:transform .35s cubic-bezier(.4,0,.2,1)}
 .golan-direct .t2{position:absolute;top:0;right:0;left:0;transform:translateY(-110%);color:var(--red)}
@@ -1326,7 +1348,14 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
           <span>פסיכולוגיה של הספורט</span>
         </div>
       </div>
-      <a href="https://wa.me/972526896182" target="_blank" class="golan-direct"><span class="mask"><span class="t t1">פנה אליי ישירות</span><span class="t t2" aria-hidden="true">פנה אליי ישירות</span></span></a>
+      <div class="golan-cta-row">
+        <a href="https://wa.me/972526896182" target="_blank" class="golan-direct"><span class="mask"><span class="t t1">פנה אליי ישירות</span><span class="t t2" aria-hidden="true">פנה אליי ישירות</span></span></a>
+        <span class="golan-cta-or">או</span>
+        <button type="button" class="golan-lead-btn" data-lead-open>
+          <span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span>
+          <span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
