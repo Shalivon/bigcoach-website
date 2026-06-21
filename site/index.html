@@ -866,6 +866,110 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   .disc-submit{width:100%;justify-content:center}
   #discPhone{width:100%}
 }
+
+/* ─── LEAD CAPTURE POPUP ─── */
+.lead-overlay{
+  position:fixed;inset:0;z-index:810;
+  background:rgba(10,10,10,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .35s ease;
+  padding:1.2rem;
+}
+.lead-overlay.lead-visible{opacity:1}
+.lead-overlay.lead-hidden{display:none}
+.lead-card{
+  background:var(--ink);border-radius:26px;
+  max-width:460px;width:100%;
+  padding:2.8rem 2.6rem 2.4rem;
+  position:relative;
+  transform:translateY(28px) scale(.96);
+  transition:transform .4s cubic-bezier(.25,.8,.3,1);
+  box-shadow:0 50px 140px rgba(0,0,0,.75);
+  border:1px solid rgba(238,238,238,.07);
+}
+.lead-overlay.lead-visible .lead-card{transform:translateY(0) scale(1)}
+.lead-close{
+  position:absolute;top:1.2rem;left:1.2rem;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(238,238,238,.07);border:none;cursor:pointer;
+  color:var(--white);display:flex;align-items:center;justify-content:center;
+  transition:background .2s;z-index:2;
+}
+.lead-close:hover{background:rgba(238,238,238,.14)}
+.lead-label{
+  font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--red);margin-bottom:.8rem;
+}
+.lead-card h2{
+  font-family:var(--font-head);font-size:clamp(1.9rem,5vw,2.7rem);font-weight:700;line-height:1.2;
+  color:var(--white);margin-bottom:.5rem;
+}
+.lead-sub{font-size:.9rem;color:rgba(238,238,238,.5);line-height:1.75;margin-bottom:1.8rem}
+.lead-field{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.lead-field label{font-size:.84rem;font-weight:600;color:rgba(238,238,238,.65)}
+.lead-field input,.lead-field select{
+  background:rgba(238,238,238,.06);border:1.5px solid rgba(238,238,238,.12);
+  border-radius:12px;padding:0 1.2rem;height:50px;
+  color:var(--white);font-family:inherit;font-size:.96rem;
+  outline:none;transition:border-color .25s ease,background .25s ease;
+  -webkit-appearance:none;appearance:none;
+}
+.lead-field input:focus,.lead-field select:focus{border-color:var(--red);background:rgba(238,238,238,.09)}
+.lead-field input::placeholder{color:rgba(238,238,238,.28)}
+.lead-field select{
+  cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23eeeeee' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 1.2rem center;
+}
+.lead-field select option{background:#2a2a2a;color:var(--white)}
+.lead-submit{
+  width:100%;background:var(--red);color:#fff;border:none;cursor:pointer;
+  border-radius:999px;height:54px;padding:5px;padding-right:28px;
+  font-family:inherit;font-weight:800;font-size:1rem;margin-top:.5rem;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  transition:background .2s ease;
+}
+.lead-submit:hover:not(:disabled){background:#b00526}
+.lead-submit:disabled{opacity:.55;cursor:default}
+.lead-submit .circle{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:#fff;color:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s cubic-bezier(.25,.8,.3,1);margin-right:auto;
+}
+.lead-submit:hover:not(:disabled) .circle{transform:rotate(45deg)}
+.lead-legal{font-size:.7rem;color:rgba(238,238,238,.28);text-align:center;margin-top:.9rem;line-height:1.6}
+.lead-success{text-align:center;padding:1.5rem 0 .5rem}
+.lead-success-icon{
+  width:60px;height:60px;border-radius:50%;
+  background:rgba(202,6,44,.12);border:2px solid var(--red);color:var(--red);
+  font-size:1.7rem;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.3rem;
+}
+.lead-success h3{font-family:var(--font-head);font-size:2.2rem;margin-bottom:.5rem;color:var(--white)}
+.lead-success p{color:rgba(238,238,238,.55);font-size:.92rem;line-height:1.7}
+/* trigger button in footer */
+.final-alt-cta{text-align:center;margin-bottom:3.5rem;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.final-alt-cta p{font-size:.88rem;color:rgba(238,238,238,.4);letter-spacing:.03em}
+.lead-open-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:5px;padding-right:26px;height:52px;
+  border-radius:999px;border:1.5px solid rgba(238,238,238,.18);
+  background:transparent;color:var(--white);
+  font-family:var(--font-run);font-weight:700;font-size:.96rem;
+  cursor:pointer;transition:border-color .25s,background .25s;
+}
+.lead-open-btn:hover{border-color:rgba(238,238,238,.5);background:rgba(238,238,238,.05)}
+.lead-open-btn .circle{
+  width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s cubic-bezier(.25,.8,.3,1);flex-shrink:0;
+}
+.lead-open-btn:hover .circle{transform:rotate(45deg)}
+@media (max-width:680px){
+  .lead-card{padding:2.2rem 1.6rem 1.8rem;border-radius:22px}
+  .lead-card h2{font-size:1.75rem}
+}
 </style>
 </head>
 <body>
@@ -904,7 +1008,51 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   </div>
 </div>
 
-
+<!-- ═══════════ LEAD CAPTURE POPUP ═══════════ -->
+<div class="lead-overlay lead-hidden" id="leadPopup" role="dialog" aria-modal="true" aria-labelledby="leadPopupTitle" aria-hidden="true">
+  <div class="lead-card" id="leadCard">
+    <button class="lead-close" id="leadClose" aria-label="סגור חלון">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <div id="leadFormWrap">
+      <div class="lead-label">קבע שיחת היכרות</div>
+      <h2 id="leadPopupTitle">השאר פרטים<br>ונחזור אליך.</h2>
+      <p class="lead-sub">בלי עלות, בלי התחייבות. גולן יחזור אליך תוך שעה.</p>
+      <form id="leadForm" novalidate>
+        <div class="lead-field">
+          <label for="leadName">שם מלא</label>
+          <input type="text" id="leadName" name="name" placeholder="ישראל ישראלי" autocomplete="name" required>
+        </div>
+        <div class="lead-field">
+          <label for="leadPhone">טלפון</label>
+          <input type="tel" id="leadPhone" name="phone" placeholder="05X-XXX-XXXX" autocomplete="tel" dir="ltr" required>
+        </div>
+        <div class="lead-field">
+          <label for="leadGoal">מה המטרה שלך?</label>
+          <select id="leadGoal" name="goal" required>
+            <option value="">בחר/י</option>
+            <option value="ירידה במשקל">ירידה במשקל</option>
+            <option value="עלייה במסה">עלייה במסה</option>
+            <option value="שיפור כוח וביצועים">שיפור כוח וביצועים</option>
+            <option value="תזונה ובריאות כללית">תזונה ובריאות כללית</option>
+            <option value="מנטליות ומוטיבציה">מנטליות ומוטיבציה</option>
+            <option value="אחר">אחר</option>
+          </select>
+        </div>
+        <button type="submit" class="lead-submit" id="leadSubmit">
+          <span class="btn-text">שלח פרטים</span>
+          <span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+        <p class="lead-legal">הפרטים ישמשו ליצירת קשר בלבד ולא יועברו לצד שלישי. <a href="privacy.html" style="color:inherit;text-decoration:underline">מדיניות פרטיות</a></p>
+      </form>
+    </div>
+    <div class="lead-success" id="leadSuccess" hidden>
+      <div class="lead-success-icon">✓</div>
+      <h3>קיבלנו!</h3>
+      <p>גולן יחזור אליך בהקדם.<br>עד אז, אפשר גם בוואטסאפ: <a href="https://wa.me/972526896182" style="color:var(--white)">052-689-6182</a></p>
+    </div>
+  </div>
+</div>
 
 <div class="consent" id="consent" role="region" aria-label="הסכמה לשימוש בעוגיות">
   <div class="consent-inner">
@@ -922,7 +1070,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
   <div class="nav-logo">
     <a href="#golan" aria-label="גולן בובליל"><div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div></a>
   </div>
-  <a href="#final" class="btn-join"><span class="mask"><span class="t t1">להצטרפות</span><span class="t t2">להצטרפות</span></span><span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+  <button type="button" class="btn-join" data-lead-open aria-label="פתח טופס הצטרפות"><span class="mask"><span class="t t1">להצטרפות</span><span class="t t2">להצטרפות</span></span><span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
 </nav>
 
 <!-- ═══════════ FLOATING MENU ═══════════ -->
@@ -1439,6 +1587,13 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
         <span>קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
       </div>
     </a>
+    <div class="final-alt-cta">
+      <p>מעדיף/ת שנחזור אליך?</p>
+      <button type="button" class="lead-open-btn" data-lead-open>
+        השאר פרטים
+        <span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+    </div>
     <div class="footer-grid">
       <div>
         <div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div>
@@ -1660,6 +1815,98 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   }
 })();
 
+
+// ─── lead capture popup ───
+(function(){
+  // ╔══════════════════════════════════════════════════════════╗
+  // ║ GOOGLE SHEETS INTEGRATION                                ║
+  // ║ 1. פתח: script.google.com → "פרויקט חדש"               ║
+  // ║ 2. הדבק את הסקריפט מהמדריך ב-README                    ║
+  // ║ 3. פרסם: Deploy → Web App → Who has access: Anyone      ║
+  // ║ 4. העתק את ה-URL והדבק כאן:                            ║
+  const SHEETS_URL='';
+  // ╚══════════════════════════════════════════════════════════╝
+
+  const overlay=document.getElementById('leadPopup');
+  const card=document.getElementById('leadCard');
+  const closeBtn=document.getElementById('leadClose');
+  const form=document.getElementById('leadForm');
+  const submitBtn=document.getElementById('leadSubmit');
+  const successEl=document.getElementById('leadSuccess');
+  const formWrap=document.getElementById('leadFormWrap');
+  if(!overlay)return;
+  let lastFocus=null;
+
+  document.querySelectorAll('[data-lead-open]').forEach(btn=>btn.addEventListener('click',openPopup));
+
+  function openPopup(){
+    lastFocus=document.activeElement;
+    overlay.classList.remove('lead-hidden');
+    overlay.removeAttribute('aria-hidden');
+    requestAnimationFrame(()=>overlay.classList.add('lead-visible'));
+    document.body.style.overflow='hidden';
+    setTimeout(()=>document.getElementById('leadName').focus(),400);
+    overlay.addEventListener('keydown',trapFocus);
+  }
+  function closePopup(){
+    overlay.classList.remove('lead-visible');
+    overlay.setAttribute('aria-hidden','true');
+    setTimeout(()=>{
+      overlay.classList.add('lead-hidden');
+      // reset form for next open
+      form.reset();
+      submitBtn.disabled=false;
+      submitBtn.querySelector('.btn-text').textContent='שלח פרטים';
+      formWrap.hidden=false;
+      successEl.setAttribute('hidden','');
+    },350);
+    document.body.style.overflow='';
+    overlay.removeEventListener('keydown',trapFocus);
+    if(lastFocus)lastFocus.focus();
+  }
+  function trapFocus(e){
+    if(e.key!=='Tab')return;
+    const els=[...card.querySelectorAll('button,input,select,a,[tabindex]')].filter(el=>!el.disabled&&!el.hidden);
+    const first=els[0],last=els[els.length-1];
+    if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus()}}
+    else{if(document.activeElement===last){e.preventDefault();first.focus()}}
+  }
+  closeBtn.addEventListener('click',closePopup);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closePopup()});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('lead-visible'))closePopup()});
+
+  function markErr(id){
+    const el=document.getElementById(id);
+    el.style.borderColor='var(--red)';el.focus();
+    el.addEventListener('input',()=>el.style.borderColor='',{once:true});
+  }
+
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=document.getElementById('leadName').value.trim();
+    const phone=document.getElementById('leadPhone').value.replace(/\D/g,'');
+    const goal=document.getElementById('leadGoal').value;
+    if(!name){markErr('leadName');return;}
+    if(phone.length<9){markErr('leadPhone');return;}
+    if(!goal){markErr('leadGoal');return;}
+
+    submitBtn.disabled=true;
+    submitBtn.querySelector('.btn-text').textContent='שולח...';
+
+    const payload={name,phone,goal,source:'bigcoach-website',ts:new Date().toISOString()};
+
+    if(SHEETS_URL){
+      try{
+        await fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      }catch(_){}
+    }
+
+    // show success regardless (no-cors means we can't read the response)
+    formWrap.hidden=true;
+    successEl.removeAttribute('hidden');
+    setTimeout(closePopup,3500);
+  });
+})();
 
 // golan credentials toggle
 (function(){
