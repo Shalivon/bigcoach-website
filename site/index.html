@@ -948,24 +948,6 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
 }
 .lead-success h3{font-family:var(--font-head);font-size:2.2rem;margin-bottom:.5rem;color:var(--white)}
 .lead-success p{color:rgba(238,238,238,.55);font-size:.92rem;line-height:1.7}
-/* trigger button in footer */
-.final-alt-cta{text-align:center;margin-bottom:3.5rem;display:flex;flex-direction:column;align-items:center;gap:1rem}
-.final-alt-cta p{font-size:.88rem;color:rgba(238,238,238,.4);letter-spacing:.03em}
-.lead-open-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:5px;padding-right:26px;height:52px;
-  border-radius:999px;border:1.5px solid rgba(238,238,238,.18);
-  background:transparent;color:var(--white);
-  font-family:var(--font-run);font-weight:700;font-size:.96rem;
-  cursor:pointer;transition:border-color .25s,background .25s;
-}
-.lead-open-btn:hover{border-color:rgba(238,238,238,.5);background:rgba(238,238,238,.05)}
-.lead-open-btn .circle{
-  width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .4s cubic-bezier(.25,.8,.3,1);flex-shrink:0;
-}
-.lead-open-btn:hover .circle{transform:rotate(45deg)}
 @media (max-width:680px){
   .lead-card{padding:2.2rem 1.6rem 1.8rem;border-radius:22px}
   .lead-card h2{font-size:1.75rem}
@@ -1151,7 +1133,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
       <div class="ph light" data-img="prog-online.jpg" data-alt="" data-label="prog-online.jpg (1920×1080)"></div>
       <div class="pi-overlay stage-ui" id="piOverlay" data-prog>
     <div class="prog-title">ליווי האונליין</div>
-    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button type="button" class="prog-keep" data-lead-open><span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span></button>
     <button class="prog-plus" aria-expanded="false">
       <span class="pcirc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
       <span class="pcap">ליווי מלא מכל מקום בארץ, בלי מסגרת פיזית.</span>
@@ -1180,7 +1162,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     <div class="prog-bg"><div class="ph" data-img="prog-group.jpg" data-alt="" data-label="prog-group.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-title">ליווי אונליין &amp;<br>אימוני קבוצה</div>
-    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button type="button" class="prog-keep" data-lead-open><span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span></button>
     <button class="prog-plus" aria-expanded="false">
       <span class="pcirc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
       <span class="pcap">המסלול הכי נמכר. מסגרת, אנשים ותוצאה.</span>
@@ -1208,7 +1190,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     <div class="prog-bg"><div class="ph" data-img="prog-personal.jpg" data-alt="" data-label="prog-personal.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-title">ליווי אונליין &amp;<br>אימונים אישיים</div>
-    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button type="button" class="prog-keep" data-lead-open><span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span></button>
     <button class="prog-plus" aria-expanded="false">
       <span class="pcirc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
       <span class="pcap">המסלול המהיר. אחד על אחד עם גולן.</span>
@@ -1236,7 +1218,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     <div class="prog-bg"><div class="ph" data-img="prog-boxing.jpg" data-alt="" data-label="prog-boxing.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-title">BIG<br>BOX</div>
-    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button type="button" class="prog-keep" data-lead-open><span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span></button>
     <button class="prog-plus" aria-expanded="false">
       <span class="pcirc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
       <span class="pcap">טכניקה, זיעה ופורקן, גם למתחילים מאפס.</span>
@@ -1264,7 +1246,7 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
     <div class="prog-bg"><div class="ph" data-img="prog-mental.jpg" data-alt="" data-label="prog-mental.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-title">ליווי מנטלי</div>
-    <a href="https://wa.me/972526896182" target="_blank" class="prog-keep"><span class="mask"><span class="t t1">גלה עוד</span><span class="t t2" aria-hidden="true">גלה עוד</span></span></a>
+    <button type="button" class="prog-keep" data-lead-open><span class="mask"><span class="t t1">השאר פרטים</span><span class="t t2" aria-hidden="true">השאר פרטים</span></span></button>
     <button class="prog-plus" aria-expanded="false">
       <span class="pcirc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
       <span class="pcap">העבודה הפנימית שמחזיקה את הכל.</span>
@@ -1587,13 +1569,6 @@ h2{font-size:clamp(2.4rem,5.2vw,4rem);font-weight:700;line-height:1.05;letter-sp
         <span>קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span> קבע שיחה <span class="dot"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
       </div>
     </a>
-    <div class="final-alt-cta">
-      <p>מעדיף/ת שנחזור אליך?</p>
-      <button type="button" class="lead-open-btn" data-lead-open>
-        השאר פרטים
-        <span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>
-    </div>
     <div class="footer-grid">
       <div>
         <div class="ph" data-img="logo.png" data-alt="BIG COACH לוגו"></div>
