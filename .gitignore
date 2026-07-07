@@ -12,9 +12,12 @@ desktop.ini
 # Logs
 *.log
 
-# Node (אם יתווסף בעתיד)
+# Node
 node_modules/
 npm-debug.log*
+
+# Vercel
+.vercel/
 
 # Claude Code
 .claude/

@@ -1,7 +1,7 @@
 # ביג קואוצ׳ — אתר (Big Coach Website)
 
-פרוטוטייפ אתר תדמית וקונברסיה ל**ביג קואוצ׳** — מותג ליווי כושר, תזונה ואימון אישי של גולן בובליל.
-מבוסס HTML/CSS/JS יחיד (single-file), RTL עברית מלא, מותאם דסקטופ ומובייל.
+אתר תדמית וקונברסיה עצמאי (standalone, לא Webflow) ל**ביג קואוצ׳** — מותג ליווי כושר, תזונה ואימון אישי של גולן בובליל.
+פרונטאנד: HTML/CSS/JS יחיד (single-file), RTL עברית מלא, מותאם דסקטופ ומובייל. בק-אנד: Vercel Serverless Function קטנה לטופס הלידים. מתארח ב-Vercel.
 
 ---
 
@@ -9,8 +9,10 @@
 
 ```
 bigcoach-website/
-├── site/                      # האתר עצמו — כל מה שעולה לפרודקשן
+├── site/                      # האתר עצמו — כל מה שעולה לפרודקשן (Root Directory ב-Vercel)
 │   ├── index.html             # הדף הראשי (כל ה-CSS/JS בפנים)
+│   ├── api/
+│   │   └── lead.js            # Vercel Serverless Function — מקבלת את טופס הלידים
 │   ├── accessibility.html     # הצהרת נגישות (טיוטה — דורש אישור עו״ד)
 │   ├── privacy.html           # מדיניות פרטיות (טיוטה — דורש אישור עו״ד)
 │   └── assets/
@@ -21,7 +23,7 @@ bigcoach-website/
 └── README.md                  # הקובץ הזה
 ```
 
-> כל הקוד (HTML, CSS, JavaScript) נמצא בתוך `site/index.html`. אין build step, אין dependencies, אין npm. פותחים את הקובץ בדפדפן וזהו.
+> הפרונטאנד (`site/index.html`) הוא vanilla — אין build step, אין dependencies, אין npm. אפשר לפתוח אותו ישירות בדפדפן. הבק-אנד (`site/api/lead.js`) הוא פונקציה קטנה בלי תלויות שרצה רק בפריסה ל-Vercel (או עם `vercel dev` מקומית) — שרת סטטי רגיל (Python/http-server) לא יריץ אותה.
 
 ---
 
@@ -41,6 +43,20 @@ python3 -m http.server 8000
 ואז לפתוח בדפדפן: `http://localhost:8000`
 
 לבדיקת מובייל: פותחים בכרום, F12, לוחצים על אייקון הנייד (Toggle device toolbar / Ctrl+Shift+M), בוחרים iPhone.
+
+שתי האפשרויות האלה מריצות רק את הפרונטאנד הסטטי — טופס הלידים ינסה לשלוח ל-`/api/lead` ויקבל שגיאת רשת (מטופל בשקט בקוד). לבדוק את הבק-אנד מקומית צריך את ה-Vercel CLI (`vercel dev`), או פשוט לבדוק אחרי פריסה.
+
+---
+
+## פריסה ל-Vercel
+
+הריפו מוגדר לפריסה אוטומטית מה-branch `main`.
+
+1. ב-[vercel.com](https://vercel.com) → New Project → לייבא את הריפו `bigcoach-website`.
+2. **Root Directory**: לשנות ל-`site` (חשוב! אחרת Vercel יחפש את `index.html` בשורש הריפו ולא ימצא).
+3. Framework Preset: **Other** (זה לא Next.js/React — סטטי + Serverless Functions בלבד).
+4. Deploy. כל push ל-`main` יפרוס גרסה חדשה אוטומטית.
+5. משתני סביבה (Settings → Environment Variables) לחיבור טופס הלידים ל-CRM/גיליון — ראו `site/api/lead.js` ואת "אחסון ובק-אנד" ב-`CLAUDE.md`.
 
 ---
 
@@ -125,15 +141,18 @@ git pull
 - [ ] לשים את כל התמונות האמיתיות ב-`site/assets/img/`
 - [ ] **אישור עורך דין** למסמכי הנגישות והפרטיות (כרגע טיוטות עם שדות למילוי `[...]`)
 - [ ] למלא פרטי רכז נגישות, ח.פ/ע.מ, תאריכים במסמכים המשפטיים
-- [ ] לארח את הפונטים (Heebo / Karantina / Lunasima) עצמאית לפרודקשן מחמיר, או להשאיר Google Fonts
-- [ ] להעביר ל-Webflow (היעד הסופי) או לארח כ-static site
+- [ ] לארח את הפונטים (Rubik / Heebo) עצמאית לפרודקשן מחמיר, או להשאיר Google Fonts
+- [ ] לחבר CRM אמיתי ל-`/api/lead` (משתנה סביבה `CRM_WEBHOOK_URL` או `GOOGLE_SHEETS_WEBHOOK_URL`)
+- [ ] לחבר WhatsApp Business API (Twilio / 360dialog / Wati) לאוטומציות — דורש חשבון עסקי מאומת
 
 ---
 
 ## טכנולוגיה
 
-- HTML5 / CSS3 / Vanilla JavaScript — אפס תלויות
+- HTML5 / CSS3 / Vanilla JavaScript — אפס תלויות בפרונטאנד
+- Vercel Serverless Function (Node, אפס תלויות) לטופס הלידים
 - RTL עברית מלא
-- Google Fonts: Karantina (כותרות), Lunasima (טקסט)
+- Google Fonts: Rubik (כותרות), Heebo (טקסט)
 - נגישות: עומד בעקרונות ת״י 5568 / WCAG AA (skip-link, landmarks, focus-visible, reduced-motion)
 - responsive: דסקטופ + מובייל (breakpoint 860px)
+- אחסון: Vercel, נפרס אוטומטית מ-`main`

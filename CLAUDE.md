@@ -7,7 +7,7 @@
 ## מה זה הפרויקט
 
 אתר תדמית וקונברסיה ל**ביג קואוצ׳** — מותג ליווי כושר, תזונה ואימון אישי של גולן בובליל (הנגב / דרום).
-פרוטוטייפ single-file: כל ה-HTML, CSS ו-JavaScript בתוך `site/index.html`. היעד הסופי: העברה ל-Webflow.
+**אתר עצמאי (standalone), לא Webflow** — החלטה מ-2026-07. הפרונטאנד הוא single-file: כל ה-HTML, CSS ו-JavaScript בתוך `site/index.html`. מתארח ב-Vercel, עם שכבת בק-אנד קלה (`site/api/`, Vercel Serverless Functions) לטיפול בטפסים וחיבור עתידי ל-CRM ולוואטסאפ.
 
 ---
 
@@ -73,6 +73,20 @@ navbar (לוגו + כפתור שיחת היכרות)
 ```
 **מסע הלקוח (2026-07, לא לערבב סדר בלי בקשה)**: כאב (hero) → הזדהות (story) → הוכחה (reels) → המדריך (about+golan) → התוכנית (method) → ההצעה (programs) → הוכחה חברתית → התנגדויות → סגירה.
 פופאפ הנחה (`#discPopup`) ותפריט נפתח (`#menuOverlay`) יושבים בראש ה-body.
+
+---
+
+## אחסון ובק-אנד (2026-07)
+
+**החלטה**: לא Webflow. אתר עצמאי, מתארח ב-**Vercel**, נפרס אוטומטית מה-branch `main` בגיטהאב.
+
+- **פרונטאנד**: `site/index.html` — נשאר vanilla single-file, בלי שינוי.
+- **בק-אנד**: `site/api/lead.js` — Vercel Serverless Function (Node, בלי תלויות) שמקבלת POST מטופס הלידים (`#leadForm`) ומפופאפ ההנחה (`#discPopup`). כרגע רק רושמת את הליד ל-logs של Vercel.
+- **חיבור ל-CRM**: עדיין לא הוחלט אילו CRM. כדי לחבר, מגדירים משתני סביבה בפרויקט Vercel (Settings → Environment Variables), בלי לגעת בקוד:
+  - `GOOGLE_SHEETS_WEBHOOK_URL` — URL של Google Apps Script Web App, אם רוצים גיליון כ-CRM זמני.
+  - `CRM_WEBHOOK_URL` — כתובת webhook נכנס של כל CRM (HubSpot, GoHighLevel וכו׳).
+- **וואטסאפ אוטומציה**: הוחלט על WhatsApp Business API דרך ספק (Twilio / 360dialog / Wati) — עדיין לא מחובר, דורש חשבון עסקי מאומת ופרטי גישה מהלקוח. עד אז נשארים על קישורי `wa.me` עם `?text=` מוכן (ראו "קישורים / placeholder למילוי").
+- **טפסים בפרונטאנד**: שני מקומות שולחים `fetch('/api/lead', …)` — `leadForm` (טופס הלידים המלא) ו-`discSubmit` (פופאפ הנחה, שולח `discount:true`). לא לחזור ל-fetch ישיר מהדפדפן ל-Google Sheets (`mode:'no-cors'`) — זה נמנע מכוונה כי אי אפשר לקרוא את התשובה ולוודא הצלחה.
 
 ---
 
@@ -152,5 +166,5 @@ grep -c '<div' site/index.html ; grep -c '</div>' site/index.html   # חייבי
 - לא להמציא תוכן (סיפורים, עדויות, מחירים, נתונים על גולן).
 - לא לפצל את index.html לקבצים בלי בקשה.
 - לא לדלג על אימות div/JS.
-- לא להוסיף dependencies / build tools / frameworks. נשאר vanilla.
+- לא להוסיף dependencies / build tools / frameworks **לפרונטאנד**. `site/index.html` נשאר vanilla single-file. היוצא מן הכלל היחיד: `site/api/` (Vercel Serverless Functions, Node ללא תלויות) לבק-אנד.
 - לא לשנות צבעים/פונטים מההגדרות למעלה בלי בקשה.
