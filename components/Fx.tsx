@@ -1,0 +1,214 @@
+'use client'
+
+import { useEffect } from 'react'
+
+/*
+ * שכבת האינטראקציה הגלובלית. רץ פעם אחת אחרי ה-mount:
+ *
+ * 1. כוריאוגרפיית גלילה — תיוג אוטומטי של rv-h / rv-img + stagger, ו-IntersectionObserver
+ *    שמוסיף .in (זהה לאתר המקורי; rv-img נחשף דרך ה-parent בגלל באג clip-path של Chrome).
+ * 2. מנוע גלילה ב-rAF יחיד עם lerp: פס התקדמות, פרלקסת הירו, אלמנטים צפים, מילת הרקע
+ *    של golan — במקום scroll events, לתנועה חלקה בלי jank.
+ * 3. סמן מותאם + כפתורים מגנטיים + tilt לכרטיסים + סמן גרירה לקרוסלה (hover+fine בלבד).
+ */
+export default function Fx() {
+  // 1) כוריאוגרפיית reveal
+  useEffect(() => {
+    document.querySelectorAll('main h2,.final-kicker,.sec-sub,.reels-head p').forEach(h => h.classList.add('rv-h'))
+    document.querySelectorAll('.about-imgs .ph,.golan-photo .ph').forEach(i => i.classList.add('rv-img'))
+    document.querySelectorAll<HTMLElement>('.about-text p,.golan-card p').forEach((el, i) => {
+      el.classList.add('rv-h')
+      el.style.transitionDelay = `${0.08 + (i % 4) * 0.08}s`
+    })
+    document.querySelectorAll<HTMLElement>('#faq .qa').forEach((q, i) => (q.style.transitionDelay = `${i * 0.07}s`))
+    document.querySelectorAll<HTMLElement>('.sec-sub').forEach(el => (el.style.transitionDelay = '.15s'))
+
+    const io = new IntersectionObserver(
+      es =>
+        es.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in')
+            io.unobserve(e.target)
+          }
+        }),
+      { threshold: 0.12 }
+    )
+    document.querySelectorAll('.reveal,.rv-h').forEach(el => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  // 2) מנוע הגלילה — rAF יחיד, ערכים מוחלקים ב-lerp
+  useEffect(() => {
+    const progressBar = document.getElementById('progressBar')
+    const heroBg = document.querySelector<HTMLElement>('.hero-bg .ph')
+    const floaters = [...document.querySelectorAll<HTMLElement>('.floater')]
+    const bigword = document.querySelector<HTMLElement>('.golan-bigword')
+    const bases = floaters.map(f => f.getBoundingClientRect().top + scrollY)
+
+    let raf = 0
+    let sProg = 0
+    let sHero = 0
+    const off = () =>
+      matchMedia('(max-width:860px)').matches || matchMedia('(prefers-reduced-motion:reduce)').matches
+
+    const tick = () => {
+      raf = requestAnimationFrame(tick)
+      const h = document.documentElement
+      const max = h.scrollHeight - innerHeight
+      const pT = max > 0 ? scrollY / max : 0
+      sProg += (pT - sProg) * 0.25
+      if (Math.abs(pT - sProg) < 0.0005) sProg = pT
+      if (progressBar) progressBar.style.transform = `scaleX(${sProg.toFixed(4)})`
+
+      if (off()) {
+        if (heroBg) heroBg.style.transform = ''
+        return
+      }
+      const yT = Math.min(scrollY, innerHeight) * 0.12
+      sHero += (yT - sHero) * 0.18
+      if (Math.abs(yT - sHero) < 0.05) sHero = yT
+      if (heroBg) heroBg.style.transform = `translate3d(0,${sHero.toFixed(1)}px,0)`
+
+      const y = scrollY
+      floaters.forEach((f, i) => {
+        const speed = parseFloat(f.dataset.fspeed || '0')
+        f.style.transform = `translate3d(0,${((y - bases[i]) * speed).toFixed(1)}px,0)`
+      })
+      if (bigword && bigword.parentElement) {
+        const r = bigword.parentElement.getBoundingClientRect()
+        bigword.style.transform = `translate3d(0,${((innerHeight - r.top) * 0.06).toFixed(1)}px,0)`
+      }
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
+  // 3) סמן מותאם + מגנטיות + tilt
+  useEffect(() => {
+    const fine = matchMedia('(hover:hover) and (pointer:fine)').matches
+    const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches
+    if (!fine || reduced) return
+
+    const cleanups: (() => void)[] = []
+    const dot = document.createElement('div')
+    dot.className = 'cursor-dot'
+    const ring = document.createElement('div')
+    ring.className = 'cursor-ring'
+    document.body.append(dot, ring)
+    cleanups.push(() => {
+      dot.remove()
+      ring.remove()
+    })
+
+    let mx = innerWidth / 2,
+      my = innerHeight / 2,
+      rx = mx,
+      ry = my,
+      raf = 0
+    const onMove = (e: MouseEvent) => {
+      mx = e.clientX
+      my = e.clientY
+      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`
+    }
+    addEventListener('mousemove', onMove, { passive: true })
+    cleanups.push(() => removeEventListener('mousemove', onMove))
+    const loop = () => {
+      rx += (mx - rx) * 0.16
+      ry += (my - ry) * 0.16
+      ring.style.transform = `translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) translate(-50%,-50%)`
+      raf = requestAnimationFrame(loop)
+    }
+    raf = requestAnimationFrame(loop)
+    cleanups.push(() => cancelAnimationFrame(raf))
+
+    const onOver = (e: MouseEvent) => {
+      ring.classList.toggle('on', !!(e.target as HTMLElement).closest('a,button'))
+    }
+    document.addEventListener('mouseover', onOver)
+    cleanups.push(() => document.removeEventListener('mouseover', onOver))
+
+    // סמן גרירה אדום מעל קרוסלת הסרטונים
+    const strip = document.getElementById('reelsStrip')
+    if (strip) {
+      const dc = document.createElement('div')
+      dc.className = 'drag-cursor'
+      const s1 = document.createElement('span')
+      s1.textContent = '›'
+      const s2 = document.createElement('span')
+      s2.textContent = '‹'
+      dc.append(s1, s2)
+      document.body.appendChild(dc)
+      const enter = () => {
+        dc.classList.add('show')
+        document.body.classList.add('hide-cursor-fx')
+      }
+      const leave = () => {
+        dc.classList.remove('show', 'grab')
+        document.body.classList.remove('hide-cursor-fx')
+      }
+      const move = (e: MouseEvent) => {
+        dc.style.left = `${e.clientX}px`
+        dc.style.top = `${e.clientY}px`
+      }
+      const down = () => dc.classList.add('grab')
+      const up = () => dc.classList.remove('grab')
+      strip.addEventListener('mouseenter', enter)
+      strip.addEventListener('mouseleave', leave)
+      strip.addEventListener('mousemove', move)
+      strip.addEventListener('pointerdown', down)
+      strip.addEventListener('pointerup', up)
+      strip.addEventListener('pointercancel', up)
+      cleanups.push(() => {
+        dc.remove()
+        strip.removeEventListener('mouseenter', enter)
+        strip.removeEventListener('mouseleave', leave)
+        strip.removeEventListener('mousemove', move)
+        strip.removeEventListener('pointerdown', down)
+        strip.removeEventListener('pointerup', up)
+        strip.removeEventListener('pointercancel', up)
+      })
+    }
+
+    // כפתורים מגנטיים — הסלקטורים הקבועים מהמקור
+    document.querySelectorAll<HTMLElement>('.btn,.btn-join,.golan-lead-btn,.lead-submit,.disc-submit').forEach(b => {
+      const move = (e: MouseEvent) => {
+        const r = b.getBoundingClientRect()
+        b.style.transform = `translate(${(((e.clientX - r.left - r.width / 2) / r.width) * 10).toFixed(1)}px,${(((e.clientY - r.top - r.height / 2) / r.height) * 8).toFixed(1)}px)`
+      }
+      const leave = () => {
+        b.style.transform = ''
+      }
+      b.addEventListener('mousemove', move)
+      b.addEventListener('mouseleave', leave)
+      cleanups.push(() => {
+        b.removeEventListener('mousemove', move)
+        b.removeEventListener('mouseleave', leave)
+      })
+    })
+
+    // tilt תלת-ממדי לכרטיסים
+    document.querySelectorAll<HTMLElement>('.mcard,.tcard').forEach(c => {
+      const move = (e: MouseEvent) => {
+        const r = c.getBoundingClientRect()
+        const dx = (e.clientX - r.left) / r.width - 0.5
+        const dy = (e.clientY - r.top) / r.height - 0.5
+        c.style.setProperty('--mx', `${(e.clientX - r.left).toFixed(0)}px`)
+        c.style.setProperty('--my', `${(e.clientY - r.top).toFixed(0)}px`)
+        c.style.transform = `perspective(700px) rotateX(${(-dy * 6).toFixed(2)}deg) rotateY(${(dx * 8).toFixed(2)}deg) translateY(-4px)`
+      }
+      const leave = () => {
+        c.style.transform = ''
+      }
+      c.addEventListener('mousemove', move)
+      c.addEventListener('mouseleave', leave)
+      cleanups.push(() => {
+        c.removeEventListener('mousemove', move)
+        c.removeEventListener('mouseleave', leave)
+      })
+    })
+
+    return () => cleanups.forEach(fn => fn())
+  }, [])
+
+  return null
+}
