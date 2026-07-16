@@ -3,7 +3,6 @@ import FabDock from '@/components/FabDock'
 import Hero from '@/components/Hero'
 import Story from '@/components/Story'
 import Reels from '@/components/Reels'
-import Strip from '@/components/Strip'
 import About from '@/components/About'
 import Golan from '@/components/Golan'
 import Method from '@/components/Method'
@@ -42,7 +41,6 @@ export default function Home() {
       <main id="main">
         <Story />
         <Reels />
-        <Strip />
         <About />
         <Golan />
         <Method />
