@@ -117,7 +117,7 @@ navbar (לוגו + כפתור שיחת היכרות)
 - **מלכודת ספציפיות שקרתה בפועל**: כלל בסיס בשני סלקטורים (0,2,0) גבר על כלל מובייל בסלקטור יחיד (0,1,0). כלל מובייל חייב ספציפיות שווה או גבוהה.
 - **הוסרו לבקשת הלקוח (2026-07)**: eyebrows (כותרות קטנות), מספור סקשנים, `hero-foot`, `hero-tagline`. לא להחזיר.
 - **פריסה**: רחבה, `--pad-x:clamp(1.4rem,4vw,3.5rem)`. ניסיון band ממורכז (17vw שוליים) בוטל לבקשת הלקוח 2026-07, לא להחזיר בלי בקשה מפורשת.
-- **סרטונים**: `<div class="reel ph" data-video="vid-X.mp4">` + injector וידאו נפרד; קבצים ב-`assets/vid/`; play/pause לפי IntersectionObserver.
+- **סרטונים**: `<div class="reel ph" data-video="vid-X.mp4">` + injector וידאו נפרד; הקבצים ב-Supabase Storage תחת `assets/vid/`; play/pause לפי IntersectionObserver.
 - **שכבת אינטראקציה (2026-07)**: סמן מותאם (נקודה + טבעת אדומה, רק hover+fine-pointer), כפתורים מגנטיים, tilt תלת-ממדי על mcard/reel/tcard, סקשן story מונע גלילה. הכל מכובה ב-reduced-motion ובמובייל/מגע. הסלקטורים המגנטיים: `.btn,.btn-join,.golan-lead-btn,.lead-submit`.
 - **כוריאוגרפיית גלילה גורפת (2026-07)**: `.rv-h` (עלייה + blur) מוצמד אוטומטית ב-JS לכל h2 ב-main, sec-sub, פסקאות about/golan (עם stagger). `.rv-img` (חשיפת וילון clip-path) על תמונות about/golan — **נחשף דרך ה-parent** (`.reveal.in .rv-img`) כי Chrome מחזיר intersectionRatio 0 לאלמנט עם clip-path של 100%. לא לצפות ב-rv-img ישירות ב-IO.
 - **אלמנטים צפים** (`.floater`, ✦ + טבעות): פרלקסה לפי `data-fspeed`, מוסתרים במובייל. הטיית מהירות (skew בגלילה) **בוטלה לבקשת הלקוח** — לא להחזיר.
@@ -129,6 +129,7 @@ navbar (לוגו + כפתור שיחת היכרות)
 
 כל תמונה היא `<div class="ph" data-img="..." data-alt="..." data-label="...">`.
 JS injector יוצר `<img>`; `onload` → מוסיף `has-img` (מסתיר את התווית המקווקוות); `onerror` → מסיר.
+**כל הנכסים (תמונות + סרטונים) נטענים מ-Supabase Storage (2026-07)** — bucket ציבורי `assets` בפרויקט Big Coach, נתיבים `img/` ו-`vid/`. כתובת הבסיס מוגדרת פעם אחת: קבוע `ASSETS_BASE` ב-script של `site/index.html`, ו-`lib/assets.ts` באפליקציית ה-Next. לא לחזור לקבצים מקומיים ב-`public/`.
 רשימת כל התמונות והמידות: `site/assets/img/README.md`.
 
 ---

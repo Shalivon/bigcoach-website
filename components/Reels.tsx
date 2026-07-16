@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { vidUrl } from '@/lib/assets'
 
 const VIDS = ['vid-1.mp4', 'vid-2.mp4', 'vid-3.mp4', 'vid-4.mp4', 'vid-5.mp4', 'vid-6.mp4']
 
@@ -30,7 +31,7 @@ function Reel({ vid }: { vid: string }) {
     <div ref={ref} className={`reel ph${loaded ? ' has-img' : ''}`} data-label={`${vid} (1080×1920)`}>
       {!err && (
         <video
-          src={`/assets/vid/${vid}`}
+          src={vidUrl(vid)}
           muted
           loop
           playsInline

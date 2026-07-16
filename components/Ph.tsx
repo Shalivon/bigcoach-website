@@ -1,11 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { imgUrl } from '@/lib/assets'
 
 /*
  * מערכת התמונות (placeholder) — מקבילה ל-injector מהאתר המקורי:
  * מסגרת מקווקוות + תווית עד שהתמונה נטענת; onError משאיר placeholder.
- * קבצים נכנסים ל-public/assets/img/ ומופיעים אוטומטית.
+ * הקבצים נטענים מ-Supabase Storage (bucket: assets, תיקיית img/).
  */
 export default function Ph({
   img,
@@ -31,7 +32,7 @@ export default function Ph({
       {img && state !== 'err' && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={`/assets/img/${img}`}
+          src={imgUrl(img)}
           alt={alt}
           loading={eager ? 'eager' : 'lazy'}
           fetchPriority={eager ? 'high' : undefined}
