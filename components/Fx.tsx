@@ -7,15 +7,14 @@ import { useEffect } from 'react'
  *
  * 1. כוריאוגרפיית גלילה — תיוג אוטומטי של rv-h / rv-img + stagger, ו-IntersectionObserver
  *    שמוסיף .in (זהה לאתר המקורי; rv-img נחשף דרך ה-parent בגלל באג clip-path של Chrome).
- * 2. מנוע גלילה ב-rAF יחיד עם lerp: פס התקדמות, פרלקסת הירו, אלמנטים צפים, מילת הרקע
- *    של golan — במקום scroll events, לתנועה חלקה בלי jank.
+ * 2. מנוע גלילה ב-rAF יחיד עם lerp: פס התקדמות, פרלקסת הירו, אלמנטים צפים —
+ *    במקום scroll events, לתנועה חלקה בלי jank.
  * 3. סמן מותאם + כפתורים מגנטיים + tilt לכרטיסים + סמן גרירה לקרוסלה (hover+fine בלבד).
  */
 export default function Fx() {
   // 1) כוריאוגרפיית reveal
   useEffect(() => {
     document.querySelectorAll('main h2,.final-kicker,.sec-sub,.reels-head p').forEach(h => h.classList.add('rv-h'))
-    document.querySelectorAll('.about-imgs .ph,.golan-photo .ph').forEach(i => i.classList.add('rv-img'))
     document.querySelectorAll<HTMLElement>('.about-text p,.golan-card p').forEach((el, i) => {
       el.classList.add('rv-h')
       el.style.transitionDelay = `${0.08 + (i % 4) * 0.08}s`
@@ -42,7 +41,6 @@ export default function Fx() {
     const progressBar = document.getElementById('progressBar')
     const heroBg = document.querySelector<HTMLElement>('.hero-bg .ph')
     const floaters = [...document.querySelectorAll<HTMLElement>('.floater')]
-    const bigword = document.querySelector<HTMLElement>('.golan-bigword')
     const bases = floaters.map(f => f.getBoundingClientRect().top + scrollY)
 
     let raf = 0
@@ -74,10 +72,6 @@ export default function Fx() {
         const speed = parseFloat(f.dataset.fspeed || '0')
         f.style.transform = `translate3d(0,${((y - bases[i]) * speed).toFixed(1)}px,0)`
       })
-      if (bigword && bigword.parentElement) {
-        const r = bigword.parentElement.getBoundingClientRect()
-        bigword.style.transform = `translate3d(0,${((innerHeight - r.top) * 0.06).toFixed(1)}px,0)`
-      }
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)

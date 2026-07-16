@@ -175,8 +175,8 @@ nav:not(.menu-overlay) .nav-logo,nav:not(.menu-overlay) .btn-join{pointer-events
 .hero-note{margin-top:1.1rem;font-size:1rem;font-weight:600;color:rgba(238,238,238,.65)}
 
 /* ───────── REELS (VIDEOS) ───────── */
-#reels{background:var(--black);padding:6.5rem var(--pad-x) 5rem;text-align:center;overflow:hidden}
-.reels-head{max-width:760px;margin:0 auto 3.2rem}
+#reels{background:var(--black);padding:4rem var(--pad-x) 3rem;text-align:center;overflow:hidden}
+.reels-head{max-width:760px;margin:0 auto 2.2rem}
 .reels-head p{margin-top:1.1rem;font-size:1.1rem;font-weight:400;color:rgba(238,238,238,.6);line-height:1.8}
 .reels-strip{overflow:hidden;padding:0 0 1rem;margin:0 calc(-1*var(--pad-x));cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent)}
@@ -248,12 +248,16 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 .reveal[data-d="2"]{transition-delay:.24s}
 .reveal[data-d="3"]{transition-delay:.36s}
 
-/* ───────── ABOUT ───────── */
-#about{background:var(--ink);border-radius:var(--radius-xl);margin:var(--gap);padding:7.5rem 4rem}
+/* ───────── ABOUT + GOLAN (merged card) ───────── */
+#about{background:var(--ink);border-radius:var(--radius-xl);margin:var(--gap);padding:7.5rem 4rem;overflow:hidden}
+.ag-bg{position:absolute;inset:0;z-index:0;border:none;background:none;border-radius:0;pointer-events:none}
+.ag-bg::after{display:none}
+.ag-bg>img{opacity:.1;object-position:top center}
+.ag-kicker{color:var(--red);font-weight:700;font-size:.95rem;letter-spacing:.03em;margin-bottom:.7rem}
 .about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:4.5rem;align-items:center}
 .about-h2{margin-bottom:2rem}
 .about-h2 em{font-style:normal;color:var(--red)}
-.about-text{display:flex;flex-direction:column;justify-content:center;height:100%}
+.about-text{display:flex;flex-direction:column;justify-content:center;height:100%;border:1px solid rgba(202,6,44,.45);border-radius:var(--radius-lg);padding:2.8rem}
 .about-text p{font-size:1.15rem;font-weight:400;color:rgba(238,238,238,.72);line-height:1.95;margin-bottom:1.4rem;max-width:56ch}
 .about-text p b{font-weight:700;color:var(--white)}
 .about-stats{display:flex;margin:2.6rem 0 2.8rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -264,16 +268,6 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 .stat .lbl{font-size:.85rem;color:rgba(238,238,238,.5);margin-top:.5rem;text-align:center}
 .stat-m{display:none}
 .about-cta-row{display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap}
-.about-imgs{position:relative}
-.about-imgs .ph{border-radius:var(--radius-lg);width:100%;height:660px}
-.about-imgs .ph>img{transition:transform 1.2s cubic-bezier(.22,.7,.3,1)}
-.about-imgs:hover .ph>img{transform:scale(1.04)}
-.about-chip{position:absolute;bottom:1.6rem;right:1.6rem;z-index:3;
-  background:rgba(27,27,26,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(238,238,238,.14);border-radius:16px;padding:1rem 1.5rem;
-  display:flex;align-items:baseline;gap:.6rem}
-.about-chip .n{font-family:var(--font-head);font-size:1.6rem;font-weight:900;color:var(--red);line-height:1}
-.about-chip .l{font-size:.85rem;color:rgba(238,238,238,.75);font-weight:600}
 
 /* ───────── PROGRAMS SCROLL EXPERIENCE ───────── */
 .marquee{display:flex;width:max-content;animation:scrollRtl 22s linear infinite}
@@ -329,20 +323,8 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 .prog-detail .btn{width:100%;justify-content:space-between}
 .srow{display:flex;justify-content:space-between;padding:1rem 0;font-size:.95rem}
 
-/* ───────── GOLAN ───────── */
-#golan{background:var(--black);overflow:hidden}
-.golan-bigword{position:absolute;top:1.5rem;left:-1rem;z-index:0;font-family:var(--font-head);font-weight:900;
-  font-size:clamp(4.6rem,12vw,10rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(238,238,238,.07);
-  pointer-events:none;user-select:none;white-space:nowrap}
-.golan-head{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1rem}
-.golan-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:stretch}
-.golan-photo{position:relative}
-.golan-photo .ph{height:100%;min-height:560px;border-radius:var(--radius-lg)}
-.golan-photo .ph>img{transition:transform 1.2s cubic-bezier(.22,.7,.3,1)}
-.golan-photo:hover .ph>img{transform:scale(1.04)}
-.golan-photo::after{content:'';position:absolute;top:1.2rem;right:-1.2rem;bottom:-1.2rem;left:1.2rem;
-  border:1px solid rgba(202,6,44,.4);border-radius:var(--radius-lg);z-index:-1;pointer-events:none}
-.golan-card{background:var(--card);border-radius:var(--radius-lg);padding:3.4rem;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(238,238,238,.05)}
+/* ───────── GOLAN (part of the merged about card) ───────── */
+.golan-card{display:flex;flex-direction:column;justify-content:space-between}
 .golan-card h3{font-size:2.2rem;font-weight:800;margin-bottom:.3rem;line-height:1.15}
 .golan-card .role{color:var(--red);font-weight:600;margin-bottom:2rem}
 .golan-card p{font-size:1.12rem;font-weight:400;color:rgba(238,238,238,.72);line-height:1.9;margin-bottom:1.2rem}
@@ -371,12 +353,13 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 /* ───────── METHOD ───────── */
 #method{background:var(--ink);border-radius:var(--radius-xl);margin:var(--gap);padding-top:7.5rem;padding-bottom:7.5rem}
 .method-head{text-align:center;max-width:760px;margin:0 auto 4.5rem}
+.method-head .sec-sub{font-weight:700;color:rgba(238,238,238,.78)}
 .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:1240px;margin:0 auto}
-.mcard{position:relative;background:var(--card);border-radius:var(--radius-lg);padding:3rem 2.4rem 2.8rem;border:1px solid rgba(238,238,238,.06);overflow:hidden;transition:transform .35s cubic-bezier(.25,.8,.3,1), border-color .35s ease}
+.mcard{position:relative;background:var(--card);border-radius:var(--radius-lg);padding:3rem 2.4rem 2.8rem;border:1px solid rgba(238,238,238,.06);overflow:hidden;text-align:center;transition:transform .35s cubic-bezier(.25,.8,.3,1), border-color .35s ease}
 .mcard::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.25,.8,.3,1)}
 .mcard:hover{transform:translateY(-8px);border-color:rgba(202,6,44,.45)}
 .mcard:hover::before{transform:scaleX(1)}
-.mcard .micon{width:64px;height:64px;border-radius:18px;background:rgba(202,6,44,.1);border:1px solid rgba(202,6,44,.35);display:flex;align-items:center;justify-content:center;color:var(--red);margin-bottom:1.6rem;transition:background .35s ease,color .35s ease,transform .5s cubic-bezier(.25,.8,.3,1)}
+.mcard .micon{width:64px;height:64px;border-radius:18px;background:rgba(202,6,44,.1);border:1px solid rgba(202,6,44,.35);display:flex;align-items:center;justify-content:center;color:var(--red);margin:0 auto 1.6rem;transition:background .35s ease,color .35s ease,transform .5s cubic-bezier(.25,.8,.3,1)}
 .mcard:hover .micon{background:var(--red);color:#fff;transform:rotate(-8deg) scale(1.08)}
 .micon svg{width:30px;height:30px}
 .micon svg *{stroke-dasharray:90;stroke-dashoffset:0;transition:stroke-dashoffset 1.1s ease .45s}
@@ -506,7 +489,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 /* ───────── RESPONSIVE ───────── */
 @media (max-width:1024px){
   .method-grid{grid-template-columns:1fr 1fr}
-  .golan-grid{gap:2.5rem}
+  .about-grid{gap:2.5rem}
 }
 @media (max-width:860px){
   nav:not(.menu-overlay){padding:1.4rem 1.4rem 0}
@@ -526,7 +509,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
   .menu-card{padding:3rem 3.4rem}
   .hero-cut{display:none}
   .floater{display:none}
-  #reels{padding:4.5rem 1.4rem 3.5rem}
+  #reels{padding:3rem 1.4rem 2.2rem}
   .reel{flex-basis:62vw}
 
   /* hero mobile */
@@ -543,9 +526,8 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 
   /* about mobile */
   #about{margin:.8rem;padding:5rem 1.6rem}
-  .about-grid{grid-template-columns:1fr}
-  .about-imgs{display:none}
-  .about-text{text-align:center;align-items:center;justify-content:flex-start;height:auto}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .about-text{text-align:center;align-items:center;justify-content:flex-start;height:auto;padding:1.8rem 1.2rem}
   .about-h2{width:100%;font-size:clamp(1.8rem,7vw,2.5rem);margin-bottom:1.4rem}
   .about-h2 em{color:var(--white);position:relative;display:inline-block}
   .about-h2 em::after{content:"";position:absolute;left:0;right:0;bottom:-.08em;height:.14em;background:var(--red);border-radius:2px;transform:rotate(-.6deg) scaleX(.97);
@@ -589,13 +571,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
   .prog-detail p{font-size:1rem;color:rgba(238,238,238,.9);line-height:1.7;margin-bottom:1.4rem}
   .prog-detail .btn-light{height:48px}
 
-  /* golan mobile */
-  .golan-bigword{font-size:4rem;top:.6rem}
-  .golan-head{margin-bottom:2rem}
-  .golan-grid{grid-template-columns:1fr}
-  .golan-photo::after{display:none}
-  .golan-photo .ph{min-height:340px}
-  .golan-card{padding:2.2rem 1.6rem}
+  /* golan mobile (inside the merged about card) */
   .golan-card h3{font-size:1.8rem}
   .golan-cta-row{justify-content:center;margin-top:1rem}
 
@@ -649,7 +625,6 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 .progress i{transition:none;will-change:transform}
 .hero-bg .ph{will-change:transform}
 .floater{will-change:transform}
-.golan-bigword{will-change:transform}
 .story-line,.frag{will-change:transform,opacity}
 .prog-panel,.grow-img{backface-visibility:hidden}
 .stage-ui{will-change:opacity}

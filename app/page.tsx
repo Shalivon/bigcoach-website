@@ -4,7 +4,6 @@ import Hero from '@/components/Hero'
 import Story from '@/components/Story'
 import Reels from '@/components/Reels'
 import About from '@/components/About'
-import Golan from '@/components/Golan'
 import Method from '@/components/Method'
 import Programs from '@/components/Programs'
 import Testimonials from '@/components/Testimonials'
@@ -42,7 +41,6 @@ export default function Home() {
         <Story />
         <Reels />
         <About />
-        <Golan />
         <Method />
         <Programs />
         <Testimonials />
