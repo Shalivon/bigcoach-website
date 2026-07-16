@@ -170,7 +170,7 @@ export default function Fx() {
     }
 
     // כפתורים מגנטיים — הסלקטורים הקבועים מהמקור
-    document.querySelectorAll<HTMLElement>('.btn,.btn-join,.golan-lead-btn,.lead-submit,.disc-submit').forEach(b => {
+    document.querySelectorAll<HTMLElement>('.btn,.btn-join,.golan-lead-btn,.lead-submit').forEach(b => {
       const move = (e: MouseEvent) => {
         const r = b.getBoundingClientRect()
         b.style.transform = `translate(${(((e.clientX - r.left - r.width / 2) / r.width) * 10).toFixed(1)}px,${(((e.clientY - r.top - r.height / 2) / r.height) * 8).toFixed(1)}px)`

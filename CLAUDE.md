@@ -43,7 +43,7 @@
 - **חשוב**: Rubik רחב בהרבה מ-Karantina הישן — כל הגדלים כוילו מחדש (h1 עד 5.6rem, h2 עד 3.5rem). אם מגדילים כותרת, לבדוק גלישת שורות.
 - גדלי טקסט רץ הוגדלו לסריקה מהירה (פסקאות 1.05–1.15rem).
 - רשימת הסלקטורים שמקבלים פונט כותרת:
-  `h1,h2,h3,.prog-title,.menu-link,.disc-bignum,.disc-popup-body h2,.golan-card h3,.pd-head h3`
+  `h1,h2,h3,.prog-title,.menu-link,.golan-card h3,.pd-head h3`
 
 ### טיפוגרפיה וטקסט
 - **אסור מקפים בטקסט** — רק נקודות ופסיקים.
@@ -72,7 +72,7 @@ navbar (לוגו + כפתור שיחת היכרות)
 └─ final (#final) + footer
 ```
 **מסע הלקוח (2026-07, לא לערבב סדר בלי בקשה)**: כאב (hero) → הזדהות (story) → הוכחה (reels) → המדריך (about+golan) → התוכנית (method) → ההצעה (programs) → הוכחה חברתית → התנגדויות → סגירה.
-פופאפ הנחה (`#discPopup`) ותפריט נפתח (`#menuOverlay`) יושבים בראש ה-body.
+פופאפ לידים (`#leadPopup`) ותפריט נפתח (`#menuOverlay`) יושבים בראש ה-body. פופאפ ההנחה לכוחות הביטחון (`#discPopup`) **הוסר לצמיתות לבקשת הלקוח (2026-07) — לא להחזיר**.
 
 ---
 
@@ -81,12 +81,12 @@ navbar (לוגו + כפתור שיחת היכרות)
 **החלטה**: לא Webflow. אתר עצמאי, מתארח ב-**Vercel**, נפרס אוטומטית מה-branch `main` בגיטהאב.
 
 - **פרונטאנד**: `site/index.html` — נשאר vanilla single-file, בלי שינוי.
-- **בק-אנד**: `site/api/lead.js` — Vercel Serverless Function (Node, בלי תלויות) שמקבלת POST מטופס הלידים (`#leadForm`) ומפופאפ ההנחה (`#discPopup`). כרגע רק רושמת את הליד ל-logs של Vercel.
+- **בק-אנד**: `site/api/lead.js` — Vercel Serverless Function (Node, בלי תלויות) שמקבלת POST מטופס הלידים (`#leadForm`). כרגע רק רושמת את הליד ל-logs של Vercel.
 - **חיבור ל-CRM**: עדיין לא הוחלט אילו CRM. כדי לחבר, מגדירים משתני סביבה בפרויקט Vercel (Settings → Environment Variables), בלי לגעת בקוד:
   - `GOOGLE_SHEETS_WEBHOOK_URL` — URL של Google Apps Script Web App, אם רוצים גיליון כ-CRM זמני.
   - `CRM_WEBHOOK_URL` — כתובת webhook נכנס של כל CRM (HubSpot, GoHighLevel וכו׳).
 - **וואטסאפ אוטומציה**: הוחלט על WhatsApp Business API דרך ספק (Twilio / 360dialog / Wati) — עדיין לא מחובר, דורש חשבון עסקי מאומת ופרטי גישה מהלקוח. עד אז נשארים על קישורי `wa.me` עם `?text=` מוכן (ראו "קישורים / placeholder למילוי").
-- **טפסים בפרונטאנד**: שני מקומות שולחים `fetch('/api/lead', …)` — `leadForm` (טופס הלידים המלא) ו-`discSubmit` (פופאפ הנחה, שולח `discount:true`). לא לחזור ל-fetch ישיר מהדפדפן ל-Google Sheets (`mode:'no-cors'`) — זה נמנע מכוונה כי אי אפשר לקרוא את התשובה ולוודא הצלחה.
+- **טפסים בפרונטאנד**: מקום אחד שולח `fetch('/api/lead', …)` — `leadForm` (טופס הלידים המלא). לא לחזור ל-fetch ישיר מהדפדפן ל-Google Sheets (`mode:'no-cors'`) — זה נמנע מכוונה כי אי אפשר לקרוא את התשובה ולוודא הצלחה.
 
 ---
 
@@ -118,7 +118,7 @@ navbar (לוגו + כפתור שיחת היכרות)
 - **הוסרו לבקשת הלקוח (2026-07)**: eyebrows (כותרות קטנות), מספור סקשנים, `hero-foot`, `hero-tagline`. לא להחזיר.
 - **פריסה**: רחבה, `--pad-x:clamp(1.4rem,4vw,3.5rem)`. ניסיון band ממורכז (17vw שוליים) בוטל לבקשת הלקוח 2026-07, לא להחזיר בלי בקשה מפורשת.
 - **סרטונים**: `<div class="reel ph" data-video="vid-X.mp4">` + injector וידאו נפרד; קבצים ב-`assets/vid/`; play/pause לפי IntersectionObserver.
-- **שכבת אינטראקציה (2026-07)**: סמן מותאם (נקודה + טבעת אדומה, רק hover+fine-pointer), כפתורים מגנטיים, tilt תלת-ממדי על mcard/reel/tcard, סקשן story מונע גלילה. הכל מכובה ב-reduced-motion ובמובייל/מגע. הסלקטורים המגנטיים: `.btn,.btn-join,.golan-lead-btn,.lead-submit,.disc-submit`.
+- **שכבת אינטראקציה (2026-07)**: סמן מותאם (נקודה + טבעת אדומה, רק hover+fine-pointer), כפתורים מגנטיים, tilt תלת-ממדי על mcard/reel/tcard, סקשן story מונע גלילה. הכל מכובה ב-reduced-motion ובמובייל/מגע. הסלקטורים המגנטיים: `.btn,.btn-join,.golan-lead-btn,.lead-submit`.
 - **כוריאוגרפיית גלילה גורפת (2026-07)**: `.rv-h` (עלייה + blur) מוצמד אוטומטית ב-JS לכל h2 ב-main, sec-sub, פסקאות about/golan (עם stagger). `.rv-img` (חשיפת וילון clip-path) על תמונות about/golan — **נחשף דרך ה-parent** (`.reveal.in .rv-img`) כי Chrome מחזיר intersectionRatio 0 לאלמנט עם clip-path של 100%. לא לצפות ב-rv-img ישירות ב-IO.
 - **אלמנטים צפים** (`.floater`, ✦ + טבעות): פרלקסה לפי `data-fspeed`, מוסתרים במובייל. הטיית מהירות (skew בגלילה) **בוטלה לבקשת הלקוח** — לא להחזיר.
 - **שורות אישיות**: `.sec-sub` ב-method/testimonials/faq, `.final-kicker` לפני המרקיזה.
@@ -142,7 +142,7 @@ JS injector יוצר `<img>`; `onload` → מוסיף `has-img` (מסתיר את
 ## החלטות המרה (2026-07, לא לשבור)
 
 - **CTA אחיד בכל האתר**: "קבע שיחת היכרות" (מיקרו-קופי: "20 דקות, בלי עלות ובלי התחייבות"). לא להחזיר ניסוחים שונים.
-- **פופאפ כוחות הביטחון** נפתח רק אחרי 60% עומק גלילה, פעם בסשן. לא להחזיר טיימר.
+- **פופאפ כוחות הביטחון (הנחה 15%)** — הוסר לצמיתות לבקשת הלקוח (2026-07). לא להחזיר.
 - **כפתור וואטסאפ צף** (`.wa-fab`, ירוק, פינה שמאל-תחתונה) בדסקטופ ובמובייל.
 - **מספר מתאמנים פעילים באתר: 250** (הירו + about). אם הלקוח מאשר מספר אחר, לעדכן בשני המקומות יחד.
 - תמונות ההירו נטענות eager + fetchpriority=high, כל השאר lazy.

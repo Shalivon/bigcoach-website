@@ -11,7 +11,6 @@ import Programs from '@/components/Programs'
 import Testimonials from '@/components/Testimonials'
 import Faq from '@/components/Faq'
 import FinalFooter from '@/components/FinalFooter'
-import DiscPopup from '@/components/DiscPopup'
 import LeadPopup from '@/components/LeadPopup'
 import Consent from '@/components/Consent'
 import Fx from '@/components/Fx'
@@ -32,7 +31,6 @@ export default function Home() {
         <i id="progressBar" />
       </div>
 
-      <DiscPopup />
       <LeadPopup />
       <Consent />
 
