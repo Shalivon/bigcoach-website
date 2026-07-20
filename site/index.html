@@ -294,31 +294,37 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 .marquee > span{font-family:var(--font-run);font-size:clamp(4rem,11vw,9rem);font-weight:900;letter-spacing:-.02em;padding:0 2.5rem;white-space:nowrap;color:var(--black)}
 .marquee > span em{font-style:normal;-webkit-text-stroke:2px var(--black);color:transparent}
 @keyframes scrollRtl{from{transform:translateX(0)}to{transform:translateX(50%)}}
-#programs{position:relative;margin:var(--gap);padding:0 var(--gap) var(--gap);background:var(--white);border-radius:var(--radius-xl)}
-.pi-sticky{position:sticky;top:0;height:100vh;z-index:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.pspacer{height:120vh;pointer-events:none}
-.pspacer.intro{height:250vh}
-.pi-sticky .marquee{opacity:calc(1 - var(--p,0)*1.7)}
-.grow-img{position:absolute;top:50%;right:50%;transform:translate(50%,-50%);
-  width:calc(min(560px,76vw) + (100% - min(560px,76vw))*var(--p,0));
-  height:calc(min(300px,42vh) + ((100vh - 2.4rem) - min(300px,42vh))*var(--p,0));
-  border-radius:28px;overflow:hidden;z-index:2;box-shadow:0 30px 80px rgba(0,0,0,.25);will-change:transform,width,height}
-.grow-img > .ph{width:100%;height:100%;border:none;border-radius:0}
-.pi-overlay{position:absolute;inset:0;z-index:3;background:rgba(35,35,35,.45);opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s}
-.pi-overlay.show{opacity:1;visibility:visible}
-.prog-panel{position:sticky;top:var(--gap);height:calc(100vh - 2.4rem);z-index:2;border-radius:28px;overflow:hidden;box-shadow:0 -30px 70px rgba(0,0,0,.35);will-change:transform}
+#programs{position:relative;margin:var(--gap);padding:var(--gap);background:var(--white);border-radius:var(--radius-xl)}
+/* scrolling slideshow: sticky frame, scroll position scrubs through the slides */
+.slideshow{position:sticky;top:var(--gap);height:calc(100vh - 2.4rem);z-index:1;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25);background:var(--black);--show-p:0}
+.show-spacer{height:500vh;pointer-events:none}
+.prog-slide{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .75s cubic-bezier(.22,.7,.3,1);z-index:1}
+.prog-slide.active{opacity:1;pointer-events:auto;z-index:2}
+.show-chrome{position:absolute;bottom:2.2rem;left:3.5rem;z-index:6;display:flex;flex-direction:column;align-items:flex-start;gap:.85rem;pointer-events:none}
+.show-count{display:flex;align-items:baseline;gap:.35rem;color:var(--white);font-family:var(--font-head);font-weight:800;font-size:1.15rem;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.show-count i{font-style:normal;color:rgba(238,238,238,.5)}
+.show-count span:last-child{color:rgba(238,238,238,.5);font-size:.9rem}
+.show-rail{position:relative;width:min(220px,42vw);height:2px;background:rgba(238,238,238,.22);border-radius:999px;overflow:visible}
+.show-fill{position:absolute;inset:0 auto 0 0;width:calc(var(--show-p)*100%);background:var(--red);border-radius:inherit;transition:width .12s linear}
+.show-dots{display:flex;gap:.55rem;margin-top:.7rem}
+.show-dots b{width:7px;height:7px;border-radius:50%;background:rgba(238,238,238,.35);transition:background .35s ease,transform .35s ease}
+.show-dots b.on{background:var(--red);transform:scale(1.25)}
 .prog-bg{position:absolute;inset:0}
 .prog-bg .ph{width:100%;height:100%;border:none;border-radius:0}
+.prog-bg .ph>img{transform:scale(1.08);transition:transform 1.4s cubic-bezier(.22,.7,.3,1)}
+.prog-slide.active .prog-bg .ph>img{transform:scale(1)}
 .prog-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(200deg,rgba(35,35,35,.2) 0%,rgba(35,35,35,.62) 100%);z-index:2}
 .stage-ui{position:absolute;inset:0;z-index:3;will-change:opacity}
 .prog-center{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.3rem;padding:0 2rem;transition:opacity .35s ease;pointer-events:none}
 .prog-center .prog-keep{pointer-events:auto}
-.prog-title{font-size:clamp(2.8rem,6vw,5.2rem);font-weight:900;line-height:1.06;color:var(--white);text-shadow:0 4px 30px rgba(0,0,0,.45)}
-.prog-cap{font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:600;color:rgba(238,238,238,.88);max-width:600px;line-height:1.65;text-shadow:0 2px 16px rgba(0,0,0,.5)}
-.prog-keep{font-family:var(--font-run);font-weight:400;font-size:clamp(1.05rem,1.6vw,1.35rem);letter-spacing:.04em;color:rgba(238,238,238,.9);background:none;border:none;border-bottom:1.5px solid rgba(238,238,238,.5);padding:0;padding-bottom:3px;cursor:pointer;transition:border-color .2s,opacity .3s}
+.prog-title{font-size:clamp(2.8rem,6vw,5.2rem);font-weight:900;line-height:1.06;color:var(--white);text-shadow:0 4px 30px rgba(0,0,0,.45);opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,.7,.3,1),transform .7s cubic-bezier(.22,.7,.3,1)}
+.prog-cap{font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:600;color:rgba(238,238,238,.88);max-width:600px;line-height:1.65;text-shadow:0 2px 16px rgba(0,0,0,.5);opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.22,.7,.3,1) .08s,transform .7s cubic-bezier(.22,.7,.3,1) .08s}
+.prog-keep{font-family:var(--font-run);font-weight:400;font-size:clamp(1.05rem,1.6vw,1.35rem);letter-spacing:.04em;color:rgba(238,238,238,.9);background:none;border:none;border-bottom:1.5px solid rgba(238,238,238,.5);padding:0;padding-bottom:3px;cursor:pointer;transition:border-color .2s,opacity .7s cubic-bezier(.22,.7,.3,1) .16s,transform .7s cubic-bezier(.22,.7,.3,1) .16s;opacity:0;transform:translateY(14px)}
+.prog-slide.active .prog-title,.prog-slide.active .prog-cap,.prog-slide.active .prog-keep{opacity:1;transform:none}
 .prog-keep:hover{border-color:var(--red)}
 .prog-keep .mask{height:1.25em;line-height:1.25em}
-.prog-plus{position:absolute;bottom:2.2rem;right:3.5rem;z-index:6;display:flex;align-items:center;gap:1rem;background:none;border:none;cursor:pointer;color:var(--white);font-family:var(--font-run);text-align:right}
+.prog-plus{position:absolute;bottom:2.2rem;right:3.5rem;z-index:6;display:flex;align-items:center;gap:1rem;background:none;border:none;cursor:pointer;color:var(--white);font-family:var(--font-run);text-align:right;opacity:0;transform:translateY(10px);transition:opacity .55s cubic-bezier(.22,.7,.3,1) .2s,transform .55s cubic-bezier(.22,.7,.3,1) .2s}
+.prog-slide.active .prog-plus{opacity:1;transform:none}
 .prog-plus .pcirc{width:52px;height:52px;border-radius:50%;flex-shrink:0;background:rgba(238,238,238,.18);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;transition:transform .35s cubic-bezier(.25,.8,.3,1),background .3s}
 .prog-plus:hover .pcirc{background:rgba(238,238,238,.3)}
 [data-prog].open .pcirc{transform:rotate(45deg)}
@@ -565,16 +571,15 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
 
   /* programs mobile: stacked cards */
   #programs{margin:.8rem;padding:0 1rem}
-  .pi-sticky{position:static;height:auto;display:block}
-  #programs .marquee{display:none}
-  .pspacer{display:none}
-  .prog-stage,.prog-panel,.grow-img{position:relative!important;top:auto!important;right:auto!important;left:auto!important;bottom:auto!important;width:auto!important;height:auto!important;transform:none!important;border-radius:26px;margin-bottom:.9rem;z-index:1!important;box-shadow:none;overflow:hidden}
-  .grow-img{margin:0 0 .9rem;width:auto!important;border-radius:26px}
-  .prog-stage .ph.light,.prog-bg .ph{position:absolute!important;inset:0;height:100%!important;width:100%!important}
-  .prog-stage .ph.light{background:linear-gradient(135deg,#1d1d1d,#161616)}
-  .prog-stage .ph.light::after{color:rgba(238,238,238,.45);background:rgba(35,35,35,.55);border-color:rgba(238,238,238,.12)}
+  .slideshow{position:static;height:auto;border-radius:0;overflow:visible;box-shadow:none;background:none}
+  .show-spacer,.show-chrome{display:none}
+  .prog-slide{opacity:1;pointer-events:auto;position:relative}
+  .prog-title,.prog-cap,.prog-keep,.prog-plus{opacity:1;transform:none;transition:none}
+  .prog-bg .ph>img{transform:none;transition:none}
+  .prog-stage{position:relative!important;top:auto!important;right:auto!important;left:auto!important;bottom:auto!important;width:auto!important;height:auto!important;transform:none!important;opacity:1!important;visibility:visible!important;border-radius:26px;margin-bottom:.9rem;z-index:1!important;box-shadow:none;overflow:hidden}
+  .prog-bg .ph{position:absolute!important;inset:0;height:100%!important;width:100%!important}
   .prog-stage{min-height:230px;display:flex}
-  .stage-ui,.pi-overlay{position:absolute!important;inset:0;opacity:1!important;visibility:visible!important;background:none!important}
+  .stage-ui{position:absolute!important;inset:0;opacity:1!important;visibility:visible!important;background:none!important}
   .prog-stage::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(28,27,25,.15),rgba(28,27,25,.78));transition:background .4s;pointer-events:none}
   .prog-center{gap:.7rem;padding:0 1.2rem}
   .prog-title{font-size:2rem;line-height:1.12}
@@ -638,6 +643,8 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
   .micon svg *{stroke-dashoffset:0!important}
   .floater{display:none}
   .cursor-dot,.cursor-ring{display:none}
+  .prog-slide.active .prog-title,.prog-slide.active .prog-cap,.prog-slide.active .prog-keep,.prog-slide.active .prog-plus{opacity:1;transform:none}
+  .prog-bg .ph>img{transform:none}
 }
 </style>
 </head>
@@ -888,16 +895,12 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
   </div>
 </section>
 
-<!-- ═══════════ PROGRAMS SCROLL EXPERIENCE ═══════════ -->
+<!-- ═══════════ PROGRAMS SCROLLING SLIDESHOW ═══════════ -->
 <section id="programs">
-  <div class="pi-sticky">
-    <div class="marquee" aria-hidden="true">
-      <span>התוכניות <em>התוכניות</em> התוכניות <em>התוכניות</em></span>
-      <span>התוכניות <em>התוכניות</em> התוכניות <em>התוכניות</em></span>
-    </div>
-    <div class="grow-img prog-stage">
-      <div class="ph light" data-img="prog-online.jpg" data-alt="" data-label="prog-online.jpg (1920×1080)"></div>
-      <div class="pi-overlay stage-ui" id="piOverlay" data-prog>
+  <div class="slideshow" id="progShow">
+  <div class="prog-slide prog-stage active" data-prog>
+    <div class="prog-bg"><div class="ph" data-img="prog-online.jpg" data-alt="" data-label="prog-online.jpg (1920×1080)"></div></div>
+    <div class="stage-ui">
     <div class="prog-center">
       <div class="prog-title">ליווי האונליין</div>
       <p class="prog-cap">ליווי מלא מכל מקום בארץ, בלי מסגרת פיזית.</p>
@@ -922,11 +925,9 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
       </div>
       <a href="https://wa.me/972526896182?text=%D7%94%D7%99%D7%99%20%D7%92%D7%95%D7%9C%D7%9F%2C%20%D7%94%D7%92%D7%A2%D7%AA%D7%99%20%D7%9E%D7%94%D7%90%D7%AA%D7%A8%20%D7%95%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%9C%D7%99%D7%95%D7%95%D7%99%20%D7%94%D7%90%D7%95%D7%A0%D7%9C%D7%99%D7%99%D7%9F." target="_blank" class="btn btn-light">קבע שיחת היכרות<span class="circle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H2M2 8L7 3M2 8L7 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
-      </div>
     </div>
   </div>
-  <div class="pspacer intro"></div>
-  <div class="prog-panel prog-stage" data-prog>
+  <div class="prog-slide prog-stage" data-prog>
     <div class="prog-bg"><div class="ph" data-img="prog-group.jpg" data-alt="" data-label="prog-group.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-center">
@@ -955,8 +956,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
     </div>
     </div>
   </div>
-  <div class="pspacer"></div>
-  <div class="prog-panel prog-stage" data-prog>
+  <div class="prog-slide prog-stage" data-prog>
     <div class="prog-bg"><div class="ph" data-img="prog-personal.jpg" data-alt="" data-label="prog-personal.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-center">
@@ -985,8 +985,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
     </div>
     </div>
   </div>
-  <div class="pspacer"></div>
-  <div class="prog-panel prog-stage" data-prog>
+  <div class="prog-slide prog-stage" data-prog>
     <div class="prog-bg"><div class="ph" data-img="prog-boxing.jpg" data-alt="" data-label="prog-boxing.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-center">
@@ -1015,8 +1014,7 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
     </div>
     </div>
   </div>
-  <div class="pspacer"></div>
-  <div class="prog-panel prog-stage" data-prog>
+  <div class="prog-slide prog-stage" data-prog>
     <div class="prog-bg"><div class="ph" data-img="prog-mental.jpg" data-alt="" data-label="prog-mental.jpg (1920×1080)"></div></div>
     <div class="stage-ui">
     <div class="prog-center">
@@ -1045,7 +1043,13 @@ h2{font-size:clamp(2.1rem,4.2vw,3.5rem);font-weight:800;line-height:1.12;letter-
     </div>
     </div>
   </div>
-  <div class="pspacer"></div>
+  <div class="show-chrome" aria-hidden="true">
+    <div class="show-count"><span id="showIdx">01</span><i>/</i><span>05</span></div>
+    <div class="show-rail"><i class="show-fill" id="showFill"></i></div>
+    <div class="show-dots" id="showDots"><b class="on"></b><b></b><b></b><b></b><b></b></div>
+  </div>
+  </div>
+  <div class="show-spacer" aria-hidden="true"></div>
 </section>
 
 <!-- ═══════════ TESTIMONIALS ═══════════ -->
@@ -1359,43 +1363,31 @@ function storyScroll(){
   storyLines.forEach((l,i)=>l.classList.toggle('lit',i<lit));
 }
 
-// programs: grow-on-scroll + dwell + card deck stacking
+// programs: scrolling slideshow — scroll position scrubs through the frames
 const programs=document.getElementById('programs');
-const piOverlay=document.getElementById('piOverlay');
-const stages=[...document.querySelectorAll('.prog-stage')];
-const vh=()=>innerHeight;
+const slides=[...document.querySelectorAll('.prog-slide')];
+const showIdxEl=document.getElementById('showIdx');
+const showDots=[...document.querySelectorAll('#showDots b')];
+const slideshowEl=document.querySelector('.slideshow');
+let curSlide=0;
 function progScroll(){
   updateProgress();
   heroParallax();
   storyScroll();
-  if(matchMedia('(max-width:860px)').matches){
-    programs.style.removeProperty('--p');
-    stages.forEach(el=>{el.style.transform='';const ui=el.querySelector('.stage-ui');if(ui)ui.style.opacity='';});
-    return;
-  }
-  const top=programs.getBoundingClientRect().top;
-  const introDist=vh()*2.5;
-  const raw=Math.min(1,Math.max(0,-top/introDist));
-  const g=Math.min(1,raw/0.55);
-  programs.style.setProperty('--p',g.toFixed(4));
-  piOverlay.classList.toggle('show',raw>0.6);
-  for(let i=0;i<stages.length-1;i++){
-    const next=stages[i+1];
-    const e=Math.min(1,Math.max(0,(vh()-next.getBoundingClientRect().top)/vh()));
-    const el=stages[i];
-    const sc=(1-e*0.05).toFixed(4);
-    const ty=(-e*34).toFixed(2);
-    el.style.transform=el.classList.contains('grow-img')
-      ?`translate(50%,-50%) translateY(${ty}vh) scale(${sc})`
-      :`translateY(${ty}vh) scale(${sc})`;
-    const ui=el.querySelector('.stage-ui');
-    if(ui&&e>0){ui.style.opacity=Math.max(0,1-e*1.6).toFixed(3)}
-    else if(ui&&!ui.classList.contains('pi-overlay')){ui.style.opacity=''}
-    if(e>0.7){
-      const open=el.matches('[data-prog].open')?el:el.querySelector('[data-prog].open');
-      if(open)open.classList.remove('open');
-    }
-  }
+  if(matchMedia('(max-width:860px)').matches)return;
+  const r=programs.getBoundingClientRect();
+  const dist=Math.max(1,r.height-innerHeight);
+  const p=Math.min(1,Math.max(0,-r.top/dist));
+  if(slideshowEl)slideshowEl.style.setProperty('--show-p',p.toFixed(4));
+  const idx=Math.min(slides.length-1,Math.floor(p*slides.length));
+  if(idx===curSlide)return;
+  slides[curSlide].classList.remove('open');
+  const plus=slides[curSlide].querySelector('.prog-plus');
+  if(plus)plus.setAttribute('aria-expanded','false');
+  curSlide=idx;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===idx));
+  showDots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+  if(showIdxEl)showIdxEl.textContent=String(idx+1).padStart(2,'0');
 }
 addEventListener('scroll',progScroll,{passive:true});
 addEventListener('resize',progScroll);
