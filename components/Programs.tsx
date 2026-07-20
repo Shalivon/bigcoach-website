@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import Ph from './Ph'
 import { Arrow, Mask } from './icons'
 import { WA_ONLINE, WA_GROUP, WA_PERSONAL, WA_BOXING, WA_MENTAL } from '@/lib/links'
@@ -239,62 +239,34 @@ function StageUI({ prog, open, onToggle }: { prog: Prog; open: boolean; onToggle
 }
 
 /*
- * חוויית הגלילה של התוכניות: מרקיזה → תמונה גדלה → חפיסת פאנלים sticky.
- * הכוריאוגרפיה רצה ב-rAF יחיד עם lerp על כל ערך — במקום scroll events — לתנועה חלקה.
- * במובייל (<=860px) הכוריאוגרפיה כבויה והפאנלים נערמים ככרטיסים.
+ * סליידשואו נגלל (2026-07): מסגרת sticky אחת, ומיקום הגלילה קובע איזה פריים מוצג —
+ * כמו scrubbing של וידאו. ה-spacer (500vh) קובע את אורך הגלילה; כל צעד מחליף שקופית.
+ * פס התקדמות (--show-p) + נקודות מסמנים את מיקום הסקראב. במובייל הסליידשואו כבוי.
  */
 export default function Programs() {
   const ref = useRef<HTMLElement>(null)
+  const showRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState<number | null>(null)
-  const [overlayShow, setOverlayShow] = useState(false)
-  const openRef = useRef(open)
-  openRef.current = open
+  const [active, setActive] = useState(0)
 
   useEffect(() => {
     const root = ref.current
-    if (!root) return
-    const stages = [...root.querySelectorAll<HTMLElement>('.prog-stage')]
+    const show = showRef.current
+    if (!root || !show) return
     let raf = 0
-    let g = 0
-    const e = stages.map(() => 0)
-    let show = false
+    let cur = 0
     const tick = () => {
       raf = requestAnimationFrame(tick)
-      if (matchMedia('(max-width:860px)').matches) {
-        root.style.removeProperty('--p')
-        stages.forEach(el => {
-          el.style.transform = ''
-          const ui = el.querySelector<HTMLElement>('.stage-ui')
-          if (ui) ui.style.opacity = ''
-        })
-        return
-      }
-      const top = root.getBoundingClientRect().top
-      const introDist = innerHeight * 2.5
-      const raw = Math.min(1, Math.max(0, -top / introDist))
-      const gT = Math.min(1, raw / 0.55)
-      g += (gT - g) * 0.2
-      if (Math.abs(gT - g) < 0.0004) g = gT
-      root.style.setProperty('--p', g.toFixed(4))
-      if (raw > 0.6 !== show) {
-        show = raw > 0.6
-        setOverlayShow(show)
-      }
-      for (let i = 0; i < stages.length - 1; i++) {
-        const next = stages[i + 1]
-        const eT = Math.min(1, Math.max(0, (innerHeight - next.getBoundingClientRect().top) / innerHeight))
-        e[i] += (eT - e[i]) * 0.2
-        if (Math.abs(eT - e[i]) < 0.0004) e[i] = eT
-        const el = stages[i]
-        const sc = (1 - e[i] * 0.05).toFixed(4)
-        const ty = (-e[i] * 34).toFixed(2)
-        el.style.transform = el.classList.contains('grow-img')
-          ? `translate(50%,-50%) translateY(${ty}vh) scale(${sc})`
-          : `translateY(${ty}vh) scale(${sc})`
-        const ui = el.querySelector<HTMLElement>('.stage-ui')
-        if (ui && e[i] > 0.001) ui.style.opacity = Math.max(0, 1 - e[i] * 1.6).toFixed(3)
-        else if (ui && !ui.classList.contains('pi-overlay')) ui.style.opacity = ''
-        if (eT > 0.7 && openRef.current === i) setOpen(null)
+      if (matchMedia('(max-width:860px)').matches) return
+      const r = root.getBoundingClientRect()
+      const dist = Math.max(1, r.height - innerHeight)
+      const p = Math.min(1, Math.max(0, -r.top / dist))
+      show.style.setProperty('--show-p', p.toFixed(4))
+      const idx = Math.min(PROGS.length - 1, Math.floor(p * PROGS.length))
+      if (idx !== cur) {
+        cur = idx
+        setActive(idx)
+        setOpen(null)
       }
     }
     raf = requestAnimationFrame(tick)
@@ -302,48 +274,41 @@ export default function Programs() {
   }, [])
 
   const toggle = (i: number) => setOpen(o => (o === i ? null : i))
-  const intro = PROGS[0]
 
   return (
     <section id="programs" ref={ref}>
-      <div className="pi-sticky">
-        <div className="marquee" aria-hidden="true">
-          <span>
-            התוכניות <em>התוכניות</em> התוכניות <em>התוכניות</em>
-          </span>
-          <span>
-            התוכניות <em>התוכניות</em> התוכניות <em>התוכניות</em>
-          </span>
-        </div>
-        <div className="grow-img prog-stage">
-          <Ph img={intro.img} alt="" label={intro.imgLabel} light />
+      <div className="slideshow" ref={showRef}>
+        {PROGS.map((prog, i) => (
           <div
-            className={`pi-overlay stage-ui${overlayShow ? ' show' : ''}${open === 0 ? ' open' : ''}`}
-            id="piOverlay"
+            key={prog.key}
+            className={`prog-slide prog-stage${i === active ? ' active' : ''}${open === i ? ' open' : ''}`}
             data-prog
           >
-            <StageUI prog={intro} open={open === 0} onToggle={() => toggle(0)} />
+            <div className="prog-bg">
+              <Ph img={prog.img} alt="" label={prog.imgLabel} />
+            </div>
+            <div className="stage-ui">
+              <StageUI prog={prog} open={open === i} onToggle={() => toggle(i)} />
+            </div>
+          </div>
+        ))}
+        <div className="show-chrome" aria-hidden="true">
+          <div className="show-count">
+            <span>{String(active + 1).padStart(2, '0')}</span>
+            <i>/</i>
+            <span>{String(PROGS.length).padStart(2, '0')}</span>
+          </div>
+          <div className="show-rail">
+            <i className="show-fill" />
+          </div>
+          <div className="show-dots">
+            {PROGS.map((prog, i) => (
+              <b key={prog.key} className={i === active ? 'on' : undefined} />
+            ))}
           </div>
         </div>
       </div>
-      <div className="pspacer intro" />
-      {PROGS.slice(1).map((prog, idx) => {
-        const i = idx + 1
-        return (
-          <Fragment key={prog.key}>
-            {/* הפאנלים חייבים להיות ילדים ישירים של הסקשן — אחרת ה-sticky של חפיסת הקלפים נשבר */}
-            <div className={`prog-panel prog-stage${open === i ? ' open' : ''}`} data-prog>
-              <div className="prog-bg">
-                <Ph img={prog.img} alt="" label={prog.imgLabel} />
-              </div>
-              <div className="stage-ui">
-                <StageUI prog={prog} open={open === i} onToggle={() => toggle(i)} />
-              </div>
-            </div>
-            <div className="pspacer" />
-          </Fragment>
-        )
-      })}
+      <div className="show-spacer" aria-hidden="true" />
     </section>
   )
 }
