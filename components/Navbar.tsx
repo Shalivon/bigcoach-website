@@ -1,5 +1,4 @@
 import Ph from './Ph'
-import { Arrow, Mask } from './icons'
 
 export default function Navbar() {
   return (
@@ -9,12 +8,6 @@ export default function Navbar() {
           <Ph img="logo.png" alt="BIG COACH לוגו" />
         </a>
       </div>
-      <button type="button" className="btn-join" data-lead-open aria-label="קבע שיחת היכרות">
-        <Mask text="שיחת היכרות" />
-        <span className="circle">
-          <Arrow />
-        </span>
-      </button>
     </nav>
   )
 }

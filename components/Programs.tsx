@@ -20,6 +20,8 @@ type Prog = {
   wa: string
 }
 
+const COMPACT_PROGRAMS_QUERY = '(max-width:1024px), (pointer:coarse)'
+
 const PROGS: Prog[] = [
   {
     key: 'online',
@@ -257,7 +259,7 @@ export default function Programs() {
     let cur = 0
     const tick = () => {
       raf = requestAnimationFrame(tick)
-      if (matchMedia('(max-width:860px)').matches) return
+      if (matchMedia(COMPACT_PROGRAMS_QUERY).matches) return
       const r = root.getBoundingClientRect()
       const dist = Math.max(1, r.height - innerHeight)
       const p = Math.min(1, Math.max(0, -r.top / dist))
