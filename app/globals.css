@@ -585,7 +585,7 @@ html,body{max-width:100%;overflow-x:clip}
     padding-bottom:max(3rem,env(safe-area-inset-bottom));
     padding-left:max(2rem,env(safe-area-inset-left));
   }
-  .hero-cut{display:none}
+  .hero-cut{display:block;left:0;right:0;margin:0 auto;width:min(68vw,360px);height:76%;z-index:1;opacity:.92}
   .floater{display:none}
   #reels{padding:3rem 1.4rem 2.2rem}
   .reel{flex-basis:62vw}
