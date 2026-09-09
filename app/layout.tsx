@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from 'next'
+icons: { icon: imgUrl('favicon.png') },import type { Metadata, Viewport } from 'next'
 import { Heebo, Rubik } from 'next/font/google'
 import { imgUrl } from '@/lib/assets'
 import './globals.css'
