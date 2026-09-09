@@ -16,7 +16,7 @@ function BaGroup({ hidden }: { hidden?: boolean }) {
     <div className="t-group" aria-hidden={hidden || undefined}>
       {BA.map(n => (
         <div className="ba-card" key={n}>
-          <Ph img={`ba-${n}.jpg`} alt={hidden ? '' : `לפני ואחרי, מתאמן ${n}`} label={`ba-${n}.jpg (600×760)`} light />
+          <Ph img={`ba-${n}.jpeg`} alt={hidden ? '' : `לפני ואחרי, מתאמן ${n}`} label={`ba-${n}.jpeg (600×760)`} light />
           <div className="cap">{BA_CAPS[n]}</div>
         </div>
       ))}
