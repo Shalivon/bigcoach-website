@@ -1,4 +1,4 @@
-icons: { icon: imgUrl('favicon.png') },import type { Metadata, Viewport } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Heebo, Rubik } from 'next/font/google'
 import { imgUrl } from '@/lib/assets'
 import './globals.css'
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: 'BIG COACH, גולן בובליל | ליווי תזונה ואימונים',
   description:
     'ליווי אישי צמוד לאימונים, תזונה ומנטליות. גולן בובליל, באר שבע והדרום. אונליין בכל הארץ.',
-  icons: { icon: imgUrl('logo.png') },
+  icons: { icon: imgUrl('favicon.png') },
   openGraph: {
     type: 'website',
     title: 'BIG COACH, גולן בובליל | ליווי תזונה ואימונים',
