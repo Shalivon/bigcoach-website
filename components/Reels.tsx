@@ -1,56 +1,73 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type MutableRefObject } from 'react'
 import { vidUrl } from '@/lib/assets'
 
-const VIDS = ['vid-1.mp4', 'vid-2.mp4', 'vid-3.mp4', 'vid-4.mp4', 'vid-5.mp4', 'vid-6.mp4']
+type Item = { type: 'yt'; id: string } | { type: 'vid'; file: string }
 
-function Reel({ vid }: { vid: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [loaded, setLoaded] = useState(false)
-  const [err, setErr] = useState(false)
+// מעורבב: אחסון / יוטיוב / אחסון / יוטיוב... (4 יוטיוב + 6 אחסון)
+const ITEMS: Item[] = [
+  { type: 'vid', file: 'testi-vid-1.mp4' },
+  { type: 'yt', id: 'VJTshfTBQIM' },
+  { type: 'vid', file: 'testi-vid-2.mp4' },
+  { type: 'yt', id: '4N_29s27YKY' },
+  { type: 'vid', file: 'testi-vid-3.mp4' },
+  { type: 'yt', id: 'dgIMahX3bWE' },
+  { type: 'vid', file: 'testi-vid-4.mp4' },
+  { type: 'yt', id: 'OxPmbUJZ1cs' },
+  { type: 'vid', file: 'testi-vid-5.mp4' },
+  { type: 'vid', file: 'testi-vid-6.mp4' },
+]
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      es =>
-        es.forEach(en => {
-          const v = en.target.querySelector('video')
-          if (!v) return
-          if (en.isIntersecting) v.play().catch(() => {})
-          else v.pause()
-        }),
-      { threshold: 0.35 }
+function Reel({ item, dragDist }: { item: Item; dragDist: MutableRefObject<number> }) {
+  const [playing, setPlaying] = useState(false)
+
+  const onPlay = () => {
+    if (dragDist.current > 8) return
+    setPlaying(true)
+  }
+
+  const thumb =
+    item.type === 'yt' ? (
+      <img src={`https://i.ytimg.com/vi/${item.id}/hqdefault.jpg`} alt="" loading="lazy" />
+    ) : (
+      <video src={vidUrl(item.file)} muted playsInline preload="metadata" />
     )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
+
+  const player =
+    item.type === 'yt' ? (
+      <iframe
+        src={`https://www.youtube.com/embed/${item.id}?autoplay=1&rel=0`}
+        title="עדות וידאו"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowFullScreen
+      />
+    ) : (
+      <video src={vidUrl(item.file)} controls autoPlay playsInline />
+    )
 
   return (
-    <div ref={ref} className={`reel ph${loaded ? ' has-img' : ''}`} data-label={`${vid} (1080×1920)`}>
-      {!err && (
-        <video
-          src={vidUrl(vid)}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onLoadedData={() => setLoaded(true)}
-          onError={() => setErr(true)}
-        />
+    <div className="reel">
+      {playing ? (
+        player
+      ) : (
+        <button type="button" className="reel-play" onClick={onPlay} aria-label="הפעל וידאו">
+          {thumb}
+          <span className="play-ic" aria-hidden="true" />
+        </button>
       )}
     </div>
   )
 }
 
 /*
- * קרוסלת הסרטונים: סיבוב אוטומטי + גרירה עם אינרציה, 2 קבוצות משוכפלות ללולאה.
- * הכל רץ ב-rAF יחיד עם transform — ללא reflow.
+ * קרוסלת עדויות הוידאו: סיבוב אוטומטי + גרירה עם אינרציה, 2 קבוצות משוכפלות ללולאה.
+ * לחיצה על כרטיס (ללא גרירה) מפעילה נגן מלא במקום.
  */
 export default function Reels() {
   const stripRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const dragDist = useRef(0)
 
   useEffect(() => {
     const strip = stripRef.current
@@ -70,6 +87,7 @@ export default function Reels() {
       drag = true
       lastX = e.clientX
       vel = 0
+      dragDist.current = 0
       strip.classList.add('dragging')
       strip.setPointerCapture(e.pointerId)
     }
@@ -79,6 +97,7 @@ export default function Reels() {
       lastX = e.clientX
       off += dx
       vel = dx
+      dragDist.current += Math.abs(dx)
     }
     const onUp = () => {
       drag = false
@@ -127,13 +146,13 @@ export default function Reels() {
       <div className="reels-strip reveal" data-d="1" id="reelsStrip" ref={stripRef}>
         <div className="reels-track" id="reelsTrack" ref={trackRef}>
           <div className="reels-group">
-            {VIDS.map(v => (
-              <Reel key={v} vid={v} />
+            {ITEMS.map((it, i) => (
+              <Reel key={i} item={it} dragDist={dragDist} />
             ))}
           </div>
           <div className="reels-group" aria-hidden="true">
-            {VIDS.map(v => (
-              <Reel key={v} vid={v} />
+            {ITEMS.map((it, i) => (
+              <Reel key={i} item={it} dragDist={dragDist} />
             ))}
           </div>
         </div>
