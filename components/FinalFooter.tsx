@@ -14,12 +14,13 @@ export default function FinalFooter() {
   return (
     <footer id="final">
       <div className="final-bg">
-        <Ph img="footer-bg.jpg" alt="" label="footer-bg.jpg (1920×1080)" />
+        <Ph img="footer-bg.jpg" alt="" label="footer-bg.jpg (1920×1080)" sizes="100vw" quality={45} />
       </div>
       <div className="final-inner">
         <p className="final-kicker">ההתחלה האחרונה שלך מתחילה בהודעה אחת.</p>
-        <a className="cta-marquee" href={WA_GENERAL} target="_blank" aria-label="קבע שיחה בוואטסאפ">
-          <div className="marquee">
+        <a className="cta-marquee" href={WA_GENERAL} target="_blank">
+          <span className="sr-only">קבע שיחה בוואטסאפ</span>
+          <div className="marquee" aria-hidden="true">
             <span>
               קבע שיחה <Dot /> קבע שיחה <Dot />
             </span>
@@ -30,7 +31,7 @@ export default function FinalFooter() {
         </a>
         <div className="footer-grid">
           <div>
-            <Ph img="logo.png" alt="BIG COACH לוגו" />
+            <Ph img="logo.png" alt="BIG COACH לוגו" sizes="180px" />
             <p>
               BIG COACH. ליווי תזונה ואימונים מותאם אישית.
               <br />
@@ -74,7 +75,7 @@ export default function FinalFooter() {
             </div>
           </div>
           <div>
-            <h5>ניווט</h5>
+            <h3>ניווט</h3>
             <ul>
               <li>
                 <a href="#about">הסיפור שלי</a>
@@ -100,7 +101,7 @@ export default function FinalFooter() {
             </ul>
           </div>
           <div>
-            <h5>דברו איתי</h5>
+            <h3>דברו איתי</h3>
             <ul>
               <li>
                 <a href={WA_GENERAL}>וואטסאפ: 052-689-6182</a>
