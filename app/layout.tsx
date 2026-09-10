@@ -17,7 +17,7 @@ const heebo = Heebo({
   display: 'swap',
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://bigcoach.co.il'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.bigcoach.co.il'
 const TITLE = 'BIG COACH, גולן בובליל | ליווי תזונה ואימונים'
 const DESC = 'ליווי אישי צמוד לאימונים, תזונה ומנטליות. גולן בובליל, באר שבע והדרום. אונליין בכל הארץ.'
 
