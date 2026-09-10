@@ -15,7 +15,7 @@ export default function About() {
         ✦
       </span>
       <span className="floater f-ring" data-fspeed="0.06" style={{ bottom: '16%', left: '30%' }} aria-hidden="true" />
-      <Ph img="golan.jpg" className="ag-bg" />
+      <Ph img="golan.jpg" className="ag-bg" sizes="100vw" quality={45} />
       <div className="about-grid">
         <div className="about-text reveal">
           <h2 className="about-h2">
