@@ -54,7 +54,7 @@ export default function Method() {
           <div className="mcard" key={c.title}>
             <span className="spot" aria-hidden="true" />
             <div className="micon">{c.icon}</div>
-            <h4>{c.title}</h4>
+            <h3>{c.title}</h3>
             <p>{c.text}</p>
           </div>
         ))}
