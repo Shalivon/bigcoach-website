@@ -12,25 +12,29 @@ const rubik = Rubik({
 
 const heebo = Heebo({
   subsets: ['hebrew', 'latin'],
-  weight: ['400', '500', '700', '800', '900'],
+  weight: ['400', '700', '800', '900'],
   variable: '--font-heebo',
   display: 'swap',
 })
 
-// לפני עלייה לאוויר: להגדיר NEXT_PUBLIC_SITE_URL לדומיין האמיתי
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://bigcoach.example'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://bigcoach.co.il'
+const TITLE = 'BIG COACH, גולן בובליל | ליווי תזונה ואימונים'
+const DESC = 'ליווי אישי צמוד לאימונים, תזונה ומנטליות. גולן בובליל, באר שבע והדרום. אונליין בכל הארץ.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'BIG COACH, גולן בובליל | ליווי תזונה ואימונים',
-  description:
-    'ליווי אישי צמוד לאימונים, תזונה ומנטליות. גולן בובליל, באר שבע והדרום. אונליין בכל הארץ.',
-  icons: { icon: imgUrl('favicon.png') },
+  title: TITLE,
+  description: DESC,
+  alternates: { canonical: '/' },
+  icons: { icon: imgUrl('favicon.png'), apple: imgUrl('favicon.png') },
+  robots: { index: true, follow: true },
   openGraph: {
     type: 'website',
-    title: 'BIG COACH, גולן בובליל | ליווי תזונה ואימונים',
+    url: '/',
+    siteName: 'BIG COACH',
+    title: TITLE,
     description: 'ליווי אישי צמוד לאימונים, תזונה ומנטליות. שיחת היכרות 20 דקות, בלי עלות.',
-    images: [imgUrl('hero.jpg')],
+    images: [{ url: imgUrl('hero.jpg'), width: 1920, height: 1080, alt: 'BIG COACH, גולן בובליל' }],
     locale: 'he_IL',
   },
   twitter: { card: 'summary_large_image' },
@@ -39,7 +43,30 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover',
   themeColor: '#232323',
+}
+
+// נתונים מובנים לגוגל (עסק מקומי). רק פרטים שמופיעים באתר, בלי המצאות.
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'HealthClub',
+  name: 'BIG COACH',
+  alternateName: 'ביג קואוצ׳, גולן בובליל',
+  url: siteUrl,
+  image: imgUrl('hero.jpg'),
+  logo: imgUrl('logo.png'),
+  description: DESC,
+  telephone: '+972526896182',
+  email: 'golanboublil@gmail.com',
+  address: { '@type': 'PostalAddress', streetAddress: 'ח"נ ביאליק 137', addressLocality: 'באר שבע', addressCountry: 'IL' },
+  areaServed: 'IL',
+  founder: { '@type': 'Person', name: 'גולן בובליל' },
+  sameAs: [
+    'https://www.instagram.com/_big_coach_/',
+    'https://www.tiktok.com/@big.coach.golan.boublil',
+    'https://www.facebook.com/golan.boublil/',
+  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -47,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="he" dir="rtl" className={`${rubik.variable} ${heebo.variable}`}>
       <body>
         <link rel="preconnect" href="https://ypujlwhqccutmscfrnuz.supabase.co" crossOrigin="anonymous" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
         {children}
       </body>
     </html>
