@@ -7,6 +7,7 @@ import { WA_ONLINE, WA_GROUP, WA_PERSONAL, WA_BOXING, WA_MENTAL } from '@/lib/li
 
 type Prog = {
   key: string
+  name: string
   title: ReactNode
   cap: string
   img: string
@@ -25,6 +26,7 @@ const COMPACT_PROGRAMS_QUERY = '(max-width:1024px), (pointer:coarse)'
 const PROGS: Prog[] = [
   {
     key: 'online',
+    name: 'ליווי האונליין',
     title: 'ליווי האונליין',
     cap: 'ליווי מלא מכל מקום בארץ, בלי מסגרת פיזית.',
     img: 'prog-online.jpg',
@@ -54,6 +56,7 @@ const PROGS: Prog[] = [
   },
   {
     key: 'group',
+    name: 'ליווי אונליין ואימוני קבוצה',
     title: (
       <>
         ליווי אונליין &amp;
@@ -89,6 +92,7 @@ const PROGS: Prog[] = [
   },
   {
     key: 'personal',
+    name: 'ליווי אונליין ואימונים אישיים',
     title: (
       <>
         ליווי אונליין &amp;
@@ -131,6 +135,7 @@ const PROGS: Prog[] = [
   },
   {
     key: 'boxing',
+    name: 'אגרוף BIG BOX',
     title: (
       <>
         BIG
@@ -166,6 +171,7 @@ const PROGS: Prog[] = [
   },
   {
     key: 'mental',
+    name: 'ליווי מנטלי',
     title: 'ליווי מנטלי',
     cap: 'העבודה הפנימית שמחזיקה את הכל.',
     img: 'prog-mental.jpg',
@@ -205,7 +211,7 @@ function StageUI({ prog, open, onToggle }: { prog: Prog; open: boolean; onToggle
           <Mask text="השאר פרטים" />
         </button>
       </div>
-      <button className="prog-plus" aria-expanded={open} onClick={onToggle}>
+      <button className="prog-plus" aria-expanded={open} aria-label={`${open ? 'סגור' : 'פרטים על'} ${prog.name}`} onClick={onToggle}>
         <span className="pcirc">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
             <path d="M9 2v14M2 9h14" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
@@ -218,7 +224,7 @@ function StageUI({ prog, open, onToggle }: { prog: Prog; open: boolean; onToggle
             <h3>{prog.detailTitle}</h3>
             <div className="sub">{prog.detailSub}</div>
           </div>
-          <Ph img={prog.thumb} alt="" label={prog.thumbLabel} />
+          <Ph img={prog.thumb} alt="" label={prog.thumbLabel} sizes="215px" />
         </div>
         <p>{prog.text}</p>
         <div className="pd-rows">
@@ -257,9 +263,13 @@ export default function Programs() {
     if (!root || !show) return
     let raf = 0
     let cur = 0
+    let visible = false
+    const compact = matchMedia(COMPACT_PROGRAMS_QUERY)
+    // במובייל (כרטיסים) אין scrub בכלל; בדסקטופ הלולאה רצה רק כשהסקשן על המסך.
     const tick = () => {
+      raf = 0
+      if (!visible || compact.matches) return
       raf = requestAnimationFrame(tick)
-      if (matchMedia(COMPACT_PROGRAMS_QUERY).matches) return
       const r = root.getBoundingClientRect()
       const dist = Math.max(1, r.height - innerHeight)
       const p = Math.min(1, Math.max(0, -r.top / dist))
@@ -271,8 +281,20 @@ export default function Programs() {
         setOpen(null)
       }
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(tick)
+    }
+    const io = new IntersectionObserver(es => {
+      visible = es.some(e => e.isIntersecting)
+      if (visible) start()
+    })
+    io.observe(root)
+    compact.addEventListener('change', start)
+    return () => {
+      io.disconnect()
+      compact.removeEventListener('change', start)
+      if (raf) cancelAnimationFrame(raf)
+    }
   }, [])
 
   const toggle = (i: number) => setOpen(o => (o === i ? null : i))
@@ -287,7 +309,7 @@ export default function Programs() {
             data-prog
           >
             <div className="prog-bg">
-              <Ph img={prog.img} alt="" label={prog.imgLabel} />
+              <Ph img={prog.img} alt="" label={prog.imgLabel} sizes="100vw" quality={60} />
             </div>
             <div className="stage-ui">
               <StageUI prog={prog} open={open === i} onToggle={() => toggle(i)} />
