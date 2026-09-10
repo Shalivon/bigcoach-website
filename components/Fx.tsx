@@ -40,41 +40,56 @@ export default function Fx() {
   useEffect(() => {
     const progressBar = document.getElementById('progressBar')
     const heroBg = document.querySelector<HTMLElement>('.hero-bg .ph')
-    const floaters = [...document.querySelectorAll<HTMLElement>('.floater')]
-    const bases = floaters.map(f => f.getBoundingClientRect().top + scrollY)
-
     let raf = 0
     let sProg = 0
     let sHero = 0
-    const off = () =>
-      matchMedia('(max-width:860px)').matches || matchMedia('(prefers-reduced-motion:reduce)').matches
+    const mobile = matchMedia('(max-width:860px)')
+    const reduced = matchMedia('(prefers-reduced-motion:reduce)')
+    const off = () => mobile.matches || reduced.matches
+    // במובייל ה-floaters מוסתרים — לא מודדים אותם (חוסך forced reflow בזמן ההידרציה)
+    const floaters = off() ? [] : [...document.querySelectorAll<HTMLElement>('.floater')]
+    const bases = floaters.map(f => f.getBoundingClientRect().top + scrollY)
 
+    // הלולאה מתעוררת בגלילה ונרדמת כשהערכים התכנסו — לא רצה כל פריים ברקע.
     const tick = () => {
-      raf = requestAnimationFrame(tick)
+      raf = 0
+      let settled = true
       const h = document.documentElement
       const max = h.scrollHeight - innerHeight
       const pT = max > 0 ? scrollY / max : 0
       sProg += (pT - sProg) * 0.25
       if (Math.abs(pT - sProg) < 0.0005) sProg = pT
+      else settled = false
       if (progressBar) progressBar.style.transform = `scaleX(${sProg.toFixed(4)})`
 
       if (off()) {
         if (heroBg) heroBg.style.transform = ''
-        return
-      }
-      const yT = Math.min(scrollY, innerHeight) * 0.12
-      sHero += (yT - sHero) * 0.18
-      if (Math.abs(yT - sHero) < 0.05) sHero = yT
-      if (heroBg) heroBg.style.transform = `translate3d(0,${sHero.toFixed(1)}px,0)`
+      } else {
+        const yT = Math.min(scrollY, innerHeight) * 0.12
+        sHero += (yT - sHero) * 0.18
+        if (Math.abs(yT - sHero) < 0.05) sHero = yT
+        else settled = false
+        if (heroBg) heroBg.style.transform = `translate3d(0,${sHero.toFixed(1)}px,0)`
 
-      const y = scrollY
-      floaters.forEach((f, i) => {
-        const speed = parseFloat(f.dataset.fspeed || '0')
-        f.style.transform = `translate3d(0,${((y - bases[i]) * speed).toFixed(1)}px,0)`
-      })
+        const y = scrollY
+        floaters.forEach((f, i) => {
+          const speed = parseFloat(f.dataset.fspeed || '0')
+          f.style.transform = `translate3d(0,${((y - bases[i]) * speed).toFixed(1)}px,0)`
+        })
+      }
+      if (!settled) raf = requestAnimationFrame(tick)
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    const wake = () => {
+      if (!raf) raf = requestAnimationFrame(tick)
+    }
+    wake()
+    addEventListener('scroll', wake, { passive: true })
+    addEventListener('resize', wake)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      removeEventListener('scroll', wake)
+      removeEventListener('resize', wake)
+    }
   }, [])
 
   // 3) סמן מותאם + מגנטיות + tilt
