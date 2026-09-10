@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <header id="hero">
       <div className="hero-bg">
-        <Ph img="hero.jpg" alt="" label="hero.jpg (1920×1080)" eager sizes="100vw" quality={60} />
+        <Ph img="hero.jpg" alt="" label="hero.jpg (1920×1080)" eager sizes="(max-width:860px) 178vh, 100vw" quality={60} />
       </div>
       <div className="hero-cut" aria-hidden="true">
         <Ph img="golan-cut.png" alt="" label="golan-cut.png (PNG חתוך, ~900×1400)" eager sizes="(max-width:860px) 68vw, 44vw" />
