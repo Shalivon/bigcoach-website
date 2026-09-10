@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef, useState, type MutableRefObject } from 'react'
 import { vidUrl } from '@/lib/assets'
 
@@ -19,69 +20,138 @@ const ITEMS: Item[] = [
   { type: 'vid', file: 'testi-vid-6.mp4' },
 ]
 
-function Reel({ item, dragDist }: { item: Item; dragDist: MutableRefObject<number> }) {
+const REEL_SIZES = '(max-width:680px) 76vw, (max-width:860px) 62vw, (max-width:1180px) 42vw, 280px'
+
+/*
+ * כרטיס אחד. המדיה (תמונת פתיח / metadata של הוידאו) נטענת רק כשהכרטיס מתקרב למסך —
+ * כך במובייל לא נורים 12 בקשות וידאו בטעינת הדף. לחיצה (ללא גרירה) מחליפה לנגן מלא.
+ */
+function Reel({ item, dragDist, hidden }: { item: Item; dragDist: MutableRefObject<number>; hidden?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [near, setNear] = useState(false)
   const [playing, setPlaying] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || near) return
+    const io = new IntersectionObserver(
+      es => {
+        if (es.some(e => e.isIntersecting)) {
+          setNear(true)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '0px 320px 0px 320px' }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [near])
 
   const onPlay = () => {
     if (dragDist.current > 8) return
     setPlaying(true)
   }
 
-  const thumb =
-    item.type === 'yt' ? (
-      <img src={`https://i.ytimg.com/vi/${item.id}/hqdefault.jpg`} alt="" loading="lazy" />
-    ) : (
-      <video src={vidUrl(item.file)} muted playsInline preload="metadata" />
-    )
+  // iOS לא מצייר פריים ראשון בלי seek קטן.
+  const showFirstFrame = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const v = e.currentTarget
+    if (v.currentTime === 0) {
+      try {
+        v.currentTime = 0.01
+      } catch {
+        /* ignore */
+      }
+    }
+  }
 
-  const player =
-    item.type === 'yt' ? (
-      <iframe
-        src={`https://www.youtube.com/embed/${item.id}?autoplay=1&rel=0`}
-        title="עדות וידאו"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowFullScreen
-      />
-    ) : (
-      <video src={vidUrl(item.file)} controls autoPlay playsInline />
-    )
-
-  return (
-    <div className="reel">
-      {playing ? (
-        player
-      ) : (
-        <button type="button" className="reel-play" onClick={onPlay} aria-label="הפעל וידאו">
+  let media: React.ReactNode = null
+  if (near) {
+    if (playing) {
+      media =
+        item.type === 'yt' ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${item.id}?autoplay=1&rel=0&playsinline=1`}
+            title="עדות וידאו"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <video src={vidUrl(item.file)} controls autoPlay playsInline preload="auto" />
+        )
+    } else {
+      const thumb =
+        item.type === 'yt' ? (
+          <Image src={`https://i.ytimg.com/vi/${item.id}/hqdefault.jpg`} alt="" fill sizes={REEL_SIZES} quality={60} />
+        ) : (
+          <video
+            src={vidUrl(item.file)}
+            muted
+            playsInline
+            preload="metadata"
+            onLoadedMetadata={showFirstFrame}
+          />
+        )
+      media = (
+        <button type="button" className="reel-play" onClick={onPlay} aria-label="הפעל וידאו" tabIndex={hidden ? -1 : 0}>
           {thumb}
           <span className="play-ic" aria-hidden="true" />
         </button>
-      )}
+      )
+    }
+  }
+
+  return (
+    <div className="reel" ref={ref}>
+      {media}
     </div>
   )
 }
 
 /*
  * קרוסלת עדויות הוידאו: סיבוב אוטומטי + גרירה עם אינרציה, 2 קבוצות משוכפלות ללולאה.
- * לחיצה על כרטיס (ללא גרירה) מפעילה נגן מלא במקום.
+ * לולאת ה-rAF רצה רק כשהסקשן על המסך (IntersectionObserver) — חוסך סוללה ו-CPU במובייל.
  */
 export default function Reels() {
+  const sectionRef = useRef<HTMLElement>(null)
   const stripRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const dragDist = useRef(0)
 
   useEffect(() => {
+    const section = sectionRef.current
     const strip = stripRef.current
     const track = trackRef.current
-    if (!strip || !track) return
+    if (!section || !strip || !track) return
     const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches
     let off = 0,
       gw = 0,
       drag = false,
       lastX = 0,
       vel = 0,
-      raf = 0
+      raf = 0,
+      visible = false
     const measure = () => {
       gw = track.scrollWidth / 2
+    }
+    const loop = () => {
+      raf = 0
+      if (!visible) return
+      raf = requestAnimationFrame(loop)
+      if (!gw) {
+        measure()
+        if (!gw) return
+      }
+      if (!drag) {
+        if (!reduced) off += 0.55
+        off += vel
+        vel *= 0.94
+        if (Math.abs(vel) < 0.05) vel = 0
+      }
+      off = ((off % gw) + gw) % gw
+      track.style.transform = `translate3d(${off.toFixed(1)}px,0,0)`
+    }
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(loop)
     }
     const onDown = (e: PointerEvent) => {
       drag = true
@@ -103,29 +173,22 @@ export default function Reels() {
       drag = false
       strip.classList.remove('dragging')
     }
+    const io = new IntersectionObserver(
+      es => {
+        visible = es.some(e => e.isIntersecting)
+        if (visible) start()
+      },
+      { rootMargin: '120px 0px' }
+    )
+    io.observe(section)
     strip.addEventListener('pointerdown', onDown)
     strip.addEventListener('pointermove', onMove)
     strip.addEventListener('pointerup', onUp)
     strip.addEventListener('pointercancel', onUp)
     addEventListener('resize', measure)
-    const loop = () => {
-      raf = requestAnimationFrame(loop)
-      if (!gw) {
-        measure()
-        if (!gw) return
-      }
-      if (!drag) {
-        if (!reduced) off += 0.55
-        off += vel
-        vel *= 0.94
-        if (Math.abs(vel) < 0.05) vel = 0
-      }
-      off = ((off % gw) + gw) % gw
-      track.style.transform = `translate3d(${off.toFixed(1)}px,0,0)`
-    }
-    raf = requestAnimationFrame(loop)
     return () => {
-      cancelAnimationFrame(raf)
+      io.disconnect()
+      if (raf) cancelAnimationFrame(raf)
       removeEventListener('resize', measure)
       strip.removeEventListener('pointerdown', onDown)
       strip.removeEventListener('pointermove', onMove)
@@ -135,7 +198,7 @@ export default function Reels() {
   }, [])
 
   return (
-    <section id="reels">
+    <section id="reels" ref={sectionRef}>
       <span className="floater" data-fspeed="-0.06" style={{ top: '18%', right: '12%' }} aria-hidden="true">
         ✦
       </span>
@@ -152,7 +215,7 @@ export default function Reels() {
           </div>
           <div className="reels-group" aria-hidden="true">
             {ITEMS.map((it, i) => (
-              <Reel key={i} item={it} dragDist={dragDist} />
+              <Reel key={i} item={it} dragDist={dragDist} hidden />
             ))}
           </div>
         </div>
