@@ -587,23 +587,27 @@ html,body{max-width:100%;overflow-x:clip}
     padding-bottom:max(3rem,env(safe-area-inset-bottom));
     padding-left:max(2rem,env(safe-area-inset-left));
   }
-  .hero-cut{display:block;left:0;right:0;margin:0 auto;width:min(68vw,360px);height:76%;z-index:1;opacity:.92}
+  .hero-cut{display:block;left:-6vw;right:auto;margin:0;width:min(120vw,640px);height:84%;z-index:1;opacity:1}
+  .hero-cut .ph>img{object-position:bottom left}
+  #hero h1{text-shadow:0 2px 6px rgba(0,0,0,.55),0 8px 40px rgba(0,0,0,.6)}
+  .hero-note{color:rgba(238,238,238,.95);font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.7)}
   .floater{display:none}
   #reels{padding:3rem 1.4rem 2.2rem}
   .reel{flex-basis:62vw}
+  .reels-strip{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:default;touch-action:pan-x pan-y;-webkit-mask-image:none;mask-image:none;padding-bottom:.6rem}
+  .reels-strip::-webkit-scrollbar{display:none}
+  .reels-track{width:auto;transform:none!important;will-change:auto}
+  .reels-group{gap:.9rem;padding-inline:calc((100vw - min(76vw,330px))/2)}
+  .reels-group[aria-hidden]{display:none}
+  .reel{scroll-snap-align:center;scroll-snap-stop:always;flex-basis:min(76vw,330px)}
 
   /* hero mobile */
   .hero-content{width:100%;max-width:620px}
   .hero-badge{display:none}
   .hero-sub{display:none}
     #hero h1{font-size:clamp(2.6rem,9.5vw,3.6rem);line-height:1.12;margin-bottom:2rem}
-  .hero-cta-row .cta-full{display:none}
-  .hero-cta-row .cta-short{display:inline}
-  .btn-light .circle .cta-arrow{display:none}
-  .btn-light .circle .cta-wa{display:block;width:20px;height:20px}
   .hero-cta-row .hero-more{display:none}
-  .hero-cta-row .btn-light{background:var(--white);color:var(--black);height:56px;padding:5px;padding-right:26px;font-size:1.05rem;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  .hero-cta-row .btn-light .circle{background:#25D366;color:#fff}
+  .hero-cta-row .btn-light{height:56px;padding:5px;padding-right:26px;font-size:1.05rem;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 
   /* about mobile */
   #about{margin:.8rem;padding:5rem 1.6rem}
