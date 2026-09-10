@@ -15,7 +15,11 @@ export default function Story() {
     const lines = [...story.querySelectorAll<HTMLElement>('.story-line:not(.story-frags),.frag')]
     let raf = 0
     let smooth = 0
+    let visible = false
+    // הלולאה רצה רק כשהסקשן על המסך (IntersectionObserver) — לא שורפים סוללה בשאר הדף.
     const tick = () => {
+      raf = 0
+      if (!visible) return
       raf = requestAnimationFrame(tick)
       const total = story.offsetHeight - innerHeight
       const p = Math.min(1, Math.max(0, -story.getBoundingClientRect().top / Math.max(1, total)))
@@ -24,8 +28,15 @@ export default function Story() {
       const lit = Math.ceil(smooth * lines.length)
       lines.forEach((l, i) => l.classList.toggle('lit', i < lit))
     }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    const io = new IntersectionObserver(es => {
+      visible = es.some(e => e.isIntersecting)
+      if (visible && !raf) raf = requestAnimationFrame(tick)
+    })
+    io.observe(story)
+    return () => {
+      io.disconnect()
+      if (raf) cancelAnimationFrame(raf)
+    }
   }, [])
 
   return (
