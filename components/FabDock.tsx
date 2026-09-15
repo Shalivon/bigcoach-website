@@ -9,7 +9,7 @@ const LINKS = [
   ['#about', 'עלינו'],
   ['#programs', 'השירותים שלנו'],
   ['#method', 'תכניות'],
-  ['#golan', 'גולן בובליל'],
+  ['#golan', 'גולן בלמונט'],
   ['#testimonials', 'תוצאות'],
   ['#final', 'צור קשר'],
 ] as const
