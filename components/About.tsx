@@ -65,7 +65,7 @@ export default function About() {
         <div className="golan-card reveal" data-d="1" id="golan">
           <div>
             <div className="ag-kicker">האיש שמאחורי המכונה</div>
-            <h3>גולן בובליל</h3>
+            <h3>גולן בלמונט</h3>
             <div className="role">פאפא ג&apos;י | ביג קואוצ&apos; | אבא של ישראל</div>
             <p>
               התחלתי את הדרך בגיל 12, באומניות לחימה. בגיל 15 כבר הייתי מדריך. מאז ועד היום, בין אם על המזרן,
