@@ -123,7 +123,7 @@ export default function FinalFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 BIG COACH, גולן בובליל. כל הזכויות שמורות</span>
+          <span>© 2026 BIG COACH, גולן בלמונט. כל הזכויות שמורות</span>
           <span>זמין בוואטסאפ ביום ובלילה</span>
         </div>
       </div>
