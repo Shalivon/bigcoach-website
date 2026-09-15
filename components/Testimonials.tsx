@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import Ph from './Ph'
 
 // כיתובים לפי עדויות אמיתיות
@@ -11,20 +14,88 @@ const BA_CAPS: Record<number, string> = {
 }
 const BA = [1, 2, 3, 4, 5, 6]
 
-function BaGroup({ hidden }: { hidden?: boolean }) {
-  return (
-    <div className="t-group" aria-hidden={hidden || undefined}>
-      {BA.map(n => (
-        <div className="ba-card" key={n}>
-          <Ph img={`ba-${n}.jpeg`} alt={hidden ? '' : `לפני ואחרי, מתאמן ${n}`} label={`ba-${n}.jpeg (600×760)`} light sizes="(max-width:860px) 72vw, 300px" />
-          <div className="cap">{BA_CAPS[n]}</div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
+/*
+ * סליידר לפני/אחרי: גלילה טבעית (אצבע / עכבר / גלגלת) עם snap.
+ * בדסקטופ יש גם תנועה עצלה אוטומטית שנעצרת בהובר/מגע ורצה רק כשהסקשן על המסך.
+ */
 export default function Testimonials() {
+  const sliderRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = sliderRef.current
+    if (!el) return
+    if (matchMedia('(hover:none), (pointer:coarse)').matches || matchMedia('(prefers-reduced-motion:reduce)').matches) return
+    let raf = 0
+    let visible = false
+    let paused = false
+    let dir = -1 // RTL: scrollLeft שלילי
+    let acc = 0
+    const tick = () => {
+      raf = 0
+      if (!visible) return
+      raf = requestAnimationFrame(tick)
+      if (paused) return
+      acc += 0.45
+      if (acc < 1) return
+      const step = Math.floor(acc)
+      acc -= step
+      const max = el.scrollWidth - el.clientWidth
+      const pos = Math.abs(el.scrollLeft)
+      if (pos >= max - 1) dir = 1
+      else if (pos <= 1) dir = -1
+      el.scrollLeft += dir * step
+    }
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(tick)
+    }
+    const io = new IntersectionObserver(es => {
+      visible = es.some(e => e.isIntersecting)
+      if (visible) start()
+    })
+    io.observe(el)
+    const pause = () => (paused = true)
+    const resume = () => (paused = false)
+    // גרירה עם עכבר (במגע הגלילה טבעית)
+    let drag = false
+    let lastX = 0
+    const onDown = (e: PointerEvent) => {
+      paused = true
+      if (e.pointerType !== 'mouse') return
+      drag = true
+      lastX = e.clientX
+      el.classList.add('dragging')
+    }
+    const onMove = (e: PointerEvent) => {
+      if (!drag) return
+      el.scrollLeft -= e.clientX - lastX
+      lastX = e.clientX
+    }
+    const onUp = () => {
+      drag = false
+      el.classList.remove('dragging')
+    }
+    const leave = () => {
+      onUp()
+      resume()
+    }
+    el.addEventListener('pointerenter', pause)
+    el.addEventListener('pointerleave', leave)
+    el.addEventListener('pointerdown', onDown)
+    el.addEventListener('pointermove', onMove)
+    el.addEventListener('pointerup', onUp)
+    el.addEventListener('pointercancel', onUp)
+    return () => {
+      io.disconnect()
+      if (raf) cancelAnimationFrame(raf)
+      el.removeEventListener('pointerenter', pause)
+      el.removeEventListener('pointerleave', leave)
+      el.removeEventListener('pointerdown', onDown)
+      el.removeEventListener('pointermove', onMove)
+      el.removeEventListener('pointerup', onUp)
+      el.removeEventListener('pointercancel', onUp)
+    }
+  }, [])
+
   return (
     <section id="testimonials">
       <div className="testi-head reveal">
@@ -33,10 +104,16 @@ export default function Testimonials() {
       </div>
 
       {/* סליידר לפני/אחרי */}
-      <div className="t-slider">
+      <div className="t-slider" ref={sliderRef}>
         <div className="t-track">
-          <BaGroup />
-          <BaGroup hidden />
+          <div className="t-group">
+            {BA.map(n => (
+              <div className="ba-card" key={n}>
+                <Ph img={`ba-${n}.jpeg`} alt={`לפני ואחרי, מתאמן ${n}`} label={`ba-${n}.jpeg (600×760)`} light sizes="(max-width:860px) 72vw, 300px" />
+                <div className="cap">{BA_CAPS[n]}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
