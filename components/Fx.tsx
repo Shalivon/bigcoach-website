@@ -1,4 +1,4 @@
-'use client'
+use client'
 
 import { useEffect } from 'react'
 
@@ -19,7 +19,6 @@ export default function Fx() {
       el.classList.add('rv-h')
       el.style.transitionDelay = `${0.08 + (i % 4) * 0.08}s`
     })
-    document.querySelectorAll<HTMLElement>('#faq .qa').forEach((q, i) => (q.style.transitionDelay = `${i * 0.07}s`))
     document.querySelectorAll<HTMLElement>('.sec-sub').forEach(el => (el.style.transitionDelay = '.15s'))
 
     const io = new IntersectionObserver(
