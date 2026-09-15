@@ -18,8 +18,8 @@ const heebo = Heebo({
 })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.bigcoach.co.il'
-const TITLE = 'BIG COACH, גולן בובליל | ליווי תזונה ואימונים'
-const DESC = 'ליווי אישי צמוד לאימונים, תזונה ומנטליות. גולן בובליל, באר שבע והדרום. אונליין בכל הארץ.'
+const TITLE = 'BIG COACH, גולן בלמונט | ליווי תזונה ואימונים'
+const DESC = 'ליווי אישי צמוד לאימונים, תזונה ומנטליות. גולן בלמונט, באר שבע והדרום. אונליין בכל הארץ.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: 'BIG COACH',
     title: TITLE,
     description: 'ליווי אישי צמוד לאימונים, תזונה ומנטליות. שיחת היכרות 20 דקות, בלי עלות.',
-    images: [{ url: imgUrl('hero.jpg'), width: 1920, height: 1080, alt: 'BIG COACH, גולן בובליל' }],
+    images: [{ url: imgUrl('hero.jpg'), width: 1920, height: 1080, alt: 'BIG COACH, גולן בלמונט' }],
     locale: 'he_IL',
   },
   twitter: { card: 'summary_large_image' },
@@ -52,7 +52,7 @@ const JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'HealthClub',
   name: 'BIG COACH',
-  alternateName: 'ביג קואוצ׳, גולן בובליל',
+  alternateName: 'ביג קואוצ׳, גולן בלמונט',
   url: siteUrl,
   image: imgUrl('hero.jpg'),
   logo: imgUrl('logo.png'),
@@ -61,7 +61,7 @@ const JSON_LD = {
   email: 'golanboublil@gmail.com',
   address: { '@type': 'PostalAddress', streetAddress: 'ח"נ ביאליק 137', addressLocality: 'באר שבע', addressCountry: 'IL' },
   areaServed: 'IL',
-  founder: { '@type': 'Person', name: 'גולן בובליל' },
+  founder: { '@type': 'Person', name: 'גולן בלמונט' },
   sameAs: [
     'https://www.instagram.com/_big_coach_/',
     'https://www.tiktok.com/@big.coach.golan.boublil',
