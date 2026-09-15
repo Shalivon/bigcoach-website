@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav id="nav">
       <div className="nav-logo">
-        <a href="#golan" aria-label="גולן בובליל">
+        <a href="#golan" aria-label="גולן בלמונט">
           <Ph img="logo.png" alt="BIG COACH לוגו" sizes="280px" position="right center" />
         </a>
       </div>
